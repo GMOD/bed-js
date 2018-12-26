@@ -1,5 +1,7 @@
 # bed-js
 
+[![Build Status](https://travis-ci.com/cmdcolin/bed-js.svg?branch=master)](https://travis-ci.com/cmdcolin/bed-js)
+
 Performs parsing of BED files including autoSql
 
 ## Usage
