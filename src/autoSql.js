@@ -1,11 +1,11 @@
-var peg = require('pegjs')
+const peg = require('pegjs')
 
 // based on https://genome-source.gi.ucsc.edu/gitlist/kent.git/blob/master/src/hg/autoSql/autoSql.doc
 // also see http://genomewiki.ucsc.edu/index.php/AutoSql and https://www.linuxjournal.com/article/5949
 //
-var grammar = `
+const grammar = `
 declaration
-        = type:declareType _ name:declareName _ comment:comment _ '(' _ fields:fieldList _ ')' _ { return { type, name, comment, fields } }
+        = _ type:declareType _ name:declareName _ comment:comment _ '(' _ fields:fieldList _ ')' _ { return { type, name, comment, fields } }
 
 declareType =
    'simple'/
@@ -47,7 +47,7 @@ fieldValues =
 
 fieldType =
     "int"/"uint"/"short"/"ushort"/"byte"/"ubyte"/"float"/"char"/"string"/"lstring"/"enum"/"set"/
-        declareType _ declareName
+        t:declareType _ n:declareName { return t+' '+n }
 
 fieldSize = number /
              fieldName
@@ -61,9 +61,8 @@ number "integer"
 
 _ "whitespace"
   = [ \\t\\n\\r]*
+
 `
 
-var parser = peg.generate(grammar)
+const parser = peg.generate(grammar)
 module.exports = parser
-
-

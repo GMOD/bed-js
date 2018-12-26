@@ -1,12 +1,11 @@
-var autoSql = require('./autoSql')
+const autoSql = require('./autoSql')
 
 /**
  * Class representing a BED parser
  * @param {object} args
  */
 class BED {
-  constructor(args) {
-  }
+  constructor(args) {}
 }
 
 module.exports = BED

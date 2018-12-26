@@ -10,5 +10,4 @@ describe('BED parser', () => {
     // Note that there is a custom PL that overrides the default PL
     expect(1).toEqual(1)
   })
-
 })
