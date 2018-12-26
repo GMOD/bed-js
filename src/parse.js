@@ -7,7 +7,7 @@ const types = require('./defaultTypes')
  * @param {object} args
  */
 class BED {
-  constructor(args) {
+  constructor(args = {}) {
     if (args.autoSql) {
       this.format = parser(args.autoSql)
     } else if (args.type) {

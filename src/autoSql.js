@@ -46,7 +46,7 @@ fieldValues =
     }
 
 fieldType =
-    "int"/"uint"/"short"/"ushort"/"byte"/"ubyte"/"float"/"char"/"string"/"lstring"/"enum"/"set"/
+    "int"/"uint"/"short"/"ushort"/"byte"/"ubyte"/"float"/"char"/"string"/"lstring"/"enum"/"double"/"set"/
         t:declareType _ n:declareName { return t+' '+n }
 
 fieldSize = number /

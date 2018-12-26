@@ -1,15 +1,17 @@
+const fs = require('fs')
 const parser = require('./autoSql')
 
-const types = {}[
-  ('bigInteract',
+const types = {}
+;[
+  'bigInteract',
   'bigMaf',
   'bigPsl',
   'bigNarrowPeak',
   'bigGenePred',
   'bigChain',
-  'bigLink')
+  'bigLink',
 ].forEach(e => {
-  const ret = parser.parse(`./as/${e}`)
+  const ret = parser.parse(fs.readFileSync(`./src/as/${e}.as`).toString())
   types[e] = ret
 })
 
