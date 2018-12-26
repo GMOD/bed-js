@@ -4,5 +4,4 @@ https://genome.ucsc.edu/goldenPath/help/examples/bigLink.as
 https://genome.ucsc.edu/goldenPath/help/examples/bigNarrowPeak.as
 https://genome.ucsc.edu/goldenPath/help/examples/bigPsl.as
 https://genome.ucsc.edu/goldenPath/help/examples/bigMaf.as
-
-# while read p; do wget $p; done < README.md
+https://genome.ucsc.edu/goldenpath/help/examples/interact/interact.as
