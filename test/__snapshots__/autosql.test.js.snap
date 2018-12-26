@@ -1,5 +1,113 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`autoSql parser resolves multiple values 1`] = `
+Object {
+  "comment": "A three dimensional point",
+  "fields": Array [
+    Object {
+      "comment": "Horizontal coordinate",
+      "name": "x",
+      "type": "float",
+    },
+    Object {
+      "comment": "Vertical coordinate",
+      "name": "y",
+      "type": "float",
+    },
+    Object {
+      "comment": "In/out of screen coordinate",
+      "name": "z",
+      "type": "float",
+    },
+  ],
+  "name": "point",
+  "type": "simple",
+}
+`;
+
+exports[`autoSql parser resolves multiple values 2`] = `
+Object {
+  "comment": "A red/green/blue format color",
+  "fields": Array [
+    Object {
+      "comment": "Red value 0-255",
+      "name": "red",
+      "type": "ubyte",
+    },
+    Object {
+      "comment": "Green value 0-255",
+      "name": "green",
+      "type": "ubyte",
+    },
+    Object {
+      "comment": "Blue value 0-255",
+      "name": "blue",
+      "type": "ubyte",
+    },
+  ],
+  "name": "color",
+  "type": "simple",
+}
+`;
+
+exports[`autoSql parser resolves multiple values 3`] = `
+Object {
+  "comment": "A face of a three dimensional solid",
+  "fields": Array [
+    Object {
+      "comment": "Color of this face",
+      "name": "color",
+      "type": "simple color",
+    },
+    Object {
+      "comment": "Number of points in this polygon",
+      "name": "pointCount",
+      "type": "int",
+    },
+    Object {
+      "comment": "Indices of points that make up face in polyhedron point array",
+      "name": "points",
+      "size": "pointCount",
+      "type": "uint",
+    },
+  ],
+  "name": "face",
+  "type": "object",
+}
+`;
+
+exports[`autoSql parser resolves multiple values 4`] = `
+Object {
+  "comment": "A solid three dimensional object",
+  "fields": Array [
+    Object {
+      "comment": "Number of faces",
+      "name": "faceCount",
+      "type": "int",
+    },
+    Object {
+      "comment": "List of faces",
+      "name": "faces",
+      "size": "faceCount",
+      "type": "object face",
+    },
+    Object {
+      "comment": "Number of points",
+      "name": "pointCount",
+      "type": "int",
+    },
+    Object {
+      "comment": "Array of points",
+      "name": "points",
+      "size": "pointCount",
+      "type": "simple point",
+    },
+  ],
+  "name": "polyhedron",
+  "type": "table",
+}
+`;
+
 exports[`autoSql parser resolves symbolic 1`] = `
 Object {
   "comment": "example of enum and set symbolic columns",
@@ -35,110 +143,38 @@ Object {
 }
 `;
 
-exports[`autoSql shapres resolves multiple values 1`] = `
+exports[`autoSql parser simple example 1`] = `
 Object {
-  "comment": "A three dimensional point",
+  "comment": "A simple address book",
   "fields": Array [
     Object {
-      "comment": "Horizontal coordinate",
-      "name": "x",
-      "type": "float",
+      "comment": "Name - first or last or both, we don't care",
+      "name": "name",
+      "type": "string",
     },
     Object {
-      "comment": "Vertical coordinate",
-      "name": "y",
-      "type": "float",
+      "comment": "Street address",
+      "name": "address",
+      "type": "lstring",
     },
     Object {
-      "comment": "In/out of screen coordinate",
-      "name": "z",
-      "type": "float",
-    },
-  ],
-  "name": "point",
-  "type": "simple",
-}
-`;
-
-exports[`autoSql shapres resolves multiple values 2`] = `
-Object {
-  "comment": "A red/green/blue format color",
-  "fields": Array [
-    Object {
-      "comment": "Red value 0-255",
-      "name": "red",
-      "type": "ubyte",
+      "comment": "City",
+      "name": "city",
+      "type": "string",
     },
     Object {
-      "comment": "Green value 0-255",
-      "name": "green",
-      "type": "ubyte",
-    },
-    Object {
-      "comment": "Blue value 0-255",
-      "name": "blue",
-      "type": "ubyte",
-    },
-  ],
-  "name": "color",
-  "type": "simple",
-}
-`;
-
-exports[`autoSql shapres resolves multiple values 3`] = `
-Object {
-  "comment": "A face of a three dimensional solid",
-  "fields": Array [
-    Object {
-      "comment": "Color of this face",
-      "name": "color",
-      "type": "simple color",
-    },
-    Object {
-      "comment": "Number of points in this polygon",
-      "name": "pointCount",
-      "type": "int",
-    },
-    Object {
-      "comment": "Indices of points that make up face in polyhedron point array",
-      "name": "points",
-      "size": "pointCount",
+      "comment": "A zip code is always positive, so can be unsigned",
+      "name": "zipCode",
       "type": "uint",
     },
-  ],
-  "name": "face",
-  "type": "object",
-}
-`;
-
-exports[`autoSql shapres resolves multiple values 4`] = `
-Object {
-  "comment": "A solid three dimensional object",
-  "fields": Array [
     Object {
-      "comment": "Number of faces",
-      "name": "faceCount",
-      "type": "int",
-    },
-    Object {
-      "comment": "List of faces",
-      "name": "faces",
-      "size": "faceCount",
-      "type": "object face",
-    },
-    Object {
-      "comment": "Number of points",
-      "name": "pointCount",
-      "type": "int",
-    },
-    Object {
-      "comment": "Array of points",
-      "name": "points",
-      "size": "pointCount",
-      "type": "simple point",
+      "comment": "Just store the abbreviation for the state",
+      "name": "state",
+      "size": 2,
+      "type": "char",
     },
   ],
-  "name": "polyhedron",
+  "name": "addressBook",
   "type": "table",
 }
 `;
