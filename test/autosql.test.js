@@ -1,6 +1,5 @@
 const parser = require('../src/autoSql')
 
-
 describe('autoSql parser', () => {
   it('simple example', () => {
     const s1 = `table addressBook
@@ -38,7 +37,7 @@ describe('autoSql parser', () => {
       float z;  "In/out of screen coordinate"
       )`
 
-      const s2 = `simple color
+    const s2 = `simple color
     "A red/green/blue format color"
       (
       ubyte red;  "Red value 0-255"
@@ -46,7 +45,7 @@ describe('autoSql parser', () => {
       ubyte blue;  "Blue value 0-255"
       )`
 
-      const s3 = `object face
+    const s3 = `object face
     "A face of a three dimensional solid"
       (
       simple color color;  "Color of this face"
@@ -54,7 +53,7 @@ describe('autoSql parser', () => {
       uint[pointCount] points;   "Indices of points that make up face in polyhedron point array"
       )`
 
-      const s4 = `table polyhedron
+    const s4 = `table polyhedron
     "A solid three dimensional object"
       (
       int faceCount;  "Number of faces"
