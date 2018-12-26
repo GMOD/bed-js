@@ -1,0 +1,76 @@
+{
+  "name": "@gmod/bed",
+  "version": "1.0.0",
+  "description": "A BED file format parser with autoSql support",
+  "main": "dist/index.js",
+  "repository": "github:GMOD/bed-js",
+  "author": {
+    "name": "Colin Diesh",
+    "email": "colin.diesh@gmail.com",
+    "url": "https://github.com/cmdcolin"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/GMOD/bed-js",
+  "bugs": {
+    "url": "https://github.com/GMOD/bed-js/issues"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=6"
+  },
+  "scripts": {
+    "test": "jest",
+    "coverage": "npm test -- --coverage",
+    "postcoverage": "opn coverage/lcov-report/index.html",
+    "lint": "eslint src test",
+    "docs": "documentation readme src/parse.js --section API",
+    "clean": "rimraf dist",
+    "prebuild": "npm run docs && npm run clean && npm run lint",
+    "build": "babel src -d dist",
+    "watch": "npm-watch",
+    "patch": "npm version patch && npm publish --access public",
+    "minor": "npm version minor && npm publish --access public",
+    "major": "npm version major && npm publish --access public",
+    "prepublishOnly": "npm test && npm run build",
+    "postpublish": "git push origin master --follow-tags"
+  },
+  "watch": {
+    "test": "{src,test}/*.js",
+    "lint": "{src,test}/*.js",
+    "build": "src"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.4.2",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "documentation": "^8.1.2",
+    "eslint": "^5.5.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-prettier": "^2.6.2",
+    "jest": "^23.5.0",
+    "npm-watch": "^0.4.0",
+    "opn-cli": "^3.1.0",
+    "prettier": "^1.14.2",
+    "regenerator-runtime": "^0.12.1",
+    "rimraf": "^2.6.2"
+  },
+  "dependencies": {
+    "pegjs": "^0.10.0"
+  },
+  "keywords": [
+    "bed",
+    "autosql",
+    "genomics",
+    "bionode",
+    "biojs"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
