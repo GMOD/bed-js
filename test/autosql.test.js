@@ -9,7 +9,7 @@ describe('autoSql parser', () => {
     enum(male, female) sex;                          "enumerated column"
     set(cProg,javaProg,pythonProg,awkProg) skills;   "set column"
     )`
-    parser.parse(s1)
+    var res = parser.parse(s1)
+    expect(res).toMatchSnapshot();
   })
-
 })

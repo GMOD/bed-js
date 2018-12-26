@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`autoSql parser resolves symbolic 1`] = `
+Object {
+  "comment": "example of enum and set symbolic columns",
+  "fields": Array [
+    Object {
+      "comment": "unique id",
+      "name": "id",
+      "type": "int",
+    },
+    Object {
+      "comment": "enumerated column",
+      "name": "sex",
+      "type": "enum",
+      "vals": Array [
+        "male",
+        "female",
+      ],
+    },
+    Object {
+      "comment": "set column",
+      "name": "skills",
+      "type": "set",
+      "vals": Array [
+        "cProg",
+        "javaProg",
+        "pythonProg",
+        "awkProg",
+      ],
+    },
+  ],
+  "name": "symbolCols",
+  "type": "table",
+}
+`;

@@ -5,7 +5,7 @@ var peg = require('pegjs')
 //
 var grammar = `
 declaration
-	= type:declareType _ name:declareName _ comment:comment _ '(' _ fields:fieldList _ ')' _ { return { type, name, comment, fields } }
+        = type:declareType _ name:declareName _ comment:comment _ '(' _ fields:fieldList _ ')' _ { return { type, name, comment, fields } }
 
 declareType =
    'simple'/
@@ -13,7 +13,7 @@ declareType =
    'table'
 
 declareName
-    =	name /
+    =   name /
         name indexType /
         name 'auto' /
         name indexType 'auto'
@@ -24,7 +24,7 @@ indexType =
         'unique'
 
 comment =
-	quotedString
+        quotedString / _
 
 fieldList =
     f1:field _ fds:(_ w:field { return w; })* _  {
@@ -35,20 +35,19 @@ fieldList =
 field =
         type:fieldType _ name:fieldName _ ';' _ comment:comment { return { type, name, comment } } /
         type:fieldType _ '[' _ size:fieldSize _ ']' _ name:name _ ';' _ comment:comment { return { type, size, name, comment } } /
-        type:fieldType _ '(' _ vals:fieldValues _ ')' _ name:name _ ';' _ comment:comment { return { type, vals, name, comment } } /
-        type:fieldType _ name:fieldName _ ';' _ { return { type, name } }
+        type:fieldType _ '(' _ vals:fieldValues _ ')' _ name:name _ ';' _ comment:comment { return { type, vals, name, comment } }
 
 fieldName = name
 
-fieldValues
-    = w1:name _ ',' _ wds:(w:name { return w; })* _  {
-        wds.unshift(w1);
-        return wds;
+fieldValues =
+    f1:name fds:(',' _ w:name { return w; })* {
+        fds.unshift(f1);
+        return fds;
     }
 
 fieldType =
     "int"/"uint"/"short"/"ushort"/"byte"/"ubyte"/"float"/"char"/"string"/"lstring"/"enum"/"set"/
-	declareType _ declareName
+        declareType _ declareName
 
 fieldSize = number /
              fieldName
@@ -65,7 +64,6 @@ _ "whitespace"
 `
 
 var parser = peg.generate(grammar)
-console.log(parser)
 module.exports = parser
 
 
