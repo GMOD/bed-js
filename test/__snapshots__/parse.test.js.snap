@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BED parser BED3 1`] = `
+Object {
+  "end": 10884,
+  "refID": "contigA",
+  "start": 10875,
+  "strand": 0,
+}
+`;
+
+exports[`BED parser BED3 2`] = `
+Object {
+  "end": 10884,
+  "refID": "co,tigA",
+  "start": 10875,
+  "strand": 0,
+}
+`;
+
+exports[`BED parser BED6 1`] = `
+Object {
+  "end": 10884,
+  "name": "test",
+  "refID": "contigA",
+  "score": 0.5,
+  "start": 10875,
+  "strand": -1,
+}
+`;
+
+exports[`BED parser BED6 2`] = `
+Object {
+  "end": 10884,
+  "name": "test2",
+  "refID": "co,tigA",
+  "score": 0,
+  "start": 10875,
+  "strand": 1,
+}
+`;
+
+exports[`BED parser BED6 3`] = `
+Object {
+  "end": 10884,
+  "name": "test2",
+  "refID": "cotigA",
+  "start": 10875,
+  "strand": 0,
+}
+`;

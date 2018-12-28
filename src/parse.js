@@ -2,6 +2,8 @@ const snakeCase = require('snake-case')
 const parser = require('./autoSql')
 const types = require('./defaultTypes')
 
+const bedFeatureNames = 'refID start end name score strand'.split(' ')
+
 /**
  * Class representing a BED parser
  * @param {object} args
@@ -10,16 +12,52 @@ class BED {
   constructor(args = {}) {
     if (args.autoSql) {
       this.format = parser(args.autoSql)
-    } else if (args.type) {
-      if (types[args.type]) {
-        this.format = types[args.type]
-      }
+    } else if (args.type && types[args.type]) {
+      this.format = types[args.type]
+    } else {
+      this.format = types.BED6
     }
   }
 
-  parseBedText(start, end, rest, asql, offset = 0) {
+  parseLine(line) {
+    if (this.format) {
+      const [refID, start, end, ...rest] = line.split('\t')
+      return this.parseBedText(refID, +start, +end, rest, this.format)
+    }
+    return this.parseBedDefault(line)
+  }
+
+  unescape(s) {
+    return s.replace(/%([0-9A-Fa-f]{2})/g, (match, seq) =>
+      String.fromCharCode(parseInt(seq, 16)),
+    )
+  }
+
+  parseBedDefault(line) {
+    const f = line.split('\t').map(a => (a === '.' ? null : a))
+
+    // unescape only the ref columns
+
+    const parsed = {}
+    for (let i = 0; i < bedFeatureNames.length; i += 1) {
+      if (f[i] !== null && f[i] !== undefined) {
+        parsed[bedFeatureNames[i]] = f[i]
+      }
+    }
+    if (parsed.start !== null) parsed.start = parseInt(parsed.start, 10)
+    if (parsed.end !== null) parsed.end = parseInt(parsed.end, 10)
+    if (parsed.score != null) parsed.score = parseFloat(parsed.score, 10)
+    parsed.refID = this.unescape(parsed.refID)
+
+    parsed.strand = { '+': 1, '-': -1 }[parsed.strand] || 0
+
+    return parsed
+  }
+
+  parseBedText(refID, start, end, rest, asql, offset = 0) {
     // include ucsc-style names as well as jbrowse-style names
     const featureData = {
+      refID,
       start,
       end,
     }
