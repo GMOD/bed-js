@@ -1,5 +1,289 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`autoSql parser premade autosql for file types 1`] = `
+Object {
+  "comment": "bigGenePred gene models",
+  "fields": Array [
+    Object {
+      "comment": "Reference sequence chromosome or scaffold",
+      "name": "chrom",
+      "type": "string",
+    },
+    Object {
+      "comment": "Start position in chromosome",
+      "name": "chromStart",
+      "type": "uint",
+    },
+    Object {
+      "comment": "End position in chromosome",
+      "name": "chromEnd",
+      "type": "uint",
+    },
+    Object {
+      "comment": "Name or ID of item, ideally both human readable and unique",
+      "name": "name",
+      "type": "string",
+    },
+    Object {
+      "comment": "Score (0-1000)",
+      "name": "score",
+      "type": "uint",
+    },
+    Object {
+      "comment": "+ or - for strand",
+      "name": "strand",
+      "size": 1,
+      "type": "char",
+    },
+    Object {
+      "comment": "Start of where display should be thick (start codon)",
+      "name": "thickStart",
+      "type": "uint",
+    },
+    Object {
+      "comment": "End of where display should be thick (stop codon)",
+      "name": "thickEnd",
+      "type": "uint",
+    },
+    Object {
+      "comment": "RGB value (use R,G,B string in input file)",
+      "name": "reserved",
+      "type": "uint",
+    },
+    Object {
+      "comment": "Number of blocks",
+      "name": "blockCount",
+      "type": "int",
+    },
+    Object {
+      "comment": "Comma separated list of block sizes",
+      "name": "blockSizes",
+      "size": "blockCount",
+      "type": "int",
+    },
+    Object {
+      "comment": "Start positions relative to chromStart",
+      "name": "chromStarts",
+      "size": "blockCount",
+      "type": "int",
+    },
+    Object {
+      "comment": "Alternative/human readable name",
+      "name": "name2",
+      "type": "string",
+    },
+    Object {
+      "comment": "Status of CDS start annotation (none, unknown, incomplete, or complete)",
+      "name": "cdsStartStat",
+      "type": "string",
+    },
+    Object {
+      "comment": "Status of CDS end annotation (none, unknown, incomplete, or complete)",
+      "name": "cdsEndStat",
+      "type": "string",
+    },
+    Object {
+      "comment": "Exon frame {0,1,2}, or -1 if no frame for exon",
+      "name": "exonFrames",
+      "size": "blockCount",
+      "type": "int",
+    },
+    Object {
+      "comment": "Transcript type",
+      "name": "type",
+      "type": "string",
+    },
+    Object {
+      "comment": "Primary identifier for gene",
+      "name": "geneName",
+      "type": "string",
+    },
+    Object {
+      "comment": "Alternative/human readable gene name",
+      "name": "geneName2",
+      "type": "string",
+    },
+    Object {
+      "comment": "Gene type",
+      "name": "geneType",
+      "type": "string",
+    },
+  ],
+  "name": "bigGenePred",
+  "type": "table",
+}
+`;
+
+exports[`autoSql parser premade autosql for file types 2`] = `
+Object {
+  "comment": "bigPsl pairwise alignment",
+  "fields": Array [
+    Object {
+      "comment": "Reference sequence chromosome or scaffold",
+      "name": "chrom",
+      "type": "string",
+    },
+    Object {
+      "comment": "Start position in chromosome",
+      "name": "chromStart",
+      "type": "uint",
+    },
+    Object {
+      "comment": "End position in chromosome",
+      "name": "chromEnd",
+      "type": "uint",
+    },
+    Object {
+      "comment": "Name or ID of item, ideally both human readable and unique",
+      "name": "name",
+      "type": "string",
+    },
+    Object {
+      "comment": "Score (0-1000)",
+      "name": "score",
+      "type": "uint",
+    },
+    Object {
+      "comment": "+ or - indicates whether the query aligns to the + or - strand on the reference",
+      "name": "strand",
+      "size": 1,
+      "type": "char",
+    },
+    Object {
+      "comment": "Start of where display should be thick (start codon)",
+      "name": "thickStart",
+      "type": "uint",
+    },
+    Object {
+      "comment": "End of where display should be thick (stop codon)",
+      "name": "thickEnd",
+      "type": "uint",
+    },
+    Object {
+      "comment": "RGB value (use R,G,B string in input file)",
+      "name": "reserved",
+      "type": "uint",
+    },
+    Object {
+      "comment": "Number of blocks",
+      "name": "blockCount",
+      "type": "int",
+    },
+    Object {
+      "comment": "Comma separated list of block sizes",
+      "name": "blockSizes",
+      "size": "blockCount",
+      "type": "int",
+    },
+    Object {
+      "comment": "Start positions relative to chromStart",
+      "name": "chromStarts",
+      "size": "blockCount",
+      "type": "int",
+    },
+    Object {
+      "comment": "Start position in other chromosome",
+      "name": "oChromStart",
+      "type": "uint",
+    },
+    Object {
+      "comment": "End position in other chromosome",
+      "name": "oChromEnd",
+      "type": "uint",
+    },
+    Object {
+      "comment": "+ or -, - means that psl was reversed into BED-compatible coordinates",
+      "name": "oStrand",
+      "size": 1,
+      "type": "char",
+    },
+    Object {
+      "comment": "Size of other chromosome.",
+      "name": "oChromSize",
+      "type": "uint",
+    },
+    Object {
+      "comment": "Start positions relative to oChromStart or from oChromStart+oChromSize depending on strand",
+      "name": "oChromStarts",
+      "size": "blockCount",
+      "type": "int",
+    },
+    Object {
+      "comment": "Sequence on other chrom (or empty)",
+      "name": "oSequence",
+      "type": "lstring",
+    },
+    Object {
+      "comment": "CDS in NCBI format",
+      "name": "oCDS",
+      "type": "string",
+    },
+    Object {
+      "comment": "Size of target chromosome",
+      "name": "chromSize",
+      "type": "uint",
+    },
+    Object {
+      "comment": "Number of bases matched.",
+      "name": "match",
+      "type": "uint",
+    },
+    Object {
+      "comment": " Number of bases that don't match ",
+      "name": "misMatch",
+      "type": "uint",
+    },
+    Object {
+      "comment": " Number of bases that match but are part of repeats ",
+      "name": "repMatch",
+      "type": "uint",
+    },
+    Object {
+      "comment": " Number of 'N' bases ",
+      "name": "nCount",
+      "type": "uint",
+    },
+    Object {
+      "comment": "0=empty, 1=nucleotide, 2=amino_acid",
+      "name": "seqType",
+      "type": "uint",
+    },
+  ],
+  "name": "bigPsl",
+  "type": "table",
+}
+`;
+
+exports[`autoSql parser premade autosql for file types 3`] = `
+Object {
+  "comment": "Bed3 with MAF block",
+  "fields": Array [
+    Object {
+      "comment": "Reference sequence chromosome or scaffold",
+      "name": "chrom",
+      "type": "string",
+    },
+    Object {
+      "comment": "Start position in chromosome",
+      "name": "chromStart",
+      "type": "uint",
+    },
+    Object {
+      "comment": "End position in chromosome",
+      "name": "chromEnd",
+      "type": "uint",
+    },
+    Object {
+      "comment": "MAF block",
+      "name": "mafBlock",
+      "type": "lstring",
+    },
+  ],
+  "name": "bedMaf",
+  "type": "table",
+}
+`;
+
 exports[`autoSql parser resolves multiple values 1`] = `
 Object {
   "comment": "A three dimensional point",

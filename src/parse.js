@@ -14,6 +14,8 @@ class BED {
       this.format = parser(args.autoSql)
     } else if (args.type && types[args.type]) {
       this.format = types[args.type]
+    } else if (args.type) {
+      console.error('Type not found')
     } else {
       this.format = types.BED6
     }
@@ -22,7 +24,7 @@ class BED {
   parseLine(line) {
     if (this.format) {
       const [refID, start, end, ...rest] = line.split('\t')
-      return this.parseBedText(refID, +start, +end, rest, this.format)
+      return this.parseBedText(refID, +start, +end, rest, this.format, 3)
     }
     return this.parseBedDefault(line)
   }
@@ -64,11 +66,16 @@ class BED {
 
     const bedColumns = Array.isArray(rest) ? rest : rest.split('\t')
     const numericTypes = ['uint', 'int', 'float', 'long']
-    // first three columns (chrom,start,end) are not included in bigBed
+
+    // first three columns (chrom,start,end) are not included in bigBed, so use offset to compensate
     for (let i = offset; i < asql.fields.length; i += 1) {
-      if (bedColumns[i - offset] !== '.' && bedColumns[i - offset] !== '') {
+      if (bedColumns[i - offset] !== null && bedColumns[i - offset] !== '.') {
         const autoField = asql.fields[i]
         let columnVal = bedColumns[i - offset]
+        if (columnVal === null || columnVal === undefined) {
+          // console.warn(`column ${i-offset} does not exist for line but expected it to be ${asql.fields[i].name}`, bedColumns)
+          break
+        }
 
         // for speed, cache some of the tests we need inside the autofield definition
         if (!autoField._requestWorkerCache) {
