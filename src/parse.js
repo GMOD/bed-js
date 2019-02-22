@@ -110,4 +110,4 @@ class BED {
   }
 }
 
-module.exports = BED
+export default BED
