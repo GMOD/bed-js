@@ -1,6 +1,6 @@
-const snakeCase = require('snake-case')
-const parser = require('./autoSql')
-const types = require('./defaultTypes')
+import snakeCase from 'snake-case'
+import parser from './autoSql'
+import types from './defaultTypes'
 
 const bedFeatureNames = 'refID start end name score strand'.split(' ')
 

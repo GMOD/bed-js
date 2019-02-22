@@ -1,5 +1,4 @@
-const fs = require('fs')
-const parser = require('../src/autoSql')
+import parser from '../src/autoSql'
 
 describe('autoSql parser', () => {
   it('simple example', () => {
@@ -67,13 +66,5 @@ describe('autoSql parser', () => {
     expect(parser.parse(s2)).toMatchSnapshot()
     expect(parser.parse(s3)).toMatchSnapshot()
     expect(parser.parse(s4)).toMatchSnapshot()
-  })
-
-  it('premade autosql for file types', () => {
-    const files = ['bigGenePred', 'bigPsl', 'bigMaf']
-    files.forEach(file => {
-      const buf = fs.readFileSync(`src/as/${file}.as`).toString()
-      expect(parser.parse(buf)).toMatchSnapshot()
-    })
   })
 })

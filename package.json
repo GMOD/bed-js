@@ -27,7 +27,7 @@
     "lint": "eslint src test",
     "clean": "rimraf dist",
     "prebuild": "npm run clean && npm run lint",
-    "build": "babel -d src",
+    "build": "webpack",
     "patch": "npm version patch && npm publish --access public",
     "minor": "npm version minor && npm publish --access public",
     "major": "npm version major && npm publish --access public",
@@ -41,6 +41,7 @@
     "@babel/preset-env": "^7.3.1",
     "@babel/runtime": "^7.3.1",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.1.0",
     "babel-loader": "^8.0.5",
     "documentation": "^9.1.1",
     "eslint": "^5.12.0",
@@ -48,11 +49,14 @@
     "eslint-config-prettier": "^3.4.0",
     "eslint-plugin-import": "^2.10.0",
     "eslint-plugin-prettier": "^3.0.1",
-    "jest": "^23.5.0",
+    "jest": "^24.1.0",
     "opn-cli": "^3.1.0",
     "prettier": "^1.14.2",
+    "raw-loader": "^1.0.0",
     "regenerator-runtime": "^0.12.1",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3"
   },
   "dependencies": {
     "pegjs": "^0.10.0",
