@@ -1,6 +1,7 @@
 # bed-js
 
 [![Build Status](https://travis-ci.com/GMOD/bed-js.svg?branch=master)](https://travis-ci.com/GMOD/bed-js)
+[![Coverage Status](https://img.shields.io/codecov/c/github/GMOD/bed-js/master.svg?style=flat-square)](https://codecov.io/gh/GMOD/bed-js/branch/master)
 
 Performs parsing of BED files including autoSql
 
