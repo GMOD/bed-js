@@ -23,15 +23,12 @@
   "scripts": {
     "test": "jest",
     "coverage": "npm test -- --coverage",
-    "postcoverage": "opn coverage/lcov-report/index.html",
     "lint": "eslint src test",
     "clean": "rimraf dist",
     "prebuild": "npm run clean && npm run lint",
     "build": "webpack",
-    "patch": "npm version patch && npm publish --access public",
-    "minor": "npm version minor && npm publish --access public",
-    "major": "npm version major && npm publish --access public",
-    "prepublishOnly": "npm test && npm run build",
+    "preversion": "npm run lint && npm test && npm run build",
+    "version": "standard-changelog && git add CHANGELOG.md",
     "postpublish": "git push origin master --follow-tags"
   },
   "devDependencies": {
@@ -51,11 +48,11 @@
     "eslint-plugin-prettier": "^3.0.1",
     "jest": "^24.1.0",
     "jest-raw-loader": "^1.0.1",
-    "opn-cli": "^3.1.0",
     "prettier": "^1.14.2",
     "raw-loader": "^1.0.0",
     "regenerator-runtime": "^0.12.1",
     "rimraf": "^2.6.2",
+    "standard-changelog": "^2.0.7",
     "webpack": "^4.29.5",
     "webpack-cli": "^3.2.3"
   },

@@ -1,4 +1,2 @@
-# 1.0.0
-
-- Initial version
+- Initial version, with basic line parsing and autosql parsing
 
