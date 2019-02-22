@@ -5,4 +5,6 @@ script:
   - set -e
   - yarn build
   - yarn lint
-  - yarn test
+  - yarn test --coverage
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
