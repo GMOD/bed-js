@@ -29,7 +29,7 @@ class BED {
     return this.parseBedDefault(line)
   }
 
-  unescape(s) {
+  static unescape(s) {
     return s.replace(/%([0-9A-Fa-f]{2})/g, (match, seq) =>
       String.fromCharCode(parseInt(seq, 16)),
     )
@@ -56,7 +56,7 @@ class BED {
     return parsed
   }
 
-  parseBedText(refID, start, end, rest, asql, offset = 0) {
+  static parseBedText(refID, start, end, rest, asql, offset = 0) {
     // include ucsc-style names as well as jbrowse-style names
     const featureData = {
       refID,
@@ -78,25 +78,25 @@ class BED {
         }
 
         // for speed, cache some of the tests we need inside the autofield definition
-        if (!autoField._requestWorkerCache) {
-          autoField._requestWorkerCache = {
+        if (!autoField.requestWorkerCache) {
+          autoField.requestWorkerCache = {
             isNumeric: !autoField.size && numericTypes.includes(autoField.type),
             isArray: autoField.size,
             arrayIsNumeric:
               autoField.size && numericTypes.includes(autoField.type),
           }
         }
-        if (autoField._requestWorkerCache.isNumeric) {
+        if (autoField.requestWorkerCache.isNumeric) {
           const num = Number(columnVal)
           // if the number parse results in NaN, somebody probably
           // listed the type erroneously as numeric, so don't use
           // the parsed number
           columnVal = Number.isNaN(num) ? columnVal : num
-        } else if (autoField._requestWorkerCache.isArray) {
+        } else if (autoField.requestWorkerCache.isArray) {
           // parse array values
           columnVal = columnVal.split(',')
           if (columnVal[columnVal.length - 1] === '') columnVal.pop()
-          if (autoField._requestWorkerCache.arrayIsNumeric)
+          if (autoField.requestWorkerCache.arrayIsNumeric)
             columnVal = columnVal.map(str => Number(str))
         }
 

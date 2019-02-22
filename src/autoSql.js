@@ -64,5 +64,4 @@ _ "whitespace"
 
 `
 
-const parser = peg.generate(grammar)
-module.exports = parser
+export default peg.generate(grammar)

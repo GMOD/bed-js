@@ -1,20 +1,28 @@
-const fs = require('fs')
-const parser = require('./autoSql')
+import parser from './autoSql'
+import bigInteract from './as/bigInteract.as'
+import bigMaf from './as/bigMaf.as'
+import bigPsl from './as/bigPsl.as'
+import bigNarrowPeak from './as/bigNarrowPeak.as'
+import bigGenePred from './as/bigGenePred.as'
+import bigLink from './as/bigLink.as'
+import bigChain from './as/bigChain.as'
+import mafFrames from './as/mafFrames.as'
+import mafSummary from './as/mafSummary.as'
 
-const types = {}
-;[
-  'bigInteract',
-  'bigMaf',
-  'bigPsl',
-  'bigNarrowPeak',
-  'bigGenePred',
-  'bigChain',
-  'bigLink',
-  'mafFrames',
-  'mafSummary',
-].forEach(e => {
-  const ret = parser.parse(fs.readFileSync(`./src/as/${e}.as`).toString())
-  types[e] = ret
+const types = {
+  bigInteract,
+  bigMaf,
+  bigPsl,
+  bigNarrowPeak,
+  bigGenePred,
+  bigLink,
+  bigChain,
+  mafFrames,
+  mafSummary,
+}
+
+Object.keys(types).forEach(k => {
+  types[k] = parser.parse(types[k])
 })
 
-module.exports = types
+export default types
