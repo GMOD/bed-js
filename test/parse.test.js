@@ -1,4 +1,4 @@
-const BED = require('../src')
+import BED from '../src'
 
 describe('BED parser', () => {
   let p

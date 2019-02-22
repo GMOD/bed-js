@@ -1,4 +1,4 @@
-const peg = require('pegjs')
+import peg from 'pegjs'
 
 // based on https://genome-source.gi.ucsc.edu/gitlist/kent.git/blob/master/src/hg/autoSql/autoSql.doc
 // also see http://genomewiki.ucsc.edu/index.php/AutoSql and https://www.linuxjournal.com/article/5949

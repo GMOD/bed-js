@@ -24,7 +24,7 @@ class BED {
   parseLine(line) {
     if (this.format) {
       const [refID, start, end, ...rest] = line.split('\t')
-      return this.parseBedText(refID, +start, +end, rest, this.format, 3)
+      return BED.parseBedText(refID, +start, +end, rest, this.format, 3)
     }
     return this.parseBedDefault(line)
   }
@@ -49,7 +49,7 @@ class BED {
     if (parsed.start !== null) parsed.start = parseInt(parsed.start, 10)
     if (parsed.end !== null) parsed.end = parseInt(parsed.end, 10)
     if (parsed.score != null) parsed.score = parseFloat(parsed.score, 10)
-    parsed.refID = this.unescape(parsed.refID)
+    parsed.refID = BED.unescape(parsed.refID)
 
     parsed.strand = { '+': 1, '-': -1 }[parsed.strand] || 0
 

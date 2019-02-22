@@ -50,6 +50,7 @@
     "eslint-plugin-import": "^2.10.0",
     "eslint-plugin-prettier": "^3.0.1",
     "jest": "^24.1.0",
+    "jest-raw-loader": "^1.0.1",
     "opn-cli": "^3.1.0",
     "prettier": "^1.14.2",
     "raw-loader": "^1.0.0",
@@ -71,5 +72,11 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "jest": {
+    "transform": {
+      "\\.as$": "jest-raw-loader",
+      "\\.js$": "babel-jest"
+    }
   }
 }

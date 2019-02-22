@@ -1,4 +1,4 @@
 /** @module BED */
-const BED = require('./parse')
+import BED from './parse'
 
-module.exports = BED
+export default BED
