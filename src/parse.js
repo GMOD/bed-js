@@ -26,7 +26,7 @@ class BED {
       const [refID, start, end, ...rest] = line.split('\t')
       return BED.parseBedText(refID, +start, +end, rest, this.format, 3)
     }
-    return this.parseBedDefault(line)
+    return BED.parseBedDefault(line)
   }
 
   static unescape(s) {
@@ -35,7 +35,7 @@ class BED {
     )
   }
 
-  parseBedDefault(line) {
+  static parseBedDefault(line) {
     const f = line.split('\t').map(a => (a === '.' ? null : a))
 
     // unescape only the ref columns
