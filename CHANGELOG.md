@@ -1,3 +1,5 @@
+- Fixed dist package on npm
+
 ## [1.0.1](https://github.com/GMOD/bed-js/compare/v1.0.0...v1.0.1) (2019-04-02)
 
 

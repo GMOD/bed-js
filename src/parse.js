@@ -2,11 +2,7 @@ import snakeCase from 'snake-case'
 import parser from './autoSql'
 import types from './defaultTypes'
 
-/**
- * Class representing a BED parser
- * @param {object} args
- */
-class BED {
+export default class BED {
   constructor(args = {}) {
     if (args.autoSql) {
       this.format = parser(args.autoSql)
@@ -118,5 +114,3 @@ class BED {
     return featureData
   }
 }
-
-export default BED
