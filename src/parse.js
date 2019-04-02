@@ -5,13 +5,13 @@ import types from './defaultTypes'
 export default class BED {
   constructor(args = {}) {
     if (args.autoSql) {
-      this.format = parser(args.autoSql)
+      this.format = parser.parse(args.autoSql)
     } else if (args.type && types[args.type]) {
-      this.format = types[args.type]
-    } else if (args.type) {
-      throw new Error('Type not found')
-    } else {
-      this.format = types.BED6
+      if (types[args.type]) {
+        this.format = types[args.type]
+      } else {
+        throw new Error('Type not found')
+      }
     }
   }
 
@@ -25,7 +25,7 @@ export default class BED {
       )
     if (this.format) {
       const [refID, start, end, ...rest] = ret
-      return BED.parseBedText(refID, +start, +end, rest, this.format, 3)
+      return this.parseBedText(refID, +start, +end, rest, 3)
     }
     return BED.parseBedDefault(ret)
   }
@@ -61,7 +61,7 @@ export default class BED {
     return parsed
   }
 
-  static parseBedText(refID, start, end, rest, asql, offset = 0) {
+  parseBedText(refID, start, end, rest, offset = 0) {
     // include ucsc-style names as well as jbrowse-style names
     const featureData = {
       refID,
@@ -73,9 +73,9 @@ export default class BED {
     const numericTypes = ['uint', 'int', 'float', 'long']
 
     // first three columns (chrom,start,end) are not included in bigBed, so use offset to compensate
-    for (let i = offset; i < asql.fields.length; i += 1) {
+    for (let i = offset; i < this.format.fields.length; i += 1) {
       if (bedColumns[i - offset] !== null && bedColumns[i - offset] !== '.') {
-        const autoField = asql.fields[i]
+        const autoField = this.format.fields[i]
         let columnVal = bedColumns[i - offset]
         if (columnVal === null || columnVal === undefined) {
           // console.warn(`column ${i-offset} does not exist for line but expected it to be ${asql.fields[i].name}`, bedColumns)

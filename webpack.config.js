@@ -3,8 +3,7 @@ var path = require('path');
 module.exports = {
   output: {
 		path: path.resolve(__dirname, 'dist'),
-    library: 'BED',
-    libraryTarget: 'commonjs'
+    libraryTarget: 'commonjs2'
 	},
   module: {
     rules: [
@@ -17,11 +16,11 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
         },
       },
     ],
   },
+  optimization: {
+    minimize: false
+  }
 }

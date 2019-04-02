@@ -368,3 +368,69 @@ Object {
   "strand": 0,
 }
 `;
+
+exports[`real world 1`] = `
+Object {
+  "comment": "UCSC Genes for chr7 with color plus GeneSymbol and SwissProtID",
+  "fields": Array [
+    Object {
+      "comment": "Reference sequence chromosome or scaffold",
+      "name": "chrom",
+      "type": "string",
+    },
+    Object {
+      "comment": "Start position of feature on chromosome",
+      "name": "chromStart",
+      "type": "uint",
+    },
+    Object {
+      "comment": "End position of feature on chromosome",
+      "name": "chromEnd",
+      "type": "uint",
+    },
+    Object {
+      "comment": "Name of gene",
+      "name": "name",
+      "type": "string",
+    },
+    Object {
+      "comment": "Score",
+      "name": "score",
+      "type": "uint",
+    },
+    Object {
+      "comment": "+ or - for strand",
+      "name": "strand",
+      "size": 1,
+      "type": "char",
+    },
+    Object {
+      "comment": "Coding region start",
+      "name": "thickStart",
+      "type": "uint",
+    },
+    Object {
+      "comment": "Coding region end",
+      "name": "thickEnd",
+      "type": "uint",
+    },
+    Object {
+      "comment": "Green on + strand, Red on - strand",
+      "name": "reserved",
+      "type": "uint",
+    },
+    Object {
+      "comment": "Gene Symbol",
+      "name": "geneSymbol",
+      "type": "string",
+    },
+    Object {
+      "comment": "SWISS-PROT protein Accession number",
+      "name": "spID",
+      "type": "string",
+    },
+  ],
+  "name": "hg18KGchr7",
+  "type": "table",
+}
+`;

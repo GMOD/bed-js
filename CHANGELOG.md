@@ -1,4 +1,5 @@
-- Further fixing of the dist package on npm, required webpack library build
+- Fix usage of autoSql
+- Use commonjs2 target of the webpack library build
 
 ## [1.0.2](https://github.com/GMOD/bed-js/compare/v1.0.1...v1.0.2) (2019-04-02)
 

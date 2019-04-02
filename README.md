@@ -88,7 +88,8 @@ p.parseLine(line)
 
 ### BED parser with autoSql
 
-If you have a BED format with a custom alternative schema with autoSql, or if you are using a BigBed file that contains autoSql (e.g. with [@gmod/bbi](https://github.com/gmod/bbi-js) then you can get it from header.autoSql) then you can supply this via the constructor
+If you have a BED format with a custom alternative schema with autoSql, or if you are using a BigBed file that contains autoSql (e.g. with [@gmod/bbi](https://github.com/gmod/bbi-js) then you can get it from header.autoSql)
+
 
 ```
 const p = new BED({ autoSql: /* your autosql formatted string here */ })
@@ -96,13 +97,27 @@ const p = new BED({ autoSql: /* your autosql formatted string here */ })
 
 Your autosql will be validated against a grammar for autoSql and used in subsequent parseLine calls
 
+If you want to use BigBed, you can get it's autoSql and use it in the BED parser
+
+```js
+import {BigBed} from @gmod/bbi
+const ti = new BigBed({ path: 'yourfile.bb' }) // note: use url for remote resource, or filehandle for custom resource
+const {autoSql} = await ti.getHeader()
+const parser = new BED({ autoSql })
+const lines = await ti.getFeatures('chr1', 0, 10000)
+const feats = lines.map(l => parser.parseBedText(l.refID, l.start, l.end, l.rest))
+```
+
+
+
 
 ### Important notes
 
 
-* BED parsing does not do any conversion of types beyond string vs int but helps assign keys to values
-* Parsing does not convert blockStarts/blockEnds to gene features
-* It does not parse header or track lines
+* Does not do any conversion of types beyond just converting known int/float values
+* Does not convert blockStarts/blockEnds to gene features
+* Does not parse header or track lines
+* Does not handle files that use spaces instead of tabs even though this is allowed by UCSC
 
 
 ## Academic Use
