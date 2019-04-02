@@ -1,3 +1,7 @@
+## [1.0.1](https://github.com/GMOD/bed-js/compare/v1.0.0...v1.0.1) (2019-04-02)
+
+
+
 - Added BED12 support
 - Improved documentation
 - Fixed babel loader for webpack
