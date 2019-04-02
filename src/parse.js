@@ -2,8 +2,6 @@ import snakeCase from 'snake-case'
 import parser from './autoSql'
 import types from './defaultTypes'
 
-const bedFeatureNames = 'refID start end name score strand'.split(' ')
-
 /**
  * Class representing a BED parser
  * @param {object} args
@@ -15,18 +13,25 @@ class BED {
     } else if (args.type && types[args.type]) {
       this.format = types[args.type]
     } else if (args.type) {
-      console.error('Type not found')
+      throw new Error('Type not found')
     } else {
       this.format = types.BED6
     }
   }
 
   parseLine(line) {
+    if (line.startsWith('track') || line.startsWith('browser'))
+      throw new Error('please filter browser and track lines')
+    const ret = line.split('\t')
+    if (ret.length < 3)
+      throw new Error(
+        'Error: line not tab delimited? (note: specification for BED allows spaces but this is unimplemented)',
+      )
     if (this.format) {
-      const [refID, start, end, ...rest] = line.split('\t')
+      const [refID, start, end, ...rest] = ret
       return BED.parseBedText(refID, +start, +end, rest, this.format, 3)
     }
-    return BED.parseBedDefault(line)
+    return BED.parseBedDefault(ret)
   }
 
   static unescape(s) {
@@ -35,22 +40,26 @@ class BED {
     )
   }
 
-  static parseBedDefault(line) {
-    const f = line.split('\t').map(a => (a === '.' ? null : a))
+  static featureNames = 'refID start end name score strand thickStart thickEnd itemRgb blockCount blockSizes blockStarts'.split(
+    ' ',
+  )
+
+  static parseBedDefault(ret) {
+    const f = ret.map(a => (a === '.' ? null : a))
 
     // unescape only the ref columns
 
     const parsed = {}
-    for (let i = 0; i < bedFeatureNames.length; i += 1) {
+    for (let i = 0; i < BED.featureNames.length; i += 1) {
       if (f[i] !== null && f[i] !== undefined) {
-        parsed[bedFeatureNames[i]] = f[i]
+        parsed[BED.featureNames[i]] = f[i]
       }
     }
     if (parsed.start !== null) parsed.start = parseInt(parsed.start, 10)
     if (parsed.end !== null) parsed.end = parseInt(parsed.end, 10)
     if (parsed.score != null) parsed.score = parseFloat(parsed.score, 10)
-    parsed.refID = BED.unescape(parsed.refID)
 
+    parsed.refID = BED.unescape(parsed.refID)
     parsed.strand = { '+': 1, '-': -1 }[parsed.strand] || 0
 
     return parsed

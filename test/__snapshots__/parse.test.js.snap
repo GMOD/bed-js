@@ -50,6 +50,40 @@ Object {
 }
 `;
 
+exports[`BED parser BED12 1`] = `
+Object {
+  "blockCount": "2",
+  "blockSizes": "567,488,",
+  "blockStarts": "0,3512",
+  "end": 5000,
+  "itemRgb": "0",
+  "name": "cloneA",
+  "refID": "chr22",
+  "score": 960,
+  "start": 1000,
+  "strand": 1,
+  "thickEnd": "5000",
+  "thickStart": "1000",
+}
+`;
+
+exports[`BED parser BED12 2`] = `
+Object {
+  "blockCount": "2",
+  "blockSizes": "433,399,",
+  "blockStarts": "0,3601",
+  "end": 6000,
+  "itemRgb": "0",
+  "name": "cloneB",
+  "refID": "chr22",
+  "score": 900,
+  "start": 2000,
+  "strand": -1,
+  "thickEnd": "6000",
+  "thickStart": "2000",
+}
+`;
+
 exports[`bigChain bigChain 1`] = `
 Object {
   "chain_score": 66,

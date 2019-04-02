@@ -20,6 +20,19 @@ describe('BED parser', () => {
     expect(f1).toMatchSnapshot()
     expect(f2).toMatchSnapshot()
     expect(f3).toMatchSnapshot()
+    expect(f2.refID).toEqual('co,tigA')
+    expect(f2.start).toEqual(10875)
+    expect(f2.end).toEqual(10884)
+  })
+  it('BED12', () => {
+    const f1 = p.parseLine(
+      'chr22\t1000\t5000\tcloneA\t960\t+\t1000\t5000\t0\t2\t567,488,\t0,3512',
+    )
+    const f2 = p.parseLine(
+      'chr22\t2000\t6000\tcloneB\t900\t-\t2000\t6000\t0\t2\t433,399,\t0,3601',
+    )
+    expect(f1).toMatchSnapshot()
+    expect(f2).toMatchSnapshot()
   })
 })
 

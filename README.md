@@ -7,33 +7,102 @@ Performs parsing of BED files including autoSql
 
 ## Usage
 
-This parser is based on parsing the BED lines only
 
-```
+### Example
+
+You can pipe your file through this programs parseLine function
+
+```js
 var parser = new BED()
 var text = fs.readFileSync('file.txt', 'utf8')
 var results = text.split('\n').map(line => parser.parseLine(line))
 ```
 
-The default BED parser can do BED3,4,5,6. Todo: add BED12
+### BED parser with default schema
 
-If you have a BED format that corresponds to some default autoSql types then you can specify this
+The default instantiation of the parser with new BED() simply parses lines assuming the fields come from the standard BED schema.
 
-```
+The default schema is the same 12 fields as UCSC
+
+    chrom
+    chromStart
+    chromEnd
+    name
+    score
+    strand
+    thickStart
+    thickEnd
+    itemRgb
+    blockCount
+    blockSizes
+    blockStarts
+
+If only a subset of those are used, it just parses up to that, e.g. your line can just contain chrom, chromStart, chromEnd, name, score.
+
+
+### BED parser with alternative schema
+
+If you have a BED format that corresponds to a different schema, you can specify from a list of default built in alternate schemas or specify an autoSql as a string
+
+The alternative types by default include
+
+    bigInteract
+    bigMaf
+    bigPsl
+    bigNarrowPeak
+    bigGenePred
+    bigLink
+    bigChain
+    mafFrames
+    mafSummary
+
+Specify this in the type for the BED constructor
+
+```js
 const p = new BED({ type: 'bigGenePred' })
-const f1 = p.parseLine(
-  'chr1\t11868\t14409\tENST00000456328.2\t1000\t+\t11868\t11868\t255,128,0\t3\t359,109,1189,\t0,744,1352,\tDDX11L1\tnone\tnone\t-1,-1,-1,\tnone\tENST00000456328.2\tDDX11L1\tnone'
+const line = 'chr1\t11868\t14409\tENST00000456328.2\t1000\t+\t11868\t11868\t255,128,0\t3\t359,109,1189,\t0,744,1352,\tDDX11L1\tnone\tnone\t-1,-1,-1,\tnone\tENST00000456328.2\tDDX11L1\tnone'
+p.parseLine(line)
+// above line outputs
+      { refID: 'chr1',
+        start: 11868,
+        end: 14409,
+        name: 'ENST00000456328.2',
+        score: 1000,
+        strand: 1,
+        thick_start: 11868,
+        thick_end: 11868,
+        reserved: '255,128,0',
+        block_count: 3,
+        block_sizes: [ 359, 109, 1189 ],
+        chrom_starts: [ 0, 744, 1352 ],
+        name2: 'DDX11L1',
+        cds_start_stat: 'none',
+        cds_end_stat: 'none',
+        exon_frames: [ -1, -1, -1 ],
+        type: 'none',
+        gene_name: 'ENST00000456328.2',
+        gene_name2: 'DDX11L1',
+        gene_type: 'none' }
+
 ```
 
-See src/defaultTypes.js for the default autoSql types. Else if you have a different default type specify your own autoSql using
+### BED parser with autoSql
+
+If you have a BED format with a custom alternative schema with autoSql, or if you are using a BigBed file that contains autoSql (e.g. with [@gmod/bbi](https://github.com/gmod/bbi-js) then you can get it from header.autoSql) then you can supply this via the constructor
 
 ```
-const p = new BED({ type: /* your autosql formatted string here */ })
+const p = new BED({ autoSql: /* your autosql formatted string here */ })
 ```
 
 Your autosql will be validated against a grammar for autoSql and used in subsequent parseLine calls
 
-Note that this BED parsing does not do any conversion of types beyond string vs int but helps assign keys to values
+
+### Important notes
+
+
+* BED parsing does not do any conversion of types beyond string vs int but helps assign keys to values
+* Parsing does not convert blockStarts/blockEnds to gene features
+* It does not parse header or track lines
 
 
 ## Academic Use
