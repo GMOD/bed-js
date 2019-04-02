@@ -1,6 +1,6 @@
 {
   "name": "@gmod/bed",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A BED file format parser with autoSql support",
   "main": "dist/main.js",
   "repository": "github:GMOD/bed-js",

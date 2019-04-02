@@ -1,3 +1,7 @@
+## [1.0.3](https://github.com/GMOD/bed-js/compare/v1.0.2...v1.0.3) (2019-04-02)
+
+
+
 - Fix usage of autoSql
 - Use commonjs2 target of the webpack library build
 
