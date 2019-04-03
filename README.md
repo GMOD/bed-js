@@ -22,6 +22,11 @@ var results = text.split('\n').map(line => parser.parseLine(line))
 
 The default instantiation of the parser with new BED() simply parses lines assuming the fields come from the standard BED schema.
 
+```js
+const p = new BED()
+const feature = p.parseLine('chr1\t0\t100')
+```
+
 The default schema is the same 12 fields as UCSC
 
     chrom
