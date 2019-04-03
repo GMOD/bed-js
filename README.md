@@ -95,21 +95,6 @@ If you have a BED format with a custom alternative schema with autoSql, or if yo
 const p = new BED({ autoSql: /* your autosql formatted string here */ })
 ```
 
-Your autosql will be validated against a grammar for autoSql and used in subsequent parseLine calls
-
-If you want to use BigBed, you can get it's autoSql and use it in the BED parser
-
-```js
-import {BigBed} from @gmod/bbi
-const ti = new BigBed({ path: 'yourfile.bb' }) // note: use url for remote resource, or filehandle for custom resource
-const {autoSql} = await ti.getHeader()
-const parser = new BED({ autoSql })
-const lines = await ti.getFeatures('chr1', 0, 10000)
-const feats = lines.map(l => parser.parseBedText(l.refID, l.start, l.end, l.rest))
-```
-
-
-
 
 ### Important notes
 
