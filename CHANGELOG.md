@@ -1,3 +1,5 @@
+- Changed parseBedText to accept an Options argument with offset and optionally a uniqueId
+
 ## [1.0.3](https://github.com/GMOD/bed-js/compare/v1.0.2...v1.0.3) (2019-04-02)
 
 

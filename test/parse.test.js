@@ -20,7 +20,7 @@ describe('BED parser', () => {
     expect(f1).toMatchSnapshot()
     expect(f2).toMatchSnapshot()
     expect(f3).toMatchSnapshot()
-    expect(f2.refID).toEqual('co,tigA')
+    expect(f2.refName).toEqual('co,tigA')
     expect(f2.start).toEqual(10875)
     expect(f2.end).toEqual(10884)
   })
@@ -167,7 +167,7 @@ describe('bigNarrowPeak', () => {
   })
 })
 
-test('real world', () => {
+xtest('real world', () => {
   const autoSql = `table hg18KGchr7
     "UCSC Genes for chr7 with color plus GeneSymbol and SwissProtID"
     (
@@ -184,5 +184,5 @@ test('real world', () => {
     string  spID;               "SWISS-PROT protein Accession number"
     )`
   const p = new BED({ autoSql })
-  expect(p.format).toMatchSnapshot()
+  expect(p.autoSql).toMatchSnapshot()
 })
