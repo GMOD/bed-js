@@ -5,7 +5,6 @@ Object {
   "chrom": "contigA",
   "chromEnd": 10884,
   "chromStart": 10875,
-  "strand": 0,
 }
 `;
 
@@ -14,7 +13,6 @@ Object {
   "chrom": "co,tigA",
   "chromEnd": 10884,
   "chromStart": 10875,
-  "strand": 0,
 }
 `;
 
@@ -46,15 +44,20 @@ Object {
   "chromEnd": 10884,
   "chromStart": 10875,
   "name": "test2",
-  "strand": 0,
 }
 `;
 
 exports[`BED parser BED12 1`] = `
 Object {
-  "blockCount": "2",
-  "blockSizes": "567,488,",
-  "blockStarts": "0,3512",
+  "blockCount": 2,
+  "blockSizes": Array [
+    567,
+    488,
+  ],
+  "blockStart": Array [
+    0,
+    3512,
+  ],
   "chrom": "chr22",
   "chromEnd": 5000,
   "chromStart": 1000,
@@ -62,16 +65,22 @@ Object {
   "name": "cloneA",
   "score": 960,
   "strand": 1,
-  "thickEnd": "5000",
-  "thickStart": "1000",
+  "thickEnd": 5000,
+  "thickStart": 1000,
 }
 `;
 
 exports[`BED parser BED12 2`] = `
 Object {
-  "blockCount": "2",
-  "blockSizes": "433,399,",
-  "blockStarts": "0,3601",
+  "blockCount": 2,
+  "blockSizes": Array [
+    433,
+    399,
+  ],
+  "blockStart": Array [
+    0,
+    3601,
+  ],
   "chrom": "chr22",
   "chromEnd": 6000,
   "chromStart": 2000,
@@ -79,8 +88,8 @@ Object {
   "name": "cloneB",
   "score": 900,
   "strand": -1,
-  "thickEnd": "6000",
-  "thickStart": "2000",
+  "thickEnd": 6000,
+  "thickStart": 2000,
 }
 `;
 
@@ -209,7 +218,6 @@ Object {
   "sourceChrom": "chr17",
   "sourceEnd": 58880897,
   "sourceStart": 58878552,
-  "strand": 0,
   "targetChrom": "chr3",
   "targetEnd": 63705638,
   "targetStart": 63702628,
@@ -224,7 +232,6 @@ Object {
   "chromStart": 7917,
   "name": "2912",
   "qStart": 75185566,
-  "strand": 0,
 }
 `;
 
@@ -234,7 +241,6 @@ Object {
   "chromEnd": 2,
   "chromStart": 0,
   "mafBlock": "a score=60.000000;s hg38.chr22_KI270731v1_random        0 2 +   150754 AC;s canFam3.chr26                27974205 2 + 38964690 AT;",
-  "strand": 0,
 }
 `;
 
@@ -248,7 +254,19 @@ Object {
   "qValue": 4.80079,
   "score": 468,
   "signalValue": 103.84,
-  "strand": 0,
+}
+`;
+
+exports[`bigNarrowPeak with regularize bigNarrowPeak 1`] = `
+Object {
+  "end": 566953,
+  "pValue": 5.54347,
+  "peak": 154,
+  "qValue": 4.80079,
+  "refName": "chr1",
+  "score": 468,
+  "signalValue": 103.84,
+  "start": 566753,
 }
 `;
 
@@ -283,9 +301,7 @@ Object {
     463,
   ],
   "oSequence": "",
-  "oStrand": Array [
-    "+",
-  ],
+  "oStrand": "+",
   "repMatch": 0,
   "reserved": 0,
   "score": 1000,
@@ -327,9 +343,7 @@ Object {
     463,
   ],
   "oSequence": "cttgccgtcagccttttctttgacctcttctttctgttcatgtgtatctgctgtctcttagcccagacttcccgtgtcctttccaccgggcctttgggaggtcacagggtcttgatgctgtggtcttgatctgcaggtgtctgacttccagcaactgctggcctgtgccagggtggaagctgagcactggagtggagttttcctgtggagaggagccatgcctagagtgggatgggccattgttcatattctggcccctgttgtctgcatgtaacctaataccacgaccaggcatgggggaaagattggaggaaagttgagtgagaggatcaacttctctgacaacctaggccagtgtgtggtgatgccaggcatgcccttccccagcatcaggtctccagagctgcagaagacgacggccgacttggatcacactcttgtgagtgtccccagtgttgcagaggcagggccatcaggcaccaaagggattctgccagcatagtgctcctggaccagtgatacacccggcaccctgtcctggacaggctgttggcctggatctgagccctcgtggaggtcaaagccacctttggttctgccattactgctgtgtggaagttcactcctgccttttcctttcccgagagcctccaccaccccgagatcgcatttctcactgccttttgtctgcccagtttcaccagaagtaggcctcttcctgacaggcagctgcaccactgcctggcgctgcgcccttcctttgctctgcccgctggagacggtgtttgtcatgggcctggtctgcagggatcctgctacaaaggtgaaacccaggagagtgtggagtccagagtgttgccaggacccaggcacaggcattagtgcccgttggagaaaacaggggaatcccgaagaaatggtgggttttggccatccgtgagatcttcccagggcagctcccctctgtggaatccaatctgtcttccatcctgcgtggccgagggccaggcttctcactgggcctctgcaggaggctgccatttgtcctgcccaccgtcttagaagcgagacggagcagactcatctgctactgccctttctataataactaaagttagctgccctggactattcaccccctagtctcaatttaaaaagatccccatggccacagggcccctgcctgggggcttgtcacctcccccaccttcttcctgagtcacttctgcagccttgctccctaacctgccccacagccttgcctggatttctatctccctggcttggtgccagttcctccaagtcgatggcacctccctccctctcaaccacttgagcaaactccaagacatcttctaccccaacaccagcaattgtgccaagggccattaggctctcagcatgactatttttagagaccccgtgtctgtcactgaaaccttttttgtgggagactattcctcccatctgcaacagctgcccctgctgacggcccttctctcctccctctcatcccagagaaacaggtcagctgggagcttctgcccccactgcctagggaccaacaggggcaggaggcagtcactgaccccgagacgtttgca",
-  "oStrand": Array [
-    "+",
-  ],
+  "oStrand": "+",
   "repMatch": 0,
   "reserved": 0,
   "score": 1000,
@@ -361,11 +375,10 @@ Object {
   "chrom": "chr22_KI270731v1_random",
   "chromEnd": 9270,
   "chromStart": 0,
-  "leftStatus": Array [],
-  "rightStatus": Array [],
+  "leftStatus": "",
+  "rightStatus": "",
   "score": 0.568679,
   "src": "canFam3",
-  "strand": 0,
 }
 `;
 
@@ -403,7 +416,6 @@ Object {
     },
     Object {
       "comment": "+ or - for strand",
-      "isArray": true,
       "name": "strand",
       "size": 1,
       "type": "char",

@@ -1,6 +1,8 @@
-- Breaking change - API now all processes text lines, so it is recommended to simply supply parseLine with the text line and options opts arguments containing things like uniqueId 
+### Major changes
+
+- API now processes just text lines with the parseLine method
 - Remove snake case of results
-- Make returned values match very faithfully the autoSql and default schema including using the chrom, chromStart, and chromEnd fields instead of renaming them to refName, start and end
+- Returned values match autoSql very faithfully and uses the naming from UCSC e.g. {chrom, chromStart, chromEnd} unless opts.regularize is passed to parseLine and then it returns the names {refName,start,end}
 
 
 ## [1.0.4](https://github.com/GMOD/bed-js/compare/v1.0.3...v1.0.4) (2019-04-14)
