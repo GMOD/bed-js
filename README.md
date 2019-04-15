@@ -126,9 +126,8 @@ p.parseLine(line)
 ### Important notes
 
 
-* Does not convert blockSizes/blockStarts to gene features
 * Does not parse "browser" or "track" lines and will throw an error if parseLine receives one of these
-* Does not handle files that use spaces instead of tabs even though this is allowed by UCSC
+* By default, parseLine parses only tab delimited text, if you want to use spaces as is allowed by UCSC then pass an array to `line` for parseLine
 
 
 ## Academic Use

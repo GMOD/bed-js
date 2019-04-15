@@ -18,24 +18,22 @@ export default class BED {
   /*
    * parses a line of text as a BED line with the loaded autoSql schema
    *
-   * @param line - a BED line
-   * @param opts - supply opts.uniqueId have a uniqueId not encoded in BED file itself
+   * @param line - a BED line as tab delimited text or array
+   * @param opts - supply opts.uniqueId and opts.regularize
    * @return a object representing a feature
    */
   parseLine(line, opts = {}) {
     const { autoSql } = this
-    if (line.startsWith('track') || line.startsWith('browser'))
-      throw new Error(
-        `Error: track and browser line parsing is not supported, please filter:\n${line}`,
-      )
+    const { regularize, uniqueId } = opts
+    let fields = line
+    if (!Array.isArray(line)) {
+      if (line.startsWith('track') || line.startsWith('browser'))
+        throw new Error(
+          `Error: track and browser line parsing is not supported, please filter:\n${line}`,
+        )
+      fields = line.split('\t')
+    }
 
-    if (!autoSql)
-      throw new Error(
-        'no autoSql configured, please supply autoSql or format to BED constructor',
-      )
-
-    const { uniqueId } = opts // optionally supply a uniqueId based on fileoffset
-    const fields = line.split('\t')
     const featureData = {}
     if (uniqueId) featureData.uniqueId = uniqueId
 
@@ -72,7 +70,7 @@ export default class BED {
       featureData.strand = { '-': -1, '+': 1 }[featureData.strand] || 0
     }
 
-    if (opts.regularize) {
+    if (regularize) {
       return regularizeFeat(featureData)
     }
     return featureData
