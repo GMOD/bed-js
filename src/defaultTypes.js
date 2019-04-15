@@ -8,6 +8,7 @@ import bigLink from './as/bigLink.as'
 import bigChain from './as/bigChain.as'
 import mafFrames from './as/mafFrames.as'
 import mafSummary from './as/mafSummary.as'
+import defaultBedSchema from './as/defaultBedSchema.as'
 
 const types = {
   bigInteract,
@@ -19,6 +20,7 @@ const types = {
   bigChain,
   mafFrames,
   mafSummary,
+  defaultBedSchema,
 }
 
 Object.keys(types).forEach(k => {

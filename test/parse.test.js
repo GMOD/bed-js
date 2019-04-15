@@ -9,10 +9,17 @@ describe('BED parser', () => {
   it('BED3', () => {
     const f1 = p.parseLine('contigA\t10875\t10884')
     const f2 = p.parseLine('co%2CtigA\t10875\t10884')
+    const f3 = p.parseLine(['contigA', '10875', '10884'])
     expect(f1).toMatchSnapshot()
     expect(f2).toMatchSnapshot()
+    expect(f3).toEqual(f1)
   })
 
+  it('errors', () => {
+    expect(() => new BED({ type: 'notexist' })).toThrow(/not found/)
+    expect(() => p.parseLine('track hello test')).toThrow(/not supported/)
+    expect(() => p.parseLine('browser hello test')).toThrow(/not supported/)
+  })
   it('BED6', () => {
     const f1 = p.parseLine('contigA\t10875\t10884\ttest\t0.50\t-')
     const f2 = p.parseLine('co%2CtigA\t10875\t10884\ttest2\t0\t+')
@@ -20,9 +27,10 @@ describe('BED parser', () => {
     expect(f1).toMatchSnapshot()
     expect(f2).toMatchSnapshot()
     expect(f3).toMatchSnapshot()
-    expect(f2.refName).toEqual('co,tigA')
-    expect(f2.start).toEqual(10875)
-    expect(f2.end).toEqual(10884)
+    expect(f2.chrom).toEqual('co,tigA')
+    expect(f2.chromStart).toEqual(10875)
+    expect(f2.chromEnd).toEqual(10884)
+    expect(f3.strand).toEqual(0)
   })
   it('BED12', () => {
     const f1 = p.parseLine(
@@ -153,21 +161,23 @@ describe('bigLink', () => {
   })
 })
 
-describe('bigNarrowPeak', () => {
-  let p
-  beforeAll(() => {
-    p = new BED({ type: 'bigNarrowPeak' })
-  })
+test('bigNarrowPeak', () => {
+  const p = new BED({ type: 'bigNarrowPeak' })
 
-  it('bigNarrowPeak', () => {
-    const f1 = p.parseLine(
+  expect(
+    p.parseLine(
       'chr1\t566753\t566953\t.\t468\t.\t103.84\t5.54347\t4.80079\t154',
-    )
-    expect(f1).toMatchSnapshot()
-  })
+    ),
+  ).toMatchSnapshot()
+  expect(
+    p.parseLine(
+      'chr1\t566753\t566953\t.\t468\t.\t103.84\t5.54347\t4.80079\t154',
+      { uniqueId: 1 },
+    ),
+  ).toMatchSnapshot()
 })
 
-xtest('real world', () => {
+test('real world', () => {
   const autoSql = `table hg18KGchr7
     "UCSC Genes for chr7 with color plus GeneSymbol and SwissProtID"
     (

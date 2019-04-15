@@ -1,3 +1,12 @@
+### Major changes
+
+- API now processes just text lines with the parseLine method
+- Remove snake case of results
+- Returned values match autoSql very faithfully and uses the naming from UCSC e.g. exact strings from autoSql {chrom, chromStart, chromEnd}
+- Accepts a opts.uniqueId for the parseLine method which adds this to the featureData
+- Parses the default BED schema with a defaultBedSchema.as autoSql definition instead of a separate method
+
+
 ## [1.0.4](https://github.com/GMOD/bed-js/compare/v1.0.3...v1.0.4) (2019-04-14)
 
 
