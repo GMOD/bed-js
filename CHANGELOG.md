@@ -1,3 +1,7 @@
+# [2.0.0](https://github.com/GMOD/bed-js/compare/v1.0.4...v2.0.0) (2019-04-15)
+
+
+
 ### Major changes
 
 - API now processes just text lines with the parseLine method
