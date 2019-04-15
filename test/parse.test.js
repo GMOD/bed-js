@@ -20,9 +20,9 @@ describe('BED parser', () => {
     expect(f1).toMatchSnapshot()
     expect(f2).toMatchSnapshot()
     expect(f3).toMatchSnapshot()
-    expect(f2.refName).toEqual('co,tigA')
-    expect(f2.start).toEqual(10875)
-    expect(f2.end).toEqual(10884)
+    expect(f2.chrom).toEqual('co,tigA')
+    expect(f2.chromStart).toEqual(10875)
+    expect(f2.chromEnd).toEqual(10884)
   })
   it('BED12', () => {
     const f1 = p.parseLine(
@@ -167,7 +167,7 @@ describe('bigNarrowPeak', () => {
   })
 })
 
-xtest('real world', () => {
+test('real world', () => {
   const autoSql = `table hg18KGchr7
     "UCSC Genes for chr7 with color plus GeneSymbol and SwissProtID"
     (
@@ -185,4 +185,13 @@ xtest('real world', () => {
     )`
   const p = new BED({ autoSql })
   expect(p.autoSql).toMatchSnapshot()
+})
+
+test('generate README output', () => {
+  const p = new BED()
+  console.log(p.parseLine('chr1\t0\t100'))
+  const p2 = new BED({ type: 'bigGenePred' })
+  const line =
+    'chr1\t11868\t14409\tENST00000456328.2\t1000\t+\t11868\t11868\t255,128,0\t3\t359,109,1189,\t0,744,1352,\tDDX11L1\tnone\tnone\t-1,-1,-1,\tnone\tENST00000456328.2\tDDX11L1\tnone'
+  console.log(p2.parseLine(line))
 })

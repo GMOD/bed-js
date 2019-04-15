@@ -2,50 +2,50 @@
 
 exports[`BED parser BED3 1`] = `
 Object {
-  "end": 10884,
-  "refName": "contigA",
-  "start": 10875,
+  "chrom": "contigA",
+  "chromEnd": 10884,
+  "chromStart": 10875,
   "strand": 0,
 }
 `;
 
 exports[`BED parser BED3 2`] = `
 Object {
-  "end": 10884,
-  "refName": "co,tigA",
-  "start": 10875,
+  "chrom": "co,tigA",
+  "chromEnd": 10884,
+  "chromStart": 10875,
   "strand": 0,
 }
 `;
 
 exports[`BED parser BED6 1`] = `
 Object {
-  "end": 10884,
+  "chrom": "contigA",
+  "chromEnd": 10884,
+  "chromStart": 10875,
   "name": "test",
-  "refName": "contigA",
   "score": 0.5,
-  "start": 10875,
   "strand": -1,
 }
 `;
 
 exports[`BED parser BED6 2`] = `
 Object {
-  "end": 10884,
+  "chrom": "co,tigA",
+  "chromEnd": 10884,
+  "chromStart": 10875,
   "name": "test2",
-  "refName": "co,tigA",
   "score": 0,
-  "start": 10875,
   "strand": 1,
 }
 `;
 
 exports[`BED parser BED6 3`] = `
 Object {
-  "end": 10884,
+  "chrom": "cotigA",
+  "chromEnd": 10884,
+  "chromStart": 10875,
   "name": "test2",
-  "refName": "cotigA",
-  "start": 10875,
   "strand": 0,
 }
 `;
@@ -55,12 +55,12 @@ Object {
   "blockCount": "2",
   "blockSizes": "567,488,",
   "blockStarts": "0,3512",
-  "end": 5000,
+  "chrom": "chr22",
+  "chromEnd": 5000,
+  "chromStart": 1000,
   "itemRgb": "0",
   "name": "cloneA",
-  "refName": "chr22",
   "score": 960,
-  "start": 1000,
   "strand": 1,
   "thickEnd": "5000",
   "thickStart": "1000",
@@ -72,12 +72,12 @@ Object {
   "blockCount": "2",
   "blockSizes": "433,399,",
   "blockStarts": "0,3601",
-  "end": 6000,
+  "chrom": "chr22",
+  "chromEnd": 6000,
+  "chromStart": 2000,
   "itemRgb": "0",
   "name": "cloneB",
-  "refName": "chr22",
   "score": 900,
-  "start": 2000,
   "strand": -1,
   "thickEnd": "6000",
   "thickStart": "2000",
@@ -86,62 +86,62 @@ Object {
 
 exports[`bigChain bigChain 1`] = `
 Object {
-  "chain_score": 66,
-  "end": 133710,
+  "chainScore": 66,
+  "chrom": "chr22_KI270731v1_random",
+  "chromEnd": 133710,
+  "chromStart": 133689,
   "name": "530549",
-  "q_end": 80144725,
-  "q_name": "chr16",
-  "q_size": 98207768,
-  "q_start": 80144720,
-  "refName": "chr22_KI270731v1_random",
+  "qEnd": 80144725,
+  "qName": "chr16",
+  "qSize": 98207768,
+  "qStart": 80144720,
   "score": 1000,
-  "start": 133689,
   "strand": -1,
-  "t_size": 150754,
+  "tSize": 150754,
 }
 `;
 
 exports[`bigGenePred bigGenePred 1`] = `
 Object {
-  "block_count": 3,
-  "block_sizes": Array [
+  "blockCount": 3,
+  "blockSizes": Array [
     359,
     109,
     1189,
   ],
-  "cds_end_stat": "none",
-  "cds_start_stat": "none",
-  "chrom_starts": Array [
+  "cdsEndStat": "none",
+  "cdsStartStat": "none",
+  "chrom": "chr1",
+  "chromEnd": 14409,
+  "chromStart": 11868,
+  "chromStarts": Array [
     0,
     744,
     1352,
   ],
-  "end": 14409,
-  "exon_frames": Array [
+  "exonFrames": Array [
     -1,
     -1,
     -1,
   ],
-  "gene_name": "ENST00000456328.2",
-  "gene_name2": "DDX11L1",
-  "gene_type": "none",
+  "geneName": "ENST00000456328.2",
+  "geneName2": "DDX11L1",
+  "geneType": "none",
   "name": "ENST00000456328.2",
   "name2": "DDX11L1",
-  "refName": "chr1",
   "reserved": "255,128,0",
   "score": 1000,
-  "start": 11868,
   "strand": 1,
-  "thick_end": 11868,
-  "thick_start": 11868,
+  "thickEnd": 11868,
+  "thickStart": 11868,
   "type": "none",
 }
 `;
 
 exports[`bigGenePred bigGenePred 2`] = `
 Object {
-  "block_count": 11,
-  "block_sizes": Array [
+  "blockCount": 11,
+  "blockSizes": Array [
     98,
     34,
     152,
@@ -154,9 +154,12 @@ Object {
     154,
     37,
   ],
-  "cds_end_stat": "none",
-  "cds_start_stat": "none",
-  "chrom_starts": Array [
+  "cdsEndStat": "none",
+  "cdsStartStat": "none",
+  "chrom": "chr1",
+  "chromEnd": 29570,
+  "chromStart": 14403,
+  "chromStarts": Array [
     0,
     601,
     1392,
@@ -169,8 +172,7 @@ Object {
     10334,
     15130,
   ],
-  "end": 29570,
-  "exon_frames": Array [
+  "exonFrames": Array [
     -1,
     -1,
     -1,
@@ -183,188 +185,186 @@ Object {
     -1,
     -1,
   ],
-  "gene_name": "ENST00000488147.1",
-  "gene_name2": "WASH7P",
-  "gene_type": "none",
+  "geneName": "ENST00000488147.1",
+  "geneName2": "WASH7P",
+  "geneType": "none",
   "name": "ENST00000488147.1",
   "name2": "WASH7P",
-  "refName": "chr1",
   "reserved": "255,128,0",
   "score": 1000,
-  "start": 14403,
   "strand": -1,
-  "thick_end": 14403,
-  "thick_start": 14403,
+  "thickEnd": 14403,
+  "thickStart": 14403,
   "type": "none",
 }
 `;
 
 exports[`bigInteract bigInteract 1`] = `
 Object {
+  "chrom": "chr3",
+  "chromEnd": 63705638,
+  "chromStart": 63702628,
   "color": "0",
-  "end": 63705638,
-  "refName": "chr3",
   "score": 584,
-  "source_chrom": "chr17",
-  "source_end": 58880897,
-  "source_start": 58878552,
-  "start": 63702628,
+  "sourceChrom": "chr17",
+  "sourceEnd": 58880897,
+  "sourceStart": 58878552,
   "strand": 0,
-  "target_chrom": "chr3",
-  "target_end": 63705638,
-  "target_start": 63702628,
+  "targetChrom": "chr3",
+  "targetEnd": 63705638,
+  "targetStart": 63702628,
   "value": "10",
 }
 `;
 
 exports[`bigLink bigLink 1`] = `
 Object {
-  "end": 7918,
+  "chrom": "chr22_KI270731v1_random",
+  "chromEnd": 7918,
+  "chromStart": 7917,
   "name": "2912",
-  "q_start": 75185566,
-  "refName": "chr22_KI270731v1_random",
-  "start": 7917,
+  "qStart": 75185566,
   "strand": 0,
 }
 `;
 
 exports[`bigMaf bigMaf 1`] = `
 Object {
-  "end": 2,
-  "maf_block": "a score=60.000000;s hg38.chr22_KI270731v1_random        0 2 +   150754 AC;s canFam3.chr26                27974205 2 + 38964690 AT;",
-  "refName": "chr22_KI270731v1_random",
-  "start": 0,
+  "chrom": "chr22_KI270731v1_random",
+  "chromEnd": 2,
+  "chromStart": 0,
+  "mafBlock": "a score=60.000000;s hg38.chr22_KI270731v1_random        0 2 +   150754 AC;s canFam3.chr26                27974205 2 + 38964690 AT;",
   "strand": 0,
 }
 `;
 
 exports[`bigNarrowPeak bigNarrowPeak 1`] = `
 Object {
-  "end": 566953,
-  "p_value": 5.54347,
+  "chrom": "chr1",
+  "chromEnd": 566953,
+  "chromStart": 566753,
+  "pValue": 5.54347,
   "peak": 154,
-  "q_value": 4.80079,
-  "refName": "chr1",
+  "qValue": 4.80079,
   "score": 468,
-  "signal_value": 103.84,
-  "start": 566753,
+  "signalValue": 103.84,
   "strand": 0,
 }
 `;
 
 exports[`bigPsl bigPsl 1`] = `
 Object {
-  "block_count": 3,
-  "block_sizes": Array [
+  "blockCount": 3,
+  "blockSizes": Array [
     354,
     109,
     1141,
   ],
-  "chrom_size": 248956422,
-  "chrom_starts": Array [
+  "chrom": "chr1",
+  "chromEnd": 14361,
+  "chromSize": 248956422,
+  "chromStart": 11873,
+  "chromStarts": Array [
     0,
     739,
     1347,
   ],
-  "end": 14361,
   "match": 1579,
-  "mis_match": 25,
-  "n_count": 0,
+  "misMatch": 25,
+  "nCount": 0,
   "name": "mAM992877",
-  "o_cds": "",
-  "o_chrom_end": 1604,
-  "o_chrom_size": 1604,
-  "o_chrom_start": 0,
-  "o_chrom_starts": Array [
+  "oCDS": "",
+  "oChromEnd": 1604,
+  "oChromSize": 1604,
+  "oChromStart": 0,
+  "oChromStarts": Array [
     0,
     354,
     463,
   ],
-  "o_sequence": "",
-  "o_strand": Array [
+  "oSequence": "",
+  "oStrand": Array [
     "+",
   ],
-  "refName": "chr1",
-  "rep_match": 0,
+  "repMatch": 0,
   "reserved": 0,
   "score": 1000,
-  "seq_type": 0,
-  "start": 11873,
+  "seqType": 0,
   "strand": 1,
-  "thick_end": 14361,
-  "thick_start": 11873,
+  "thickEnd": 14361,
+  "thickStart": 11873,
 }
 `;
 
 exports[`bigPsl bigPsl 2`] = `
 Object {
-  "block_count": 3,
-  "block_sizes": Array [
+  "blockCount": 3,
+  "blockSizes": Array [
     354,
     109,
     1141,
   ],
-  "chrom_size": 248956422,
-  "chrom_starts": Array [
+  "chrom": "chr1",
+  "chromEnd": 14361,
+  "chromSize": 248956422,
+  "chromStart": 11873,
+  "chromStarts": Array [
     0,
     739,
     1347,
   ],
-  "end": 14361,
   "match": 1579,
-  "mis_match": 25,
-  "n_count": 0,
+  "misMatch": 25,
+  "nCount": 0,
   "name": "mAM992877",
-  "o_cds": "365..502",
-  "o_chrom_end": 1604,
-  "o_chrom_size": 1604,
-  "o_chrom_start": 0,
-  "o_chrom_starts": Array [
+  "oCDS": "365..502",
+  "oChromEnd": 1604,
+  "oChromSize": 1604,
+  "oChromStart": 0,
+  "oChromStarts": Array [
     0,
     354,
     463,
   ],
-  "o_sequence": "cttgccgtcagccttttctttgacctcttctttctgttcatgtgtatctgctgtctcttagcccagacttcccgtgtcctttccaccgggcctttgggaggtcacagggtcttgatgctgtggtcttgatctgcaggtgtctgacttccagcaactgctggcctgtgccagggtggaagctgagcactggagtggagttttcctgtggagaggagccatgcctagagtgggatgggccattgttcatattctggcccctgttgtctgcatgtaacctaataccacgaccaggcatgggggaaagattggaggaaagttgagtgagaggatcaacttctctgacaacctaggccagtgtgtggtgatgccaggcatgcccttccccagcatcaggtctccagagctgcagaagacgacggccgacttggatcacactcttgtgagtgtccccagtgttgcagaggcagggccatcaggcaccaaagggattctgccagcatagtgctcctggaccagtgatacacccggcaccctgtcctggacaggctgttggcctggatctgagccctcgtggaggtcaaagccacctttggttctgccattactgctgtgtggaagttcactcctgccttttcctttcccgagagcctccaccaccccgagatcgcatttctcactgccttttgtctgcccagtttcaccagaagtaggcctcttcctgacaggcagctgcaccactgcctggcgctgcgcccttcctttgctctgcccgctggagacggtgtttgtcatgggcctggtctgcagggatcctgctacaaaggtgaaacccaggagagtgtggagtccagagtgttgccaggacccaggcacaggcattagtgcccgttggagaaaacaggggaatcccgaagaaatggtgggttttggccatccgtgagatcttcccagggcagctcccctctgtggaatccaatctgtcttccatcctgcgtggccgagggccaggcttctcactgggcctctgcaggaggctgccatttgtcctgcccaccgtcttagaagcgagacggagcagactcatctgctactgccctttctataataactaaagttagctgccctggactattcaccccctagtctcaatttaaaaagatccccatggccacagggcccctgcctgggggcttgtcacctcccccaccttcttcctgagtcacttctgcagccttgctccctaacctgccccacagccttgcctggatttctatctccctggcttggtgccagttcctccaagtcgatggcacctccctccctctcaaccacttgagcaaactccaagacatcttctaccccaacaccagcaattgtgccaagggccattaggctctcagcatgactatttttagagaccccgtgtctgtcactgaaaccttttttgtgggagactattcctcccatctgcaacagctgcccctgctgacggcccttctctcctccctctcatcccagagaaacaggtcagctgggagcttctgcccccactgcctagggaccaacaggggcaggaggcagtcactgaccccgagacgtttgca",
-  "o_strand": Array [
+  "oSequence": "cttgccgtcagccttttctttgacctcttctttctgttcatgtgtatctgctgtctcttagcccagacttcccgtgtcctttccaccgggcctttgggaggtcacagggtcttgatgctgtggtcttgatctgcaggtgtctgacttccagcaactgctggcctgtgccagggtggaagctgagcactggagtggagttttcctgtggagaggagccatgcctagagtgggatgggccattgttcatattctggcccctgttgtctgcatgtaacctaataccacgaccaggcatgggggaaagattggaggaaagttgagtgagaggatcaacttctctgacaacctaggccagtgtgtggtgatgccaggcatgcccttccccagcatcaggtctccagagctgcagaagacgacggccgacttggatcacactcttgtgagtgtccccagtgttgcagaggcagggccatcaggcaccaaagggattctgccagcatagtgctcctggaccagtgatacacccggcaccctgtcctggacaggctgttggcctggatctgagccctcgtggaggtcaaagccacctttggttctgccattactgctgtgtggaagttcactcctgccttttcctttcccgagagcctccaccaccccgagatcgcatttctcactgccttttgtctgcccagtttcaccagaagtaggcctcttcctgacaggcagctgcaccactgcctggcgctgcgcccttcctttgctctgcccgctggagacggtgtttgtcatgggcctggtctgcagggatcctgctacaaaggtgaaacccaggagagtgtggagtccagagtgttgccaggacccaggcacaggcattagtgcccgttggagaaaacaggggaatcccgaagaaatggtgggttttggccatccgtgagatcttcccagggcagctcccctctgtggaatccaatctgtcttccatcctgcgtggccgagggccaggcttctcactgggcctctgcaggaggctgccatttgtcctgcccaccgtcttagaagcgagacggagcagactcatctgctactgccctttctataataactaaagttagctgccctggactattcaccccctagtctcaatttaaaaagatccccatggccacagggcccctgcctgggggcttgtcacctcccccaccttcttcctgagtcacttctgcagccttgctccctaacctgccccacagccttgcctggatttctatctccctggcttggtgccagttcctccaagtcgatggcacctccctccctctcaaccacttgagcaaactccaagacatcttctaccccaacaccagcaattgtgccaagggccattaggctctcagcatgactatttttagagaccccgtgtctgtcactgaaaccttttttgtgggagactattcctcccatctgcaacagctgcccctgctgacggcccttctctcctccctctcatcccagagaaacaggtcagctgggagcttctgcccccactgcctagggaccaacaggggcaggaggcagtcactgaccccgagacgtttgca",
+  "oStrand": Array [
     "+",
   ],
-  "refName": "chr1",
-  "rep_match": 0,
+  "repMatch": 0,
   "reserved": 0,
   "score": 1000,
-  "seq_type": 1,
-  "start": 11873,
+  "seqType": 1,
   "strand": 1,
-  "thick_end": 13259,
-  "thick_start": 12622,
+  "thickEnd": 13259,
+  "thickStart": 12622,
 }
 `;
 
 exports[`mafFrames mafFrames 1`] = `
 Object {
-  "end": 12574,
+  "chrom": "chr22_KI270731v1_random",
+  "chromEnd": 12574,
+  "chromStart": 11287,
   "frame": "0",
-  "is_exon_end": "1",
-  "is_exon_start": "1",
+  "isExonEnd": "1",
+  "isExonStart": "1",
   "name": "ENST00000619792.1",
-  "next_frame_pos": -1,
-  "prev_frame_pos": -1,
-  "refName": "chr22_KI270731v1_random",
+  "nextFramePos": -1,
+  "prevFramePos": -1,
   "src": "hg38",
-  "start": 11287,
   "strand": -1,
 }
 `;
 
 exports[`mafSummary mafSummary 1`] = `
 Object {
-  "end": 9270,
-  "left_status": Array [],
-  "refName": "chr22_KI270731v1_random",
-  "right_status": Array [],
+  "chrom": "chr22_KI270731v1_random",
+  "chromEnd": 9270,
+  "chromStart": 0,
+  "leftStatus": Array [],
+  "rightStatus": Array [],
   "score": 0.568679,
   "src": "canFam3",
-  "start": 0,
   "strand": 0,
 }
 `;
@@ -380,11 +380,13 @@ Object {
     },
     Object {
       "comment": "Start position of feature on chromosome",
+      "isNumeric": true,
       "name": "chromStart",
       "type": "uint",
     },
     Object {
       "comment": "End position of feature on chromosome",
+      "isNumeric": true,
       "name": "chromEnd",
       "type": "uint",
     },
@@ -395,27 +397,32 @@ Object {
     },
     Object {
       "comment": "Score",
+      "isNumeric": true,
       "name": "score",
       "type": "uint",
     },
     Object {
       "comment": "+ or - for strand",
+      "isArray": true,
       "name": "strand",
       "size": 1,
       "type": "char",
     },
     Object {
       "comment": "Coding region start",
+      "isNumeric": true,
       "name": "thickStart",
       "type": "uint",
     },
     Object {
       "comment": "Coding region end",
+      "isNumeric": true,
       "name": "thickEnd",
       "type": "uint",
     },
     Object {
       "comment": "Green on + strand, Red on - strand",
+      "isNumeric": true,
       "name": "reserved",
       "type": "uint",
     },

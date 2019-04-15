@@ -25,6 +25,7 @@ The default instantiation of the parser with new BED() simply parses lines assum
 ```js
 const p = new BED()
 const feature = p.parseLine('chr1\t0\t100')
+// { chrom: 'chr1', chromStart: 0, chromEnd: 100, strand: 0 }
 ```
 
 The default schema is the same 12 fields as UCSC
@@ -68,27 +69,26 @@ const p = new BED({ type: 'bigGenePred' })
 const line = 'chr1\t11868\t14409\tENST00000456328.2\t1000\t+\t11868\t11868\t255,128,0\t3\t359,109,1189,\t0,744,1352,\tDDX11L1\tnone\tnone\t-1,-1,-1,\tnone\tENST00000456328.2\tDDX11L1\tnone'
 p.parseLine(line)
 // above line outputs
-      { refID: 'chr1',
-        start: 11868,
-        end: 14409,
+      { chrom: 'chr1',
+        chromStart: 11868,
+        chromEnd: 14409,
         name: 'ENST00000456328.2',
         score: 1000,
         strand: 1,
-        thick_start: 11868,
-        thick_end: 11868,
+        thickStart: 11868,
+        thickEnd: 11868,
         reserved: '255,128,0',
-        block_count: 3,
-        block_sizes: [ 359, 109, 1189 ],
-        chrom_starts: [ 0, 744, 1352 ],
+        blockCount: 3,
+        blockSizes: [ 359, 109, 1189 ],
+        chromStarts: [ 0, 744, 1352 ],
         name2: 'DDX11L1',
-        cds_start_stat: 'none',
-        cds_end_stat: 'none',
-        exon_frames: [ -1, -1, -1 ],
+        cdsStartStat: 'none',
+        cdsEndStat: 'none',
+        exonFrames: [ -1, -1, -1 ],
         type: 'none',
-        gene_name: 'ENST00000456328.2',
-        gene_name2: 'DDX11L1',
-        gene_type: 'none' }
-
+        geneName: 'ENST00000456328.2',
+        geneName2: 'DDX11L1',
+        geneType: 'none' }
 ```
 
 ### BED parser with autoSql

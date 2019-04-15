@@ -1,8 +1,10 @@
-import snakeCase from 'snake-case'
 import parser from './autoSql'
 import types from './defaultTypes'
 
-/* eslint no-param-reassign: ["error", { "props": false }] */
+// adds annotation to autoSql fields
+// for numeric fields "isNumeric" is added
+// for array types "isArray" is added
+// for numeric array types "isArray" and "arrayIsNumeric" is set
 const detectTypes = autoSql => {
   const numericTypes = ['uint', 'int', 'float', 'long']
   const fields = autoSql.fields.map(autoField => {
@@ -20,6 +22,7 @@ const detectTypes = autoSql => {
   })
   return { ...autoSql, fields }
 }
+
 export default class BED {
   constructor(args = {}) {
     if (args.autoSql) {
@@ -31,79 +34,81 @@ export default class BED {
     }
   }
 
-  parseLine(line) {
+  parseLine(line, opts = {}) {
     const { autoSql } = this
     if (line.startsWith('track') || line.startsWith('browser'))
       throw new Error(
         `Error: track and browser line parsing is not supported, please filter:\n${line}`,
       )
-
-    const ret = line.split('\t')
-    if (ret.length < 3)
-      throw new Error(
-        'Error: line not tab delimited? (note: specification for BED allows spaces but this is unimplemented)',
-      )
-    if (autoSql) {
-      const [refName, start, end, ...rest] = ret
-      return this.parseBedText(refName, +start, +end, rest, {
-        offset: 3,
-      })
-    }
-    return BED.parseBedDefault(ret)
+    return autoSql
+      ? this.parseLineAutoSql(line, opts)
+      : BED.parseLineDefault(line, opts)
   }
 
-  static unescape(s) {
+  static unescape(s = '') {
     return s.replace(/%([0-9A-Fa-f]{2})/g, (match, seq) =>
       String.fromCharCode(parseInt(seq, 16)),
     )
   }
 
-  static featureNames = 'refName start end name score strand thickStart thickEnd itemRgb blockCount blockSizes blockStarts'.split(
+  // default BED12 fields, parses as many as possible of these in parseLineDefault
+  static featureNames = 'chrom chromStart chromEnd name score strand thickStart thickEnd itemRgb blockCount blockSizes blockStarts'.split(
     ' ',
   )
 
-  static parseBedDefault(ret) {
-    const f = ret.map(a => (a === '.' ? null : a))
+  /*
+   * parses a line of text as a BED line with the default schema, can contain a subset of the BED12 fields
+   *
+   * @param line - a BED line
+   * @param opts - supply opts.uniqueId have a uniqueId not encoded in BED file itself
+   * @return a object representing a feature
+   */
+  static parseLineDefault(line, opts = {}) {
+    const fields = line.split('\t')
+    const f = fields.map(a => (a === '.' ? null : a))
 
-    const parsed = {}
+    const featureData = {}
     for (let i = 0; i < BED.featureNames.length; i += 1) {
       if (f[i] !== null && f[i] !== undefined) {
-        parsed[BED.featureNames[i]] = f[i]
+        featureData[BED.featureNames[i]] = f[i]
       }
     }
-    if (parsed.start !== null) parsed.start = parseInt(parsed.start, 10)
-    if (parsed.end !== null) parsed.end = parseInt(parsed.end, 10)
-    if (parsed.score != null) parsed.score = parseFloat(parsed.score, 10)
+    if (featureData.chromStart !== null)
+      featureData.chromStart = parseInt(featureData.chromStart, 10)
+    if (featureData.chromEnd !== null)
+      featureData.chromEnd = parseInt(featureData.chromEnd, 10)
+    if (featureData.score != null)
+      featureData.score = parseFloat(featureData.score, 10)
 
     // unescape only the ref columns
-    parsed.refName = BED.unescape(parsed.refName)
-    parsed.strand = { '+': 1, '-': -1 }[parsed.strand] || 0
+    featureData.chrom = BED.unescape(featureData.chrom)
+    featureData.strand = { '+': 1, '-': -1 }[featureData.strand] || 0
+    if (opts.uniqueId) featureData.uniqueId = opts.uniqueId
 
-    return parsed
+    return featureData
   }
 
   /*
-   * refName - string: name of chromosome or refseq
-   * start - number: start 0 based half open coordinate
-   * end - number: end 0 based half open coordinate
-   * rest - a list of fields to parse
-   * opts.offset to skip fields from the autoSql that have already been parsed
-   * opts.uniqueId to supply a uniqueId that was not encoded in the BED file itself
+   * parses a line of text as a BED line with the loaded autoSql schema
+   *
+   * @param line - a BED line
+   * @param opts - supply opts.uniqueId have a uniqueId not encoded in BED file itself
+   * @return a object representing a feature
    */
-  parseBedText(refName, start, end, rest, opts = {}) {
+  parseLineAutoSql(line, opts = {}) {
     const { autoSql } = this
-    const { offset, uniqueId } = opts
+    const { uniqueId } = opts // optionally supply a uniqueId based on fileoffset
     if (!autoSql)
       throw new Error(
         'no autoSql configured, please supply autoSql or format to BED constructor',
       )
-    const featureData = { refName, start, end }
+    const fields = line.split('\t')
+    const featureData = {}
     if (uniqueId) featureData.uniqueId = uniqueId
-    const bedColumns = Array.isArray(rest) ? rest : rest.split('\t')
-    // first three columns (chrom,start,end) are not included in bigBed, so use offset to compensate
-    for (let i = offset; i < autoSql.fields.length; i += 1) {
+
+    for (let i = 0; i < autoSql.fields.length; i += 1) {
       const autoField = autoSql.fields[i]
-      let columnVal = bedColumns[i - offset]
+      let columnVal = fields[i]
       const { isNumeric, isArray, arrayIsNumeric, name } = autoField
       if (columnVal === null || columnVal === undefined) {
         console.warn(`column ${i} does not exist, expected ${name}`)
@@ -124,7 +129,7 @@ export default class BED {
           if (arrayIsNumeric) columnVal = columnVal.map(str => Number(str))
         }
 
-        featureData[snakeCase(name)] = columnVal
+        featureData[name] = columnVal
       }
     }
 
