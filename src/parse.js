@@ -1,12 +1,12 @@
 import parser from './autoSql'
 import types from './defaultTypes'
-import { regularizeFeat, detectTypes } from './util'
+import { detectTypes } from './util'
 
 export default class BED {
   constructor(args = {}) {
     if (args.autoSql) {
       this.autoSql = detectTypes(parser.parse(args.autoSql))
-    } else if (args.type && types[args.type]) {
+    } else if (args.type) {
       this.autoSql = detectTypes(
         types[args.type] || throw new Error('Type not found'),
       )
@@ -19,17 +19,17 @@ export default class BED {
    * parses a line of text as a BED line with the loaded autoSql schema
    *
    * @param line - a BED line as tab delimited text or array
-   * @param opts - supply opts.uniqueId and opts.regularize
+   * @param opts - supply opts.uniqueId
    * @return a object representing a feature
    */
   parseLine(line, opts = {}) {
     const { autoSql } = this
-    const { regularize, uniqueId } = opts
+    const { uniqueId } = opts
     let fields = line
     if (!Array.isArray(line)) {
       if (line.startsWith('track') || line.startsWith('browser'))
         throw new Error(
-          `Error: track and browser line parsing is not supported, please filter:\n${line}`,
+          `track and browser line parsing is not supported, please filter:\n${line}`,
         )
       fields = line.split('\t')
     }
@@ -65,14 +65,8 @@ export default class BED {
     if (featureData.chrom) {
       featureData.chrom = decodeURIComponent(featureData.chrom)
     }
+    featureData.strand = { '.': 0, '-': -1, '+': 1 }[featureData.strand] || 0
 
-    if (featureData.strand) {
-      featureData.strand = { '-': -1, '+': 1 }[featureData.strand] || 0
-    }
-
-    if (regularize) {
-      return regularizeFeat(featureData)
-    }
     return featureData
   }
 }

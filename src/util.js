@@ -24,18 +24,3 @@ export function detectTypes(autoSql) {
   })
   return { ...autoSql, fields }
 }
-
-/*
- * regularizes a feature by modifying the {chrom,chromStart,chromEnd} to {refName,start,end}
- * @params featureData a feature to regularize
- * @return a regularized feature
- */
-export function regularizeFeat(featureData) {
-  const {
-    chrom: refName,
-    chromStart: start,
-    chromEnd: end,
-    ...rest
-  } = featureData
-  return { ...rest, refName, start, end }
-}

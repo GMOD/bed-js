@@ -5,6 +5,7 @@ Object {
   "chrom": "contigA",
   "chromEnd": 10884,
   "chromStart": 10875,
+  "strand": 0,
 }
 `;
 
@@ -13,6 +14,7 @@ Object {
   "chrom": "co,tigA",
   "chromEnd": 10884,
   "chromStart": 10875,
+  "strand": 0,
 }
 `;
 
@@ -44,6 +46,7 @@ Object {
   "chromEnd": 10884,
   "chromStart": 10875,
   "name": "test2",
+  "strand": 0,
 }
 `;
 
@@ -218,6 +221,7 @@ Object {
   "sourceChrom": "chr17",
   "sourceEnd": 58880897,
   "sourceStart": 58878552,
+  "strand": 0,
   "targetChrom": "chr3",
   "targetEnd": 63705638,
   "targetStart": 63702628,
@@ -232,6 +236,7 @@ Object {
   "chromStart": 7917,
   "name": "2912",
   "qStart": 75185566,
+  "strand": 0,
 }
 `;
 
@@ -241,10 +246,11 @@ Object {
   "chromEnd": 2,
   "chromStart": 0,
   "mafBlock": "a score=60.000000;s hg38.chr22_KI270731v1_random        0 2 +   150754 AC;s canFam3.chr26                27974205 2 + 38964690 AT;",
+  "strand": 0,
 }
 `;
 
-exports[`bigNarrowPeak bigNarrowPeak 1`] = `
+exports[`bigNarrowPeak 1`] = `
 Object {
   "chrom": "chr1",
   "chromEnd": 566953,
@@ -254,19 +260,22 @@ Object {
   "qValue": 4.80079,
   "score": 468,
   "signalValue": 103.84,
+  "strand": 0,
 }
 `;
 
-exports[`bigNarrowPeak with regularize bigNarrowPeak 1`] = `
+exports[`bigNarrowPeak 2`] = `
 Object {
-  "end": 566953,
+  "chrom": "chr1",
+  "chromEnd": 566953,
+  "chromStart": 566753,
   "pValue": 5.54347,
   "peak": 154,
   "qValue": 4.80079,
-  "refName": "chr1",
   "score": 468,
   "signalValue": 103.84,
-  "start": 566753,
+  "strand": 0,
+  "uniqueId": 1,
 }
 `;
 
@@ -379,6 +388,7 @@ Object {
   "rightStatus": "",
   "score": 0.568679,
   "src": "canFam3",
+  "strand": 0,
 }
 `;
 

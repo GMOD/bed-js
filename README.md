@@ -46,16 +46,15 @@ If neither autoSql or type is specified, the default BED schema is used (see [he
 
 Parses a BED line according to the currently loaded schema
 
-* line - is a tab delimited line with fields from the schema
-* opts - an options object
+* line: string|Array<string> - is a tab delimited line with fields from the schema, or an array of fields with fields from the schema
+* opts: Options - an options object
 
-An options object can contain
+An Options object can contain
 
 * opts.uniqueId - an indication of a uniqueId that is not encoded by the BED line itself
-* opts.regularize - an indication to change the fields {chrom, chromStart, chromEnd} to {refName, start, end}
 
 The default instantiation of the parser with new BED() simply parses lines assuming the fields come from the standard BED schema.
-Your line can just contain the subset of the fields `chrom, chromStart, chromEnd, name, score`
+Your line can just contain just a subset of the fields e.g. `chrom, chromStart, chromEnd, name, score`
 
 
 ## Examples
@@ -66,40 +65,35 @@ Your line can just contain the subset of the fields `chrom, chromStart, chromEnd
 const p = new BED()
 
 p.parseLine('chr1\t0\t100')
-// outputs { chrom: 'chr1', chromStart: 0, chromEnd: 100 }
-
-p.parseLine('chr1\t0\t100', {regularize: true, uniqueId: 1})
-// outputs { uniqueId: 1, refName: 'chr1', start: 0, end: 100 }
+// outputs { chrom: 'chr1', chromStart: 0, chromEnd: 100, strand: 0 }
 ```
-
-Note that regularizing changes the names of some fields in the output, a convenience method
 
 
 ### Parsing BED with a built in schema e.g. bigGenePred
 
-If you have a BED format that corresponds to a different schema, you can specify from a list of default built in alternate schemas or specify an autoSql as a string
+If you have a BED format that corresponds to a different schema, you can specify from the list of default built in schemas
 
-Specify this in the type for the BED constructor
+Specify this in the opts.type for the BED constructor
 
 ```js
 const p = new BED({ type: 'bigGenePred' })
 const line = 'chr1\t11868\t14409\tENST00000456328.2\t1000\t+\t11868\t11868\t255,128,0\t3\t359,109,1189,\t0,744,1352,\tDDX11L1\tnone\tnone\t-1,-1,-1,\tnone\tENST00000456328.2\tDDX11L1\tnone'
 p.parseLine(line)
 // above line outputs
-      { chrom: 'chr1',                                                                                                                                                      
-        chromStart: 11868,                                                                                                                                                  
-        chromEnd: 14409,                                                                                                                                                    
-        name: 'ENST00000456328.2',                                                                                                                                          
-        score: 1000,                                                                                                                                                        
-        strand: 1,                                                                                                                                                          
-        thickStart: 11868,                                                                                                                                                  
-        thickEnd: 11868,                                                                                                                                                    
-        reserved: '255,128,0',                                                                                                                                              
-        blockCount: 3,                                                                                                                                                      
-        blockSizes: [ 359, 109, 1189 ],                                                                                                                                     
-        chromStarts: [ 0, 744, 1352 ],                                                                                                                                      
-        name2: 'DDX11L1',                                                                                                                                                   
-        cdsStartStat: 'none',                                                                                                                                               
+      { chrom: 'chr1',
+        chromStart: 11868,
+        chromEnd: 14409,
+        name: 'ENST00000456328.2',
+        score: 1000,
+        strand: 1,
+        thickStart: 11868,
+        thickEnd: 11868,
+        reserved: '255,128,0',
+        blockCount: 3,
+        blockSizes: [ 359, 109, 1189 ],
+        chromStarts: [ 0, 744, 1352 ],
+        name2: 'DDX11L1',
+        cdsStartStat: 'none',
         cdsEndStat: 'none',
         exonFrames: [ -1, -1, -1 ],
         type: 'none',
@@ -128,6 +122,7 @@ p.parseLine(line)
 
 * Does not parse "browser" or "track" lines and will throw an error if parseLine receives one of these
 * By default, parseLine parses only tab delimited text, if you want to use spaces as is allowed by UCSC then pass an array to `line` for parseLine
+* Converts strand from {+,-,.} to {1,-1,0} and also sets strand 0 even if no strand is in the autoSql
 
 
 ## Academic Use
