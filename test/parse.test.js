@@ -199,18 +199,3 @@ test('real world', () => {
   const p = new BED({ autoSql })
   expect(p.autoSql).toMatchSnapshot()
 })
-
-test('generate README output', () => {
-  const p = new BED()
-  const f1 = p.parseLine('chr1\t0\t100')
-  // outputs { chrom: 'chr1', chromStart: 0, chromEnd: 100 }
-  const f2 = p.parseLine('chr1\t0\t100', { regularize: true, uniqueId: 1 })
-  // outputs { uniqueId: 1, refName: 'chr1', start: 0, end: 100 }
-  console.log(f1)
-  console.log(f2)
-  // console.log(p.parseLine('chr1\t0\t100'))
-  // const p2 = new BED({ type: 'bigGenePred' })
-  // const line =
-  //   'chr1\t11868\t14409\tENST00000456328.2\t1000\t+\t11868\t11868\t255,128,0\t3\t359,109,1189,\t0,744,1352,\tDDX11L1\tnone\tnone\t-1,-1,-1,\tnone\tENST00000456328.2\tDDX11L1\tnone'
-  // console.log(p2.parseLine(line))
-})

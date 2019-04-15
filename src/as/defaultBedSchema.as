@@ -12,5 +12,5 @@ table defaultBedSchema
     string itemRgb; "An RGB value of the form R,G,B (e.g. 255,0,0). "
     uint blockCount; " The number of blocks (exons) in the BED line."
     uint[blockCount] blockSizes; " A comma-separated list of the block sizes. The number of items in this list should correspond to blockCount."
-    uint[blockCount] blockStart; "A comma-separated list of block starts. All of the blockStart positions should be calculated relative to chromStart. The number of items in this list should correspond to blockCount."
+    uint[blockCount] blockStarts; "A comma-separated list of block starts. All of the blockStart positions should be calculated relative to chromStart. The number of items in this list should correspond to blockCount."
     )

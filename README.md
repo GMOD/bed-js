@@ -40,21 +40,7 @@ The predefined types can include
     mafFrames
     mafSummary
 
-If neither autoSql or type is specified, the default BED schema is used
-
-    chrom
-    chromStart
-    chromEnd
-    name
-    score
-    strand
-    thickStart
-    thickEnd
-    itemRgb
-    blockCount
-    blockSizes
-    blockStarts
-
+If neither autoSql or type is specified, the default BED schema is used (see [here](src/as/defaultBedSchema.as))
 
 ### parseLine(line, opts)
 
@@ -140,8 +126,8 @@ p.parseLine(line)
 ### Important notes
 
 
-* Does not convert blockStarts/blockEnds to gene features
-* Does not parse "header" or "track" lines and will throw an error if parseLine receives one of these
+* Does not convert blockSizes/blockStarts to gene features
+* Does not parse "browser" or "track" lines and will throw an error if parseLine receives one of these
 * Does not handle files that use spaces instead of tabs even though this is allowed by UCSC
 
 

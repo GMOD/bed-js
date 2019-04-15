@@ -1,6 +1,6 @@
 import parser from './autoSql'
 import types from './defaultTypes'
-import { detectTypes } from './util'
+import { regularizeFeat, detectTypes } from './util'
 
 export default class BED {
   constructor(args = {}) {
@@ -13,12 +13,6 @@ export default class BED {
     } else {
       this.autoSql = detectTypes(types.defaultBedSchema)
     }
-  }
-
-  static unescape(s = '') {
-    return s.replace(/%([0-9A-Fa-f]{2})/g, (match, seq) =>
-      String.fromCharCode(parseInt(seq, 16)),
-    )
   }
 
   /*
@@ -52,8 +46,6 @@ export default class BED {
       if (columnVal === null || columnVal === undefined) {
         break
       }
-      console.log(autoField)
-
       if (columnVal !== '.') {
         if (isNumeric) {
           const num = Number(columnVal)
@@ -73,7 +65,7 @@ export default class BED {
     }
 
     if (featureData.chrom) {
-      featureData.chrom = BED.unescape(featureData.chrom)
+      featureData.chrom = decodeURIComponent(featureData.chrom)
     }
 
     if (featureData.strand) {
@@ -81,18 +73,8 @@ export default class BED {
     }
 
     if (opts.regularize) {
-      return this.regularizeFeat(featureData)
+      return regularizeFeat(featureData)
     }
     return featureData
-  }
-
-  regularizeFeat(featureData) {
-    const {
-      chrom: refName,
-      chromStart: start,
-      chromEnd: end,
-      ...rest
-    } = featureData
-    return { ...rest, refName, start, end }
   }
 }
