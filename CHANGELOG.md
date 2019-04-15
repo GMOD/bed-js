@@ -1,5 +1,6 @@
+- Breaking change - API now all processes text lines, so it is recommended to simply supply parseLine with the text line and options opts arguments containing things like uniqueId 
 - Remove snake case of results
-- Changed API so that it is recommended to pass everything through to parseLine with the line argument being plain tab separated text line and opts containing optional values
+- Make returned values match very faithfully the autoSql and default schema including using the chrom, chromStart, and chromEnd fields instead of renaming them to refName, start and end
 
 
 ## [1.0.4](https://github.com/GMOD/bed-js/compare/v1.0.3...v1.0.4) (2019-04-14)
