@@ -52,7 +52,7 @@ fieldType =
 fieldSize = number /
              fieldName
 
-name = t:([a-zA-Z][a-zA-Z0-9_]*) { return text() }
+name = t:([a-zA-Z_][a-zA-Z0-9_]*) { return text() }
 
 quotedString   = '"' t:(([^"]*)) '"' { return t.join('') }
 
