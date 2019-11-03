@@ -1,3 +1,5 @@
+- Add fix for names that contain underscores
+
 # [2.0.0](https://github.com/GMOD/bed-js/compare/v1.0.4...v2.0.0) (2019-04-15)
 
 
