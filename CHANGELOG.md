@@ -1,3 +1,8 @@
+<a name="2.0.2"></a>
+## [2.0.2](https://github.com/GMOD/bed-js/compare/v2.0.1...v2.0.2) (2019-11-12)
+
+
+
 <a name="2.0.1"></a>
 ## [2.0.1](https://github.com/GMOD/bed-js/compare/v2.0.0...v2.0.1) (2019-11-03)
 
