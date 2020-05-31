@@ -363,6 +363,52 @@ Object {
 }
 `;
 
+exports[`gdc cancer 1`] = `
+Object {
+  "Entrez_Gene_Id": "2782",
+  "Hugo_Symbol": "GNB1",
+  "Matched_Norm_Sample_Barcode": "TCGA-OR-A5KB-11A-11D-A30A-10",
+  "Reference_Allele": "T",
+  "Tumor_Sample_Barcode": "TCGA-OR-A5KB-01A-11D-A30A-10",
+  "Tumor_Seq_Allele1": "T",
+  "Tumor_Seq_Allele2": "G",
+  "Variant_Classification": "Splice_Region",
+  "Variant_Type": "SNP",
+  "alcohol_history": "--",
+  "alcohol_intensity": "--",
+  "blockCount": 1,
+  "blockSizes": Array [
+    1,
+  ],
+  "bmi": "--",
+  "case_id": "09454ed6-64bc-4a35-af44-7c4344623d45",
+  "chrom": "chr1",
+  "chromEnd": 10,
+  "chromStart": 1,
+  "chromStarts": Array [
+    0,
+  ],
+  "cigarettes_per_day": "--",
+  "days_to_death": "--",
+  "dbSNP_RS": "novel",
+  "dbSNP_Val_Status": "",
+  "ethnicity": "not hispanic or latino",
+  "freq": "0.0108695652174",
+  "gender": "female",
+  "height": "--",
+  "name": "T>G",
+  "project_id": "TCGA-ACC",
+  "reserved": "0,0,0",
+  "sampleCount": "1",
+  "score": 1,
+  "strand": 0,
+  "thickEnd": 1815757,
+  "thickStart": 1815756,
+  "weight": "--",
+  "years_smoked": "--",
+}
+`;
+
 exports[`mafFrames mafFrames 1`] = `
 Object {
   "chrom": "chr22_KI270731v1_random",
