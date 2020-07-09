@@ -59,9 +59,7 @@
     "webpack": "^4.29.5",
     "webpack-cli": "^3.2.3"
   },
-  "dependencies": {
-    "snake-case": "^3.0.3"
-  },
+  "dependencies": {},
   "keywords": [
     "bed",
     "autosql",
