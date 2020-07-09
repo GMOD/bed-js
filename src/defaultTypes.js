@@ -22,9 +22,8 @@ const types = {
   mafSummary,
   defaultBedSchema,
 }
-
-Object.keys(types).forEach(k => {
-  types[k] = parser.parse(types[k])
+Object.keys(types).forEach((k) => {
+  types[k] = parser.parse(types[k].trim())
 })
 
 export default types

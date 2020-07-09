@@ -55,7 +55,7 @@ export default class BED {
           // parse array values
           columnVal = columnVal.split(',')
           if (columnVal[columnVal.length - 1] === '') columnVal.pop()
-          if (arrayIsNumeric) columnVal = columnVal.map(str => Number(str))
+          if (arrayIsNumeric) columnVal = columnVal.map((str) => Number(str))
         }
 
         featureData[name] = columnVal

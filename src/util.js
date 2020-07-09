@@ -9,7 +9,7 @@
  */
 export function detectTypes(autoSql) {
   const numericTypes = ['uint', 'int', 'float', 'long']
-  const fields = autoSql.fields.map(autoField => {
+  const fields = autoSql.fields.map((autoField) => {
     const type = {}
     if (!autoField.size && numericTypes.includes(autoField.type)) {
       type.isNumeric = true
