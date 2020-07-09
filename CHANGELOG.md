@@ -1,3 +1,7 @@
+## [2.0.3](https://github.com/GMOD/bed-js/compare/v2.0.2...v2.0.3) (2020-07-09)
+
+
+
 - Use pre-generated pegjs parser for smaller bundle size
 
 <a name="2.0.2"></a>
