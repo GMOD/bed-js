@@ -27,15 +27,18 @@ export default class BED {
     const { uniqueId } = opts
     let fields = line
     if (!Array.isArray(line)) {
-      if (line.startsWith('track') || line.startsWith('browser'))
+      if (line.startsWith('track') || line.startsWith('browser')) {
         throw new Error(
           `track and browser line parsing is not supported, please filter:\n${line}`,
         )
+      }
       fields = line.split('\t')
     }
 
     const featureData = {}
-    if (uniqueId) featureData.uniqueId = uniqueId
+    if (uniqueId) {
+      featureData.uniqueId = uniqueId
+    }
 
     for (let i = 0; i < autoSql.fields.length; i += 1) {
       const autoField = autoSql.fields[i]
