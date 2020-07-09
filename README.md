@@ -133,3 +133,7 @@ This package was written with funding from the [NHGRI](http://genome.gov) as par
 
 MIT © [Colin Diesh](https://github.com/cmdcolin)
 
+
+
+// based on https://genome-source.gi.ucsc.edu/gitlist/kent.git/blob/master/src/hg/autoSql/autoSql.doc
+// also see http://genomewiki.ucsc.edu/index.php/AutoSql and https://www.linuxjournal.com/article/5949
