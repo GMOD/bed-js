@@ -7,17 +7,15 @@ Performs parsing of BED files including autoSql
 
 ## Usage
 
-
 ### Example
 
 You can pipe your file through this programs parseLine function
 
 ```js
-var parser = new BED()
-var text = fs.readFileSync('file.txt', 'utf8')
-var results = text.split('\n').map(line => parser.parseLine(line))
+var parser = new BED();
+var text = fs.readFileSync("file.txt", "utf8");
+var results = text.split("\n").map((line) => parser.parseLine(line));
 ```
-
 
 ## API
 
@@ -46,28 +44,28 @@ If neither autoSql or type is specified, the default BED schema is used (see [he
 
 Parses a BED line according to the currently loaded schema
 
-* line: string|Array<string> - is a tab delimited line with fields from the schema, or an array of fields with fields from the schema
-* opts: Options - an options object
+- line: `string|Array<string>` - is a tab delimited line with fields from the
+  schema, or an array that has been pre-split by tab with those same contents
+- opts: Options - an options object
 
 An Options object can contain
 
-* opts.uniqueId - an indication of a uniqueId that is not encoded by the BED line itself
+- opts.uniqueId - an indication of a uniqueId that is not encoded by the BED line itself
 
-The default instantiation of the parser with new BED() simply parses lines assuming the fields come from the standard BED schema.
+The default instantiation of the parser with new BED() simply parses lines
+assuming the fields come from the standard BED schema.
 Your line can just contain just a subset of the fields e.g. `chrom, chromStart, chromEnd, name, score`
-
 
 ## Examples
 
 ### Parsing BED with default schema
 
 ```js
-const p = new BED()
+const p = new BED();
 
-p.parseLine('chr1\t0\t100')
+p.parseLine("chr1\t0\t100");
 // outputs { chrom: 'chr1', chromStart: 0, chromEnd: 100, strand: 0 }
 ```
-
 
 ### Parsing BED with a built in schema e.g. bigGenePred
 
@@ -104,8 +102,11 @@ p.parseLine(line)
 
 ### Parsing BED with a supplied autoSql
 
-If you have a BED format with a custom alternative schema with autoSql, or if you are using a BigBed file that contains autoSql (e.g. with [@gmod/bbi](https://github.com/gmod/bbi-js) then you can get it from header.autoSql) then you initialize the schema in the constructor and then use parseLine as normal
-
+If you have a BED format with a custom alternative schema with autoSql, or if
+you are using a BigBed file that contains autoSql (e.g. with
+[@gmod/bbi](https://github.com/gmod/bbi-js) then you can get it from
+header.autoSql) then you initialize the schema in the constructor and then use
+parseLine as normal
 
 ```
 const {BigBed} = require('@gmod/bbi')
@@ -116,24 +117,26 @@ p.parseLine(line)
 // etc.
 ```
 
-
 ### Important notes
 
-
-* Does not parse "browser" or "track" lines and will throw an error if parseLine receives one of these
-* By default, parseLine parses only tab delimited text, if you want to use spaces as is allowed by UCSC then pass an array to `line` for parseLine
-* Converts strand from {+,-,.} to {1,-1,0} and also sets strand 0 even if no strand is in the autoSql
-
+- Does not parse "browser" or "track" lines and will throw an error if
+  parseLine receives one of these
+- By default, parseLine parses only tab delimited text, if you want to use
+  spaces as is allowed by UCSC then pass an array to `line` for parseLine
+- Converts strand from {+,-,.} to {1,-1,0} and also sets strand 0 even if no
+  strand is in the autoSql
 
 ## Academic Use
 
-This package was written with funding from the [NHGRI](http://genome.gov) as part of the [JBrowse](http://jbrowse.org) project. If you use it in an academic project that you publish, please cite the most recent JBrowse paper, which will be linked from [jbrowse.org](http://jbrowse.org).
+This package was written with funding from the [NHGRI](http://genome.gov) as
+part of the [JBrowse](http://jbrowse.org) project. If you use it in an academic
+project that you publish, please cite the most recent JBrowse paper, which will
+be linked from [jbrowse.org](http://jbrowse.org).
 
 ## License
 
 MIT © [Colin Diesh](https://github.com/cmdcolin)
 
+based on https://genome-source.gi.ucsc.edu/gitlist/kent.git/blob/master/src/hg/autoSql/autoSql.doc
 
-
-// based on https://genome-source.gi.ucsc.edu/gitlist/kent.git/blob/master/src/hg/autoSql/autoSql.doc
-// also see http://genomewiki.ucsc.edu/index.php/AutoSql and https://www.linuxjournal.com/article/5949
+also see http://genomewiki.ucsc.edu/index.php/AutoSql and https://www.linuxjournal.com/article/5949
