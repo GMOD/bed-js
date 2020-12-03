@@ -30,7 +30,7 @@
     "build": "npm run generate && webpack",
     "preversion": "npm run lint && npm test && npm run build",
     "version": "standard-changelog && git add CHANGELOG.md",
-    "postpublish": "git push origin master --follow-tags"
+    "postversion": "git push --follow-tags"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
