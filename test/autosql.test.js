@@ -127,4 +127,30 @@ describe('autoSql parser', () => {
    `
     expect(parser.parse(s1)).toMatchSnapshot()
   })
+
+  it('pli', () => {
+    const s1 = `table pliMetrics
+"bed12+5 for displaying gnomAD haploinsufficiency prediction scores"
+    (
+    string chrom;      "Reference sequence chromosome or scaffold"
+    uint   chromStart; "Start position in chromosome"
+    uint   chromEnd;   "End position in chromosome"
+    string name;       "ENST or ENSG Name"
+    uint   score;      "pLI score between 0-1000, or  -1 for NA"
+    char[1] strand;    "strand of transcript"
+    uint thickStart;   "Start of where display is thick"
+    uint thickEnd;     "End of where display should be thick"
+    uint itemRgb;    "Color of item"
+    int blockCount;   "Number of exons"
+    int[blockCount] blockSizes;  "Size of each exon"
+    int[blockCount] chromStarts; "0-based start position of each exon"
+    string _mouseOver;  "Mouseover label"
+    float _pli;         "pLI value for filters"
+    string geneName;   "Gene symbol"
+    string synonymous; "Synonymous metrics"
+    string missense;   "Missense metrics"
+    string pLoF;       "Predicted Loss of Function metrics"
+    )`
+    expect(parser.parse(s1)).toMatchSnapshot()
+  })
 })

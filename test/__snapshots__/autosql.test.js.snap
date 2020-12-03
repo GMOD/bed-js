@@ -178,6 +178,109 @@ Object {
 }
 `;
 
+exports[`autoSql parser pli 1`] = `
+Object {
+  "comment": "bed12+5 for displaying gnomAD haploinsufficiency prediction scores",
+  "fields": Array [
+    Object {
+      "comment": "Reference sequence chromosome or scaffold",
+      "name": "chrom",
+      "type": "string",
+    },
+    Object {
+      "comment": "Start position in chromosome",
+      "name": "chromStart",
+      "type": "uint",
+    },
+    Object {
+      "comment": "End position in chromosome",
+      "name": "chromEnd",
+      "type": "uint",
+    },
+    Object {
+      "comment": "ENST or ENSG Name",
+      "name": "name",
+      "type": "string",
+    },
+    Object {
+      "comment": "pLI score between 0-1000, or  -1 for NA",
+      "name": "score",
+      "type": "uint",
+    },
+    Object {
+      "comment": "strand of transcript",
+      "name": "strand",
+      "size": 1,
+      "type": "char",
+    },
+    Object {
+      "comment": "Start of where display is thick",
+      "name": "thickStart",
+      "type": "uint",
+    },
+    Object {
+      "comment": "End of where display should be thick",
+      "name": "thickEnd",
+      "type": "uint",
+    },
+    Object {
+      "comment": "Color of item",
+      "name": "itemRgb",
+      "type": "uint",
+    },
+    Object {
+      "comment": "Number of exons",
+      "name": "blockCount",
+      "type": "int",
+    },
+    Object {
+      "comment": "Size of each exon",
+      "name": "blockSizes",
+      "size": "blockCount",
+      "type": "int",
+    },
+    Object {
+      "comment": "0-based start position of each exon",
+      "name": "chromStarts",
+      "size": "blockCount",
+      "type": "int",
+    },
+    Object {
+      "comment": "Mouseover label",
+      "name": "_mouseOver",
+      "type": "string",
+    },
+    Object {
+      "comment": "pLI value for filters",
+      "name": "_pli",
+      "type": "float",
+    },
+    Object {
+      "comment": "Gene symbol",
+      "name": "geneName",
+      "type": "string",
+    },
+    Object {
+      "comment": "Synonymous metrics",
+      "name": "synonymous",
+      "type": "string",
+    },
+    Object {
+      "comment": "Missense metrics",
+      "name": "missense",
+      "type": "string",
+    },
+    Object {
+      "comment": "Predicted Loss of Function metrics",
+      "name": "pLoF",
+      "type": "string",
+    },
+  ],
+  "name": "pliMetrics",
+  "type": "table",
+}
+`;
+
 exports[`autoSql parser real world 1`] = `
 Object {
   "comment": "UCSC Genes for chr7 with color plus GeneSymbol and SwissProtID",

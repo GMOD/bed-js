@@ -18,7 +18,7 @@ indexType =
         'unique'
 
 comment =
-        quotedString / _
+        nonQuotedString / _
 
 fieldList =
     f1:field _ fds:(_ w:field { return w; })* _  {
@@ -49,6 +49,7 @@ fieldSize = number /
 name = t:([a-zA-Z_][a-zA-Z0-9_]*) { return text() }
 
 quotedString   = '"' t:(([^"]*)) '"' { return t.join('') }
+nonQuotedString   = t:(([^\n\r]*)) { return t.join('').replace(/^"/,'').replace(/"$/,'') }
 
 number "integer"
   = _ [0-9]+ { return parseInt(text(), 10); }
