@@ -22,14 +22,20 @@ comment =
 
 fieldList =
     f1:field _ fds:(_ w:field { return w; })* _  {
+      if(f1.name) {
         fds.unshift(f1);
-        return fds;
+      }
+      return fds;
     }
+
+commentStart = '#'
+internalComment = _ commentStart nonQuotedString _
 
 field =
         type:fieldType _ name:fieldName _ ';' _ comment:comment { return { type, name, comment } } /
         type:fieldType _ '[' _ size:fieldSize _ ']' _ name:name _ ';' _ comment:comment { return { type, size, name, comment } } /
-        type:fieldType _ '(' _ vals:fieldValues _ ')' _ name:name _ ';' _ comment:comment { return { type, vals, name, comment } }
+        type:fieldType _ '(' _ vals:fieldValues _ ')' _ name:name _ ';' _ comment:comment { return { type, vals, name, comment } } /
+        internalComment
 
 fieldName = name
 

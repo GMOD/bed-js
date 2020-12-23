@@ -178,6 +178,100 @@ Object {
 }
 `;
 
+exports[`autoSql parser comment 1`] = `
+Object {
+  "comment": "Clinvar Submissions",
+  "fields": Array [
+    Object {
+      "comment": "Chromosome (or contig, scaffold, etc.)",
+      "name": "chrom",
+      "type": "string",
+    },
+    Object {
+      "comment": "Start position in chromosome",
+      "name": "chromStart",
+      "type": "uint",
+    },
+    Object {
+      "comment": "End position in chromosome",
+      "name": "chromEnd",
+      "type": "uint",
+    },
+    Object {
+      "comment": "Name of item",
+      "name": "name",
+      "type": "string",
+    },
+    Object {
+      "comment": "Score from 0-1000",
+      "name": "score",
+      "type": "uint",
+    },
+    Object {
+      "comment": "+ or -",
+      "name": "strand",
+      "size": 1,
+      "type": "char",
+    },
+    Object {
+      "comment": "Start of where display should be thick (start codon)",
+      "name": "thickStart",
+      "type": "uint",
+    },
+    Object {
+      "comment": "End of where display should be thick (stop codon)",
+      "name": "thickEnd",
+      "type": "uint",
+    },
+    Object {
+      "comment": "Used as itemRgb as of 2004-11-22",
+      "name": "reserved",
+      "type": "uint",
+    },
+    Array [
+      Array [],
+      "#",
+      "extra fields",
+      Array [
+        "
+",
+        " ",
+        " ",
+        " ",
+        " ",
+      ],
+    ],
+    Object {
+      "comment": "Size of lollipop",
+      "name": "lollySize",
+      "type": "uint",
+    },
+    Object {
+      "comment": "changes",
+      "name": "changes",
+      "type": "lstring",
+    },
+    Object {
+      "comment": "variantIds",
+      "name": "variantIds",
+      "type": "lstring",
+    },
+    Object {
+      "comment": "subIds",
+      "name": "subIds",
+      "type": "lstring",
+    },
+    Object {
+      "comment": "mouseOver",
+      "name": "_mouseOver",
+      "type": "lstring",
+    },
+  ],
+  "name": "clinsub",
+  "type": "table",
+}
+`;
+
 exports[`autoSql parser pli 1`] = `
 Object {
   "comment": "bed12+5 for displaying gnomAD haploinsufficiency prediction scores",
