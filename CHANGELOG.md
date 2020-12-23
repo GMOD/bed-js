@@ -1,3 +1,7 @@
+## [2.0.5](https://github.com/GMOD/bed-js/compare/v2.0.4...v2.0.5) (2020-12-23)
+
+
+
 - Allow comments inside of the autosql table, seen in some clinvar bb
 
 ## [2.0.4](https://github.com/GMOD/bed-js/compare/v2.0.3...v2.0.4) (2020-12-03)
