@@ -4,6 +4,15 @@ import { detectTypes } from "./util";
 
 const strandMap = { ".": 0, "-": -1, "+": 1 };
 
+// heuristic that a BED file is BED12 like...the number in col 10 is blockCount-like
+function isBed12Like(fields) {
+  return (
+    fields.length >= 12 &&
+    !Number.isNaN(parseInt(fields[9], 10)) &&
+    fields[10]?.split(",").filter((f) => !!f).length === parseInt(fields[9], 10)
+  );
+}
+
 export default class BED {
   constructor(args = {}) {
     if (args.autoSql) {
@@ -40,10 +49,9 @@ export default class BED {
     }
 
     let feature = {};
-
     if (
-      (this.attemptDefaultBed && fields.length === 12) ||
-      !this.attemptDefaultBed
+      !this.attemptDefaultBed ||
+      (this.attemptDefaultBed && isBed12Like(fields))
     ) {
       for (let i = 0; i < autoSql.fields.length; i++) {
         const autoField = autoSql.fields[i];
