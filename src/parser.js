@@ -2,6 +2,8 @@ import parser from "./autoSql";
 import types from "./defaultTypes";
 import { detectTypes } from "./util";
 
+const strandMap = { ".": 0, "-": -1, "+": 1 };
+
 export default class BED {
   constructor(args = {}) {
     if (args.autoSql) {
@@ -13,6 +15,7 @@ export default class BED {
       this.autoSql = detectTypes(types[args.type]);
     } else {
       this.autoSql = detectTypes(types.defaultBedSchema);
+      this.attemptDefaultBed = true;
     }
   }
 
@@ -36,41 +39,58 @@ export default class BED {
       fields = line.split("\t");
     }
 
-    const featureData = {};
-    if (uniqueId) {
-      featureData.uniqueId = uniqueId;
-    }
+    let feature = {};
 
-    for (let i = 0; i < autoSql.fields.length; i += 1) {
-      const autoField = autoSql.fields[i];
-      let columnVal = fields[i];
-      const { isNumeric, isArray, arrayIsNumeric, name } = autoField;
-      if (columnVal === null || columnVal === undefined) {
-        break;
-      }
-      if (columnVal !== ".") {
-        if (isNumeric) {
-          const num = Number(columnVal);
-          // if the number parse results in NaN, somebody probably
-          // listed the type erroneously as numeric, so don't use
-          // the parsed number
-          columnVal = Number.isNaN(num) ? columnVal : num;
-        } else if (isArray) {
-          // parse array values
-          columnVal = columnVal.split(",");
-          if (columnVal[columnVal.length - 1] === "") columnVal.pop();
-          if (arrayIsNumeric) columnVal = columnVal.map((str) => Number(str));
+    if (
+      (this.attemptDefaultBed && fields.length === 12) ||
+      !this.attemptDefaultBed
+    ) {
+      for (let i = 0; i < autoSql.fields.length; i++) {
+        const autoField = autoSql.fields[i];
+        let columnVal = fields[i];
+        const { isNumeric, isArray, arrayIsNumeric, name } = autoField;
+        if (columnVal === null || columnVal === undefined) {
+          break;
         }
+        if (columnVal !== ".") {
+          if (isNumeric) {
+            const num = Number(columnVal);
+            columnVal = Number.isNaN(num) ? columnVal : num;
+          } else if (isArray) {
+            columnVal = columnVal.split(",");
+            if (columnVal[columnVal.length - 1] === "") {
+              columnVal.pop();
+            }
+            if (arrayIsNumeric) {
+              columnVal = columnVal.map((str) => Number(str));
+            }
+          }
 
-        featureData[name] = columnVal;
+          feature[name] = columnVal;
+        }
+      }
+    } else {
+      const fieldNames = ["chrom", "chromStart", "chromEnd", "name"];
+      feature = Object.fromEntries(
+        fields.map((f, i) => [fieldNames[i] || "field" + i, f])
+      );
+      feature.chromStart = +feature.chromStart;
+      feature.chromEnd = +feature.chromEnd;
+      if (!Number.isNaN(Number.parseFloat(feature.field4))) {
+        feature.score = +feature.field4;
+        delete feature.field4;
+      }
+      if (feature.field5 === "+" || feature.field5 === "-") {
+        feature.strand = feature.field5;
+        delete feature.field5;
       }
     }
-
-    if (featureData.chrom) {
-      featureData.chrom = decodeURIComponent(featureData.chrom);
+    if (uniqueId) {
+      feature.uniqueId = uniqueId;
     }
-    featureData.strand = { ".": 0, "-": -1, "+": 1 }[featureData.strand] || 0;
+    feature.strand = strandMap[feature.strand] || 0;
 
-    return featureData;
+    feature.chrom = decodeURIComponent(feature.chrom);
+    return feature;
   }
 }
