@@ -23,12 +23,11 @@
   "scripts": {
     "test": "jest",
     "coverage": "npm test -- --coverage",
-    "lint": "eslint src test",
     "clean": "rimraf dist",
     "generate": "pegjs -o src/autoSql.js autoSql.pegjs",
-    "prebuild": "npm run clean && npm run lint",
+    "prebuild": "npm run clean",
     "build": "npm run generate && babel src --out-dir dist",
-    "preversion": "npm run lint && npm test && npm run build",
+    "preversion": "npm test && npm run build",
     "version": "standard-changelog && git add CHANGELOG.md",
     "postversion": "git push --follow-tags"
   },
@@ -38,8 +37,7 @@
     "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.3.1",
-    "@babel/runtime": "^7.3.1",
-    "babel-loader": "^8.0.5",
+    "babel-jest": "^27.0.6",
     "jest": "^26.0.1",
     "pegjs": "^0.10.0",
     "rimraf": "^3.0.2",
@@ -54,5 +52,11 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {
+      "\\.js$": "babel-jest"
+    }
   }
 }

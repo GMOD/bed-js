@@ -1,8 +1,8 @@
-import parser from './index'
-import * as types from './as/autoSqlSchemas'
+import parser from "./parser";
+import * as types from "./as/autoSqlSchemas";
 
-Object.keys(types).forEach((k) => {
-  types[k] = parser.parse(types[k].trim())
-})
-
-export default types
+export default Object.fromEntries(
+  Object.entries(types).map((key, val) => {
+    return [key, parser.parse(val.trim())];
+  })
+);
