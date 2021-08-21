@@ -1,4 +1,3 @@
-/** @module BED */
-import BED from './parse'
+import BED from "./parser";
 
-export default BED
+export default BED;

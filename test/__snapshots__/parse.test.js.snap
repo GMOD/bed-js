@@ -1,6 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`BED parser BED3 1`] = `
+exports[`BED weird 1`] = `
+Object {
+  "chrom": "1",
+  "chromEnd": 25737913,
+  "chromStart": 25608494,
+  "field5": "SRHB01000779.1",
+  "field6": "24831980",
+  "field7": "D",
+  "name": ".",
+  "score": 96.44058642,
+  "strand": 0,
+}
+`;
+
+exports[`BED3 1`] = `
 Object {
   "chrom": "contigA",
   "chromEnd": 10884,
@@ -9,7 +23,7 @@ Object {
 }
 `;
 
-exports[`BED parser BED3 2`] = `
+exports[`BED3 2`] = `
 Object {
   "chrom": "co,tigA",
   "chromEnd": 10884,
@@ -18,7 +32,7 @@ Object {
 }
 `;
 
-exports[`BED parser BED6 1`] = `
+exports[`BED6 1`] = `
 Object {
   "chrom": "contigA",
   "chromEnd": 10884,
@@ -29,7 +43,7 @@ Object {
 }
 `;
 
-exports[`BED parser BED6 2`] = `
+exports[`BED6 2`] = `
 Object {
   "chrom": "co,tigA",
   "chromEnd": 10884,
@@ -40,17 +54,19 @@ Object {
 }
 `;
 
-exports[`BED parser BED6 3`] = `
+exports[`BED6 3`] = `
 Object {
   "chrom": "cotigA",
   "chromEnd": 10884,
   "chromStart": 10875,
+  "field4": ".",
+  "field5": ".",
   "name": "test2",
   "strand": 0,
 }
 `;
 
-exports[`BED parser BED12 1`] = `
+exports[`BED12 1`] = `
 Object {
   "blockCount": 2,
   "blockSizes": Array [
@@ -73,7 +89,7 @@ Object {
 }
 `;
 
-exports[`BED parser BED12 2`] = `
+exports[`BED12 2`] = `
 Object {
   "blockCount": 2,
   "blockSizes": Array [
@@ -96,7 +112,7 @@ Object {
 }
 `;
 
-exports[`bigChain bigChain 1`] = `
+exports[`bigChain 1`] = `
 Object {
   "chainScore": 66,
   "chrom": "chr22_KI270731v1_random",
@@ -113,7 +129,7 @@ Object {
 }
 `;
 
-exports[`bigGenePred bigGenePred 1`] = `
+exports[`bigGenePred 1`] = `
 Object {
   "blockCount": 3,
   "blockSizes": Array [
@@ -150,7 +166,7 @@ Object {
 }
 `;
 
-exports[`bigGenePred bigGenePred 2`] = `
+exports[`bigGenePred 2`] = `
 Object {
   "blockCount": 11,
   "blockSizes": Array [
@@ -211,7 +227,7 @@ Object {
 }
 `;
 
-exports[`bigInteract bigInteract 1`] = `
+exports[`bigInteract 1`] = `
 Object {
   "chrom": "chr3",
   "chromEnd": 63705638,
@@ -229,7 +245,7 @@ Object {
 }
 `;
 
-exports[`bigLink bigLink 1`] = `
+exports[`bigLink 1`] = `
 Object {
   "chrom": "chr22_KI270731v1_random",
   "chromEnd": 7918,
@@ -240,7 +256,7 @@ Object {
 }
 `;
 
-exports[`bigMaf bigMaf 1`] = `
+exports[`bigMaf 1`] = `
 Object {
   "chrom": "chr22_KI270731v1_random",
   "chromEnd": 2,
@@ -279,7 +295,7 @@ Object {
 }
 `;
 
-exports[`bigPsl bigPsl 1`] = `
+exports[`bigPsl 1`] = `
 Object {
   "blockCount": 3,
   "blockSizes": Array [
@@ -321,7 +337,7 @@ Object {
 }
 `;
 
-exports[`bigPsl bigPsl 2`] = `
+exports[`bigPsl 2`] = `
 Object {
   "blockCount": 3,
   "blockSizes": Array [
@@ -409,7 +425,7 @@ Object {
 }
 `;
 
-exports[`mafFrames mafFrames 1`] = `
+exports[`mafFrames 1`] = `
 Object {
   "chrom": "chr22_KI270731v1_random",
   "chromEnd": 12574,
@@ -425,7 +441,7 @@ Object {
 }
 `;
 
-exports[`mafSummary mafSummary 1`] = `
+exports[`mafSummary 1`] = `
 Object {
   "chrom": "chr22_KI270731v1_random",
   "chromEnd": 9270,
