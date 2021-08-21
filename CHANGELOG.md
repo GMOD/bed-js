@@ -1,3 +1,7 @@
+## [2.0.6](https://github.com/GMOD/bed-js/compare/v2.0.5...v2.0.6) (2021-08-21)
+
+
+
 - Simplify build pipeline
 
 ## [2.0.5](https://github.com/GMOD/bed-js/compare/v2.0.4...v2.0.5) (2020-12-23)
