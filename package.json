@@ -27,7 +27,7 @@
     "clean": "rimraf dist",
     "generate": "pegjs -o src/autoSql.js autoSql.pegjs",
     "prebuild": "npm run clean && npm run lint",
-    "build": "npm run generate && webpack",
+    "build": "npm run generate && babel src --out-dir dist",
     "preversion": "npm run lint && npm test && npm run build",
     "version": "standard-changelog && git add CHANGELOG.md",
     "postversion": "git push --follow-tags"
@@ -36,30 +36,15 @@
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.4.0",
-    "@babel/plugin-proposal-throw-expressions": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.3.1",
     "@babel/runtime": "^7.3.1",
-    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
-    "documentation": "^13.0.0",
-    "eslint": "^7.1.0",
-    "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-import": "^2.10.0",
-    "eslint-plugin-prettier": "^3.0.1",
     "jest": "^26.0.1",
-    "jest-raw-loader": "^1.0.1",
     "pegjs": "^0.10.0",
-    "prettier": "^2.0.5",
-    "raw-loader": "^4.0.1",
-    "regenerator-runtime": "^0.13.5",
     "rimraf": "^3.0.2",
-    "standard-changelog": "^2.0.24",
-    "webpack": "^4.29.5",
-    "webpack-cli": "^3.2.3"
+    "standard-changelog": "^2.0.24"
   },
-  "dependencies": {},
   "keywords": [
     "bed",
     "autosql",
@@ -69,11 +54,5 @@
   ],
   "publishConfig": {
     "access": "public"
-  },
-  "jest": {
-    "transform": {
-      "\\.as$": "jest-raw-loader",
-      "\\.js$": "babel-jest"
-    }
   }
 }
