@@ -13,7 +13,7 @@ export const bigChain = `table bigChain
     uint qStart;        "start of alignment on query sequence"
     uint qEnd;          "end of alignment on query sequence"
     uint chainScore;    "score from chain"
-    )`;
+    )`
 
 export const bigGenePred = `table bigGenePred
 "bigGenePred gene models"
@@ -38,7 +38,7 @@ export const bigGenePred = `table bigGenePred
    string geneName;    "Primary identifier for gene"
    string geneName2;   "Alternative/human readable gene name"
    string geneType;    "Gene type"
-   )`;
+   )`
 
 export const bigInteract = `table interact
 "interaction between two regions"
@@ -62,7 +62,7 @@ export const bigInteract = `table interact
     string targetName;   "Identifier of target/upper/this region"
     string targetStrand; "Orientation of target/upper/this region: + or -.  Use . if not applicable"
 
-    )`;
+    )`
 
 export const bigLink = `table bigLink
 "bigLink pairwise alignment"
@@ -72,7 +72,7 @@ export const bigLink = `table bigLink
     uint   chromEnd;    "End position in chromosome"
     string name;        "Name or ID of item, ideally both human readable and unique"
     uint qStart;        "start of alignment on query sequence"
-    )`;
+    )`
 
 export const bigMaf = `table bedMaf
 "Bed3 with MAF block"
@@ -81,7 +81,7 @@ export const bigMaf = `table bedMaf
     uint   chromStart; "Start position in chromosome"
     uint   chromEnd;   "End position in chromosome"
     lstring mafBlock;   "MAF block"
-    )`;
+    )`
 export const bigNarrowPeak = `table bigNarrowPeak
 "BED6+4 Peaks of signal enrichment based on pooled, normalized (interpreted) data."
 (
@@ -95,7 +95,7 @@ export const bigNarrowPeak = `table bigNarrowPeak
     float  pValue;       "Statistical significance of signal value (-log10). Set to -1 if not used."
     float  qValue;       "Statistical significance with multiple-test correction applied (FDR -log10). Set to -1 if not used."
     int   peak;         "Point-source called for this peak; 0-based offset from chromStart. Set to -1 if no point-source called."
-)`;
+)`
 export const bigPsl = `table bigPsl
 "bigPsl pairwise alignment"
     (
@@ -128,7 +128,7 @@ export const bigPsl = `table bigPsl
     uint repMatch; " Number of bases that match but are part of repeats "
     uint nCount;   " Number of 'N' bases "
     uint seqType;    "0=empty, 1=nucleotide, 2=amino_acid"
-    )`;
+    )`
 
 export const defaultBedSchema = `table defaultBedSchema
 "BED12"
@@ -145,7 +145,7 @@ export const defaultBedSchema = `table defaultBedSchema
     uint blockCount; " The number of blocks (exons) in the BED line."
     uint[blockCount] blockSizes; " A comma-separated list of the block sizes. The number of items in this list should correspond to blockCount."
     uint[blockCount] blockStarts; "A comma-separated list of block starts. All of the blockStart positions should be calculated relative to chromStart. The number of items in this list should correspond to blockCount."
-    )`;
+    )`
 
 export const mafFrames = `table mafFrames
 "codon frame assignment for MAF components"
@@ -161,7 +161,7 @@ export const mafFrames = `table mafFrames
     int    nextFramePos;  "target position of the next base (in transcription direction) that continues this frame, or -1 if none, or frame not contiguous"
     ubyte  isExonStart;  "does this start the CDS portion of an exon?"
     ubyte  isExonEnd;    "does this end the CDS portion of an exon?"
-    )`;
+    )`
 
 export const mafSummary = `table mafSummary
 "Positions and scores for alignment blocks"
@@ -173,4 +173,4 @@ export const mafSummary = `table mafSummary
     float  score;      "Floating point score."
     char[1] leftStatus;  "Gap/break annotation for preceding block"
     char[1] rightStatus; "Gap/break annotation for following block"
-    )`;
+    )`

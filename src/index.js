@@ -1,3 +1,3 @@
-import BED from "./parser";
+import BED from './parser'
 
-export default BED;
+export default BED
