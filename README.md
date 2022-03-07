@@ -12,6 +12,11 @@ Performs parsing of BED files including autoSql
 You can pipe your file through this programs parseLine function
 
 ```js
+import BED from '@gmod/bed'
+
+// you might require compatibility with node.js to use the default export with require e.g.
+// const BED = require('@gmod/bed').default
+
 var parser = new BED()
 var text = fs.readFileSync('file.txt', 'utf8')
 var results = text.split('\n').map(line => parser.parseLine(line))
