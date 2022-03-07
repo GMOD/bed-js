@@ -1,7 +1,7 @@
 # bed-js
 
-[![Build Status](https://travis-ci.com/GMOD/bed-js.svg?branch=master)](https://travis-ci.com/GMOD/bed-js)
 [![Coverage Status](https://img.shields.io/codecov/c/github/GMOD/bed-js/master.svg?style=flat-square)](https://codecov.io/gh/GMOD/bed-js/branch/master)
+[![Build Status](https://img.shields.io/github/workflow/status/GMOD/bed-js/Push/master?logo=github&style=flat-query)](https://github.com/GMOD/bed-js/actions?query=branch%3Amaster+workflow%3APush+)
 
 Performs parsing of BED files including autoSql
 
@@ -12,9 +12,9 @@ Performs parsing of BED files including autoSql
 You can pipe your file through this programs parseLine function
 
 ```js
-var parser = new BED();
-var text = fs.readFileSync("file.txt", "utf8");
-var results = text.split("\n").map((line) => parser.parseLine(line));
+var parser = new BED()
+var text = fs.readFileSync('file.txt', 'utf8')
+var results = text.split('\n').map(line => parser.parseLine(line))
 ```
 
 ## API
@@ -61,9 +61,9 @@ Your line can just contain just a subset of the fields e.g. `chrom, chromStart, 
 ### Parsing BED with default schema
 
 ```js
-const p = new BED();
+const p = new BED()
 
-p.parseLine("chr1\t0\t100");
+p.parseLine('chr1\t0\t100')
 // outputs { chrom: 'chr1', chromStart: 0, chromEnd: 100, strand: 0 }
 ```
 
