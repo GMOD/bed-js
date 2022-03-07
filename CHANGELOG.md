@@ -1,3 +1,7 @@
+## [2.0.7](https://github.com/GMOD/bed-js/compare/v2.0.6...v2.0.7) (2022-03-07)
+
+
+
 - Add esm module export to package.json
 
 ## [2.0.6](https://github.com/GMOD/bed-js/compare/v2.0.5...v2.0.6) (2021-08-21)
