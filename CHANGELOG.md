@@ -1,3 +1,7 @@
+## [2.0.8](https://github.com/GMOD/bed-js/compare/v2.0.7...v2.0.8) (2022-03-30)
+
+
+
 - Publish src directory for better source maps
 
 ## [2.0.7](https://github.com/GMOD/bed-js/compare/v2.0.6...v2.0.7) (2022-03-07)
