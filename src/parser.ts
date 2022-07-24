@@ -41,7 +41,7 @@ export default class BED {
   parseLine(line: string | string[], opts: { uniqueId?: string } = {}) {
     const { autoSql } = this
     const { uniqueId } = opts
-    let fields = Array.isArray(line) ? line : line.split('\t')
+    const fields = Array.isArray(line) ? line : line.split('\t')
 
     let feature = {} as { [key: string]: any }
     if (
