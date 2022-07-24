@@ -1,30 +1,22 @@
+- Add comment string to autoSql types
+
 ## [2.1.1](https://github.com/GMOD/bed-js/compare/v2.1.0...v2.1.1) (2022-07-24)
-
-
 
 - Make autoSql a public class field
 
 # [2.1.0](https://github.com/GMOD/bed-js/compare/v2.0.8...v2.1.0) (2022-07-24)
 
-
-
 - Typescriptify module and bump some devdeps
 
 ## [2.0.8](https://github.com/GMOD/bed-js/compare/v2.0.7...v2.0.8) (2022-03-30)
-
-
 
 - Publish src directory for better source maps
 
 ## [2.0.7](https://github.com/GMOD/bed-js/compare/v2.0.6...v2.0.7) (2022-03-07)
 
-
-
 - Add esm module export to package.json
 
 ## [2.0.6](https://github.com/GMOD/bed-js/compare/v2.0.5...v2.0.6) (2021-08-21)
-
-
 
 - Simplify build pipeline
 
