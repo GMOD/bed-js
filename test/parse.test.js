@@ -11,10 +11,7 @@ test('BED3', () => {
 })
 
 test('errors', () => {
-  const p = new BED()
   expect(() => new BED({ type: 'notexist' })).toThrow(/not found/)
-  expect(() => p.parseLine('track hello test')).toThrow(/not supported/)
-  expect(() => p.parseLine('browser hello test')).toThrow(/not supported/)
 })
 
 test('BED6', () => {
