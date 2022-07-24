@@ -1,3 +1,5 @@
+- Make autoSql a public class field
+
 # [2.1.0](https://github.com/GMOD/bed-js/compare/v2.0.8...v2.1.0) (2022-07-24)
 
 
