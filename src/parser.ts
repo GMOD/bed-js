@@ -1,22 +1,25 @@
 import parser from './autoSql'
 import types from './defaultTypes'
-import { detectTypes } from './util'
+import { detectTypes, AutoSqlSchema, AutoSqlPreSchema } from './util'
 
 const strandMap = { '.': 0, '-': -1, '+': 1 }
 
 // heuristic that a BED file is BED12 like...the number in col 10 is blockCount-like
-function isBed12Like(fields) {
+function isBed12Like(fields: string[]) {
   return (
     fields.length >= 12 &&
     !Number.isNaN(parseInt(fields[9], 10)) &&
     fields[10]?.split(',').filter(f => !!f).length === parseInt(fields[9], 10)
   )
 }
-
 export default class BED {
-  constructor(args = {}) {
+  private autoSql: AutoSqlSchema
+
+  private attemptDefaultBed?: boolean
+
+  constructor(args: { autoSql?: string; type?: string } = {}) {
     if (args.autoSql) {
-      this.autoSql = detectTypes(parser.parse(args.autoSql))
+      this.autoSql = detectTypes(parser.parse(args.autoSql) as AutoSqlPreSchema)
     } else if (args.type) {
       if (!types[args.type]) {
         throw new Error('Type not found')
@@ -35,27 +38,19 @@ export default class BED {
    * @param opts - supply opts.uniqueId
    * @return a object representing a feature
    */
-  parseLine(line, opts = {}) {
+  parseLine(line: string | string[], opts: { uniqueId?: string } = {}) {
     const { autoSql } = this
     const { uniqueId } = opts
-    let fields = line
-    if (!Array.isArray(line)) {
-      if (line.startsWith('track') || line.startsWith('browser')) {
-        throw new Error(
-          `track and browser line parsing is not supported, please filter:\n${line}`,
-        )
-      }
-      fields = line.split('\t')
-    }
+    let fields = Array.isArray(line) ? line : line.split('\t')
 
-    let feature = {}
+    let feature = {} as { [key: string]: any }
     if (
       !this.attemptDefaultBed ||
       (this.attemptDefaultBed && isBed12Like(fields))
     ) {
       for (let i = 0; i < autoSql.fields.length; i++) {
         const autoField = autoSql.fields[i]
-        let columnVal = fields[i]
+        let columnVal: any = fields[i]
         const { isNumeric, isArray, arrayIsNumeric, name } = autoField
         if (columnVal === null || columnVal === undefined) {
           break
@@ -70,7 +65,7 @@ export default class BED {
               columnVal.pop()
             }
             if (arrayIsNumeric) {
-              columnVal = columnVal.map(str => Number(str))
+              columnVal = columnVal.map((str: string) => Number(str))
             }
           }
 
@@ -96,7 +91,7 @@ export default class BED {
     if (uniqueId) {
       feature.uniqueId = uniqueId
     }
-    feature.strand = strandMap[feature.strand] || 0
+    feature.strand = strandMap[feature.strand as keyof typeof strandMap] || 0
 
     feature.chrom = decodeURIComponent(feature.chrom)
     return feature
