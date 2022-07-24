@@ -1,3 +1,7 @@
+# [2.1.0](https://github.com/GMOD/bed-js/compare/v2.0.8...v2.1.0) (2022-07-24)
+
+
+
 - Typescriptify module and bump some devdeps
 
 ## [2.0.8](https://github.com/GMOD/bed-js/compare/v2.0.7...v2.0.8) (2022-03-30)
