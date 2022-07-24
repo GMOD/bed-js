@@ -13,7 +13,7 @@ function isBed12Like(fields: string[]) {
   )
 }
 export default class BED {
-  private autoSql: AutoSqlSchema
+  public autoSql: AutoSqlSchema
 
   private attemptDefaultBed?: boolean
 
