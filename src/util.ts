@@ -1,5 +1,5 @@
 export interface AutoSqlPreSchema {
-  fields: { size: number; type: string; name: string }[]
+  fields: { size: number; type: string; name: string; comment: string }[]
 }
 
 /*
