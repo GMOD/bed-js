@@ -1,7 +1,7 @@
 # bed-js
 
 [![Coverage Status](https://img.shields.io/codecov/c/github/GMOD/bed-js/master.svg?style=flat-square)](https://codecov.io/gh/GMOD/bed-js/branch/master)
-[![Build Status](https://img.shields.io/github/workflow/status/GMOD/bed-js/Push/master?logo=github&style=flat-query)](https://github.com/GMOD/bed-js/actions?query=branch%3Amaster+workflow%3APush+)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/GMOD/bed-js/push.yml?branch=main&logo=github&style=for-the-badge)](https://github.com/GMOD/bed-js/actions)
 
 Performs parsing of BED files including autoSql
 
@@ -43,7 +43,8 @@ The predefined types can include
     mafFrames
     mafSummary
 
-If neither autoSql or type is specified, the default BED schema is used (see [here](src/as/defaultBedSchema.as))
+If neither autoSql or type is specified, the default BED schema is used (see
+[here](src/as/defaultBedSchema.as))
 
 ### parseLine(line, opts)
 
@@ -55,11 +56,13 @@ Parses a BED line according to the currently loaded schema
 
 An Options object can contain
 
-- opts.uniqueId - an indication of a uniqueId that is not encoded by the BED line itself
+- opts.uniqueId - an indication of a uniqueId that is not encoded by the BED
+  line itself
 
 The default instantiation of the parser with new BED() simply parses lines
-assuming the fields come from the standard BED schema.
-Your line can just contain just a subset of the fields e.g. `chrom, chromStart, chromEnd, name, score`
+assuming the fields come from the standard BED schema. Your line can just
+contain just a subset of the fields e.g.
+`chrom, chromStart, chromEnd, name, score`
 
 ## Examples
 
@@ -74,7 +77,8 @@ p.parseLine('chr1\t0\t100')
 
 ### Parsing BED with a built in schema e.g. bigGenePred
 
-If you have a BED format that corresponds to a different schema, you can specify from the list of default built in schemas
+If you have a BED format that corresponds to a different schema, you can specify
+from the list of default built in schemas
 
 Specify this in the opts.type for the BED constructor
 
@@ -124,8 +128,8 @@ p.parseLine(line)
 
 ### Important notes
 
-- Does not parse "browser" or "track" lines and will throw an error if
-  parseLine receives one of these
+- Does not parse "browser" or "track" lines and will throw an error if parseLine
+  receives one of these
 - By default, parseLine parses only tab delimited text, if you want to use
   spaces as is allowed by UCSC then pass an array to `line` for parseLine
 - Converts strand from {+,-,.} to {1,-1,0} and also sets strand 0 even if no
@@ -142,6 +146,8 @@ be linked from [jbrowse.org](http://jbrowse.org).
 
 MIT © [Colin Diesh](https://github.com/cmdcolin)
 
-based on https://genome-source.gi.ucsc.edu/gitlist/kent.git/blob/master/src/hg/autoSql/autoSql.doc
+based on
+https://genome-source.gi.ucsc.edu/gitlist/kent.git/blob/master/src/hg/autoSql/autoSql.doc
 
-also see http://genomewiki.ucsc.edu/index.php/AutoSql and https://www.linuxjournal.com/article/5949
+also see http://genomewiki.ucsc.edu/index.php/AutoSql and
+https://www.linuxjournal.com/article/5949

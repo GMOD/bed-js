@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BED weird 1`] = `
-Object {
+{
   "chrom": "1",
   "chromEnd": 25737913,
   "chromStart": 25608494,
@@ -15,7 +15,7 @@ Object {
 `;
 
 exports[`BED3 1`] = `
-Object {
+{
   "chrom": "contigA",
   "chromEnd": 10884,
   "chromStart": 10875,
@@ -24,7 +24,7 @@ Object {
 `;
 
 exports[`BED3 2`] = `
-Object {
+{
   "chrom": "co,tigA",
   "chromEnd": 10884,
   "chromStart": 10875,
@@ -33,7 +33,7 @@ Object {
 `;
 
 exports[`BED6 1`] = `
-Object {
+{
   "chrom": "contigA",
   "chromEnd": 10884,
   "chromStart": 10875,
@@ -44,7 +44,7 @@ Object {
 `;
 
 exports[`BED6 2`] = `
-Object {
+{
   "chrom": "co,tigA",
   "chromEnd": 10884,
   "chromStart": 10875,
@@ -55,7 +55,7 @@ Object {
 `;
 
 exports[`BED6 3`] = `
-Object {
+{
   "chrom": "cotigA",
   "chromEnd": 10884,
   "chromStart": 10875,
@@ -67,13 +67,13 @@ Object {
 `;
 
 exports[`BED12 1`] = `
-Object {
+{
   "blockCount": 2,
-  "blockSizes": Array [
+  "blockSizes": [
     567,
     488,
   ],
-  "blockStarts": Array [
+  "blockStarts": [
     0,
     3512,
   ],
@@ -90,13 +90,13 @@ Object {
 `;
 
 exports[`BED12 2`] = `
-Object {
+{
   "blockCount": 2,
-  "blockSizes": Array [
+  "blockSizes": [
     433,
     399,
   ],
-  "blockStarts": Array [
+  "blockStarts": [
     0,
     3601,
   ],
@@ -113,7 +113,7 @@ Object {
 `;
 
 exports[`bigChain 1`] = `
-Object {
+{
   "chainScore": 66,
   "chrom": "chr22_KI270731v1_random",
   "chromEnd": 133710,
@@ -130,9 +130,9 @@ Object {
 `;
 
 exports[`bigGenePred 1`] = `
-Object {
+{
   "blockCount": 3,
-  "blockSizes": Array [
+  "blockSizes": [
     359,
     109,
     1189,
@@ -142,12 +142,12 @@ Object {
   "chrom": "chr1",
   "chromEnd": 14409,
   "chromStart": 11868,
-  "chromStarts": Array [
+  "chromStarts": [
     0,
     744,
     1352,
   ],
-  "exonFrames": Array [
+  "exonFrames": [
     -1,
     -1,
     -1,
@@ -167,9 +167,9 @@ Object {
 `;
 
 exports[`bigGenePred 2`] = `
-Object {
+{
   "blockCount": 11,
-  "blockSizes": Array [
+  "blockSizes": [
     98,
     34,
     152,
@@ -187,7 +187,7 @@ Object {
   "chrom": "chr1",
   "chromEnd": 29570,
   "chromStart": 14403,
-  "chromStarts": Array [
+  "chromStarts": [
     0,
     601,
     1392,
@@ -200,7 +200,7 @@ Object {
     10334,
     15130,
   ],
-  "exonFrames": Array [
+  "exonFrames": [
     -1,
     -1,
     -1,
@@ -228,7 +228,7 @@ Object {
 `;
 
 exports[`bigInteract 1`] = `
-Object {
+{
   "chrom": "chr3",
   "chromEnd": 63705638,
   "chromStart": 63702628,
@@ -246,7 +246,7 @@ Object {
 `;
 
 exports[`bigLink 1`] = `
-Object {
+{
   "chrom": "chr22_KI270731v1_random",
   "chromEnd": 7918,
   "chromStart": 7917,
@@ -257,7 +257,7 @@ Object {
 `;
 
 exports[`bigMaf 1`] = `
-Object {
+{
   "chrom": "chr22_KI270731v1_random",
   "chromEnd": 2,
   "chromStart": 0,
@@ -267,7 +267,7 @@ Object {
 `;
 
 exports[`bigNarrowPeak 1`] = `
-Object {
+{
   "chrom": "chr1",
   "chromEnd": 566953,
   "chromStart": 566753,
@@ -281,7 +281,7 @@ Object {
 `;
 
 exports[`bigNarrowPeak 2`] = `
-Object {
+{
   "chrom": "chr1",
   "chromEnd": 566953,
   "chromStart": 566753,
@@ -296,9 +296,9 @@ Object {
 `;
 
 exports[`bigPsl 1`] = `
-Object {
+{
   "blockCount": 3,
-  "blockSizes": Array [
+  "blockSizes": [
     354,
     109,
     1141,
@@ -307,7 +307,7 @@ Object {
   "chromEnd": 14361,
   "chromSize": 248956422,
   "chromStart": 11873,
-  "chromStarts": Array [
+  "chromStarts": [
     0,
     739,
     1347,
@@ -320,7 +320,7 @@ Object {
   "oChromEnd": 1604,
   "oChromSize": 1604,
   "oChromStart": 0,
-  "oChromStarts": Array [
+  "oChromStarts": [
     0,
     354,
     463,
@@ -338,9 +338,9 @@ Object {
 `;
 
 exports[`bigPsl 2`] = `
-Object {
+{
   "blockCount": 3,
-  "blockSizes": Array [
+  "blockSizes": [
     354,
     109,
     1141,
@@ -349,7 +349,7 @@ Object {
   "chromEnd": 14361,
   "chromSize": 248956422,
   "chromStart": 11873,
-  "chromStarts": Array [
+  "chromStarts": [
     0,
     739,
     1347,
@@ -362,7 +362,7 @@ Object {
   "oChromEnd": 1604,
   "oChromSize": 1604,
   "oChromStart": 0,
-  "oChromStarts": Array [
+  "oChromStarts": [
     0,
     354,
     463,
@@ -380,7 +380,7 @@ Object {
 `;
 
 exports[`gdc cancer 1`] = `
-Object {
+{
   "Entrez_Gene_Id": "2782",
   "Hugo_Symbol": "GNB1",
   "Matched_Norm_Sample_Barcode": "TCGA-OR-A5KB-11A-11D-A30A-10",
@@ -393,7 +393,7 @@ Object {
   "alcohol_history": "--",
   "alcohol_intensity": "--",
   "blockCount": 1,
-  "blockSizes": Array [
+  "blockSizes": [
     1,
   ],
   "bmi": "--",
@@ -401,7 +401,7 @@ Object {
   "chrom": "chr1",
   "chromEnd": 10,
   "chromStart": 1,
-  "chromStarts": Array [
+  "chromStarts": [
     0,
   ],
   "cigarettes_per_day": "--",
@@ -426,7 +426,7 @@ Object {
 `;
 
 exports[`mafFrames 1`] = `
-Object {
+{
   "chrom": "chr22_KI270731v1_random",
   "chromEnd": 12574,
   "chromStart": 11287,
@@ -442,7 +442,7 @@ Object {
 `;
 
 exports[`mafSummary 1`] = `
-Object {
+{
   "chrom": "chr22_KI270731v1_random",
   "chromEnd": 9270,
   "chromStart": 0,
@@ -455,10 +455,10 @@ Object {
 `;
 
 exports[`real world 1`] = `
-Object {
+{
   "comment": "UCSC Genes for chr7 with color plus GeneSymbol and SwissProtID",
-  "fields": Array [
-    Object {
+  "fields": [
+    {
       "arrayIsNumeric": undefined,
       "comment": "Reference sequence chromosome or scaffold",
       "isArray": undefined,
@@ -466,7 +466,7 @@ Object {
       "name": "chrom",
       "type": "string",
     },
-    Object {
+    {
       "arrayIsNumeric": undefined,
       "comment": "Start position of feature on chromosome",
       "isArray": undefined,
@@ -474,7 +474,7 @@ Object {
       "name": "chromStart",
       "type": "uint",
     },
-    Object {
+    {
       "arrayIsNumeric": undefined,
       "comment": "End position of feature on chromosome",
       "isArray": undefined,
@@ -482,7 +482,7 @@ Object {
       "name": "chromEnd",
       "type": "uint",
     },
-    Object {
+    {
       "arrayIsNumeric": undefined,
       "comment": "Name of gene",
       "isArray": undefined,
@@ -490,7 +490,7 @@ Object {
       "name": "name",
       "type": "string",
     },
-    Object {
+    {
       "arrayIsNumeric": undefined,
       "comment": "Score",
       "isArray": undefined,
@@ -498,7 +498,7 @@ Object {
       "name": "score",
       "type": "uint",
     },
-    Object {
+    {
       "arrayIsNumeric": false,
       "comment": "+ or - for strand",
       "isArray": false,
@@ -507,7 +507,7 @@ Object {
       "size": 1,
       "type": "char",
     },
-    Object {
+    {
       "arrayIsNumeric": undefined,
       "comment": "Coding region start",
       "isArray": undefined,
@@ -515,7 +515,7 @@ Object {
       "name": "thickStart",
       "type": "uint",
     },
-    Object {
+    {
       "arrayIsNumeric": undefined,
       "comment": "Coding region end",
       "isArray": undefined,
@@ -523,7 +523,7 @@ Object {
       "name": "thickEnd",
       "type": "uint",
     },
-    Object {
+    {
       "arrayIsNumeric": undefined,
       "comment": "Green on + strand, Red on - strand",
       "isArray": undefined,
@@ -531,7 +531,7 @@ Object {
       "name": "reserved",
       "type": "uint",
     },
-    Object {
+    {
       "arrayIsNumeric": undefined,
       "comment": "Gene Symbol",
       "isArray": undefined,
@@ -539,7 +539,7 @@ Object {
       "name": "geneSymbol",
       "type": "string",
     },
-    Object {
+    {
       "arrayIsNumeric": undefined,
       "comment": "SWISS-PROT protein Accession number",
       "isArray": undefined,

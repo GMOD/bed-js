@@ -1,173 +1,173 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`autoSql parser clinvar CNV table 1`] = `
-Object {
+{
   "comment": "Browser extensible data (12 fields) plus information about a ClinVar entry",
-  "fields": Array [
-    Object {
+  "fields": [
+    {
       "comment": "Chromosome (or contig, scaffold, etc.)",
       "name": "chrom",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Start position in chromosome",
       "name": "chromStart",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "End position in chromosome",
       "name": "chromEnd",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "Name of item",
       "name": "name",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Score from 0-1000",
       "name": "score",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "+ or -",
       "name": "strand",
       "size": 1,
       "type": "char",
     },
-    Object {
+    {
       "comment": "Start of where display should be thick (start codon)",
       "name": "thickStart",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "End of where display should be thick (stop codon)",
       "name": "thickEnd",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "Used as itemRgb as of 2004-11-22",
       "name": "reserved",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "Number of blocks",
       "name": "blockCount",
       "type": "int",
     },
-    Object {
+    {
       "comment": "Comma separated list of block sizes",
       "name": "blockSizes",
       "size": "blockCount",
       "type": "int",
     },
-    Object {
+    {
       "comment": "Start positions relative to chromStart",
       "name": "chromStarts",
       "size": "blockCount",
       "type": "int",
     },
-    Object {
+    {
       "comment": "ClinVar Variation Report",
       "name": "origName",
       "type": "lstring",
     },
-    Object {
+    {
       "comment": "Clinical significance",
       "name": "clinSign",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Review Status",
       "name": "reviewStatus",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Type of Variant",
       "name": "type",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Gene Symbol",
       "name": "geneId",
       "type": "string",
     },
-    Object {
+    {
       "comment": "dbSNP ID",
       "name": "snpId",
       "type": "string",
     },
-    Object {
+    {
       "comment": "dbVar ID",
       "name": "nsvId",
       "type": "string",
     },
-    Object {
+    {
       "comment": "ClinVar Allele Submission",
       "name": "rcvAcc",
       "type": "lstring",
     },
-    Object {
+    {
       "comment": "Genetic Testing Registry",
       "name": "testedInGtr",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Phenotypes",
       "name": "phenotypeList",
       "type": "lstring",
     },
-    Object {
+    {
       "comment": "Phenotype identifiers",
       "name": "phenotype",
       "type": "lstring",
     },
-    Object {
+    {
       "comment": "Data origin",
       "name": "origin",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Genome assembly",
       "name": "assembly",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Cytogenetic status",
       "name": "cytogenetic",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Nucleotide HGVS",
       "name": "hgvsCod",
       "type": "lstring",
     },
-    Object {
+    {
       "comment": "Protein HGVS",
       "name": "hgvsProt",
       "type": "lstring",
     },
-    Object {
+    {
       "comment": "Number of submitters",
       "name": "numSubmit",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Last evaluation",
       "name": "lastEval",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Guidelines",
       "name": "guidelines",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Other identifiers e.g. OMIM IDs, etc.",
       "name": "otherIds",
       "type": "lstring",
     },
-    Object {
+    {
       "comment": "Mouse over text, not shown",
       "name": "_mouseOver",
       "type": "string",
@@ -179,60 +179,60 @@ Object {
 `;
 
 exports[`autoSql parser comment 1`] = `
-Object {
+{
   "comment": "Clinvar Submissions",
-  "fields": Array [
-    Object {
+  "fields": [
+    {
       "comment": "Chromosome (or contig, scaffold, etc.)",
       "name": "chrom",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Start position in chromosome",
       "name": "chromStart",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "End position in chromosome",
       "name": "chromEnd",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "Name of item",
       "name": "name",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Score from 0-1000",
       "name": "score",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "+ or -",
       "name": "strand",
       "size": 1,
       "type": "char",
     },
-    Object {
+    {
       "comment": "Start of where display should be thick (start codon)",
       "name": "thickStart",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "End of where display should be thick (stop codon)",
       "name": "thickEnd",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "Used as itemRgb as of 2004-11-22",
       "name": "reserved",
       "type": "uint",
     },
-    Array [
-      Array [],
+    [
+      [],
       "#",
       "extra fields",
-      Array [
+      [
         "
 ",
         " ",
@@ -241,27 +241,27 @@ Object {
         " ",
       ],
     ],
-    Object {
+    {
       "comment": "Size of lollipop",
       "name": "lollySize",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "changes",
       "name": "changes",
       "type": "lstring",
     },
-    Object {
+    {
       "comment": "variantIds",
       "name": "variantIds",
       "type": "lstring",
     },
-    Object {
+    {
       "comment": "subIds",
       "name": "subIds",
       "type": "lstring",
     },
-    Object {
+    {
       "comment": "mouseOver",
       "name": "_mouseOver",
       "type": "lstring",
@@ -273,98 +273,98 @@ Object {
 `;
 
 exports[`autoSql parser pli 1`] = `
-Object {
+{
   "comment": "bed12+5 for displaying gnomAD haploinsufficiency prediction scores",
-  "fields": Array [
-    Object {
+  "fields": [
+    {
       "comment": "Reference sequence chromosome or scaffold",
       "name": "chrom",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Start position in chromosome",
       "name": "chromStart",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "End position in chromosome",
       "name": "chromEnd",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "ENST or ENSG Name",
       "name": "name",
       "type": "string",
     },
-    Object {
+    {
       "comment": "pLI score between 0-1000, or  -1 for NA",
       "name": "score",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "strand of transcript",
       "name": "strand",
       "size": 1,
       "type": "char",
     },
-    Object {
+    {
       "comment": "Start of where display is thick",
       "name": "thickStart",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "End of where display should be thick",
       "name": "thickEnd",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "Color of item",
       "name": "itemRgb",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "Number of exons",
       "name": "blockCount",
       "type": "int",
     },
-    Object {
+    {
       "comment": "Size of each exon",
       "name": "blockSizes",
       "size": "blockCount",
       "type": "int",
     },
-    Object {
+    {
       "comment": "0-based start position of each exon",
       "name": "chromStarts",
       "size": "blockCount",
       "type": "int",
     },
-    Object {
+    {
       "comment": "Mouseover label",
       "name": "_mouseOver",
       "type": "string",
     },
-    Object {
+    {
       "comment": "pLI value for filters",
       "name": "_pli",
       "type": "float",
     },
-    Object {
+    {
       "comment": "Gene symbol",
       "name": "geneName",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Synonymous metrics",
       "name": "synonymous",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Missense metrics",
       "name": "missense",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Predicted Loss of Function metrics",
       "name": "pLoF",
       "type": "string",
@@ -376,61 +376,61 @@ Object {
 `;
 
 exports[`autoSql parser real world 1`] = `
-Object {
+{
   "comment": "UCSC Genes for chr7 with color plus GeneSymbol and SwissProtID",
-  "fields": Array [
-    Object {
+  "fields": [
+    {
       "comment": "Reference sequence chromosome or scaffold",
       "name": "chrom",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Start position of feature on chromosome",
       "name": "chromStart",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "End position of feature on chromosome",
       "name": "chromEnd",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "Name of gene",
       "name": "name",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Score",
       "name": "score",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "+ or - for strand",
       "name": "strand",
       "size": 1,
       "type": "char",
     },
-    Object {
+    {
       "comment": "Coding region start",
       "name": "thickStart",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "Coding region end",
       "name": "thickEnd",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "Green on + strand, Red on - strand",
       "name": "reserved",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "Gene Symbol",
       "name": "geneSymbol",
       "type": "string",
     },
-    Object {
+    {
       "comment": "SWISS-PROT protein Accession number",
       "name": "spID",
       "type": "string",
@@ -442,20 +442,20 @@ Object {
 `;
 
 exports[`autoSql parser resolves multiple values 1`] = `
-Object {
+{
   "comment": "A three dimensional point",
-  "fields": Array [
-    Object {
+  "fields": [
+    {
       "comment": "Horizontal coordinate",
       "name": "x",
       "type": "float",
     },
-    Object {
+    {
       "comment": "Vertical coordinate",
       "name": "y",
       "type": "float",
     },
-    Object {
+    {
       "comment": "In/out of screen coordinate",
       "name": "z",
       "type": "float",
@@ -467,20 +467,20 @@ Object {
 `;
 
 exports[`autoSql parser resolves multiple values 2`] = `
-Object {
+{
   "comment": "A red/green/blue format color",
-  "fields": Array [
-    Object {
+  "fields": [
+    {
       "comment": "Red value 0-255",
       "name": "red",
       "type": "ubyte",
     },
-    Object {
+    {
       "comment": "Green value 0-255",
       "name": "green",
       "type": "ubyte",
     },
-    Object {
+    {
       "comment": "Blue value 0-255",
       "name": "blue",
       "type": "ubyte",
@@ -492,20 +492,20 @@ Object {
 `;
 
 exports[`autoSql parser resolves multiple values 3`] = `
-Object {
+{
   "comment": "A face of a three dimensional solid",
-  "fields": Array [
-    Object {
+  "fields": [
+    {
       "comment": "Color of this face",
       "name": "color",
       "type": "simple color",
     },
-    Object {
+    {
       "comment": "Number of points in this polygon",
       "name": "pointCount",
       "type": "int",
     },
-    Object {
+    {
       "comment": "Indices of points that make up face in polyhedron point array",
       "name": "points",
       "size": "pointCount",
@@ -518,26 +518,26 @@ Object {
 `;
 
 exports[`autoSql parser resolves multiple values 4`] = `
-Object {
+{
   "comment": "A solid three dimensional object",
-  "fields": Array [
-    Object {
+  "fields": [
+    {
       "comment": "Number of faces",
       "name": "faceCount",
       "type": "int",
     },
-    Object {
+    {
       "comment": "List of faces",
       "name": "faces",
       "size": "faceCount",
       "type": "object face",
     },
-    Object {
+    {
       "comment": "Number of points",
       "name": "pointCount",
       "type": "int",
     },
-    Object {
+    {
       "comment": "Array of points",
       "name": "points",
       "size": "pointCount",
@@ -550,28 +550,28 @@ Object {
 `;
 
 exports[`autoSql parser resolves symbolic 1`] = `
-Object {
+{
   "comment": "example of enum and set symbolic columns",
-  "fields": Array [
-    Object {
+  "fields": [
+    {
       "comment": "unique id",
       "name": "id",
       "type": "int",
     },
-    Object {
+    {
       "comment": "enumerated column",
       "name": "sex",
       "type": "enum",
-      "vals": Array [
+      "vals": [
         "male",
         "female",
       ],
     },
-    Object {
+    {
       "comment": "set column",
       "name": "skills",
       "type": "set",
-      "vals": Array [
+      "vals": [
         "cProg",
         "javaProg",
         "pythonProg",
@@ -585,30 +585,30 @@ Object {
 `;
 
 exports[`autoSql parser simple example 1`] = `
-Object {
+{
   "comment": "A simple address book",
-  "fields": Array [
-    Object {
+  "fields": [
+    {
       "comment": "Name - first or last or both, we don't care",
       "name": "name",
       "type": "string",
     },
-    Object {
+    {
       "comment": "Street address",
       "name": "address",
       "type": "lstring",
     },
-    Object {
+    {
       "comment": "City",
       "name": "city",
       "type": "string",
     },
-    Object {
+    {
       "comment": "A zip code is always positive, so can be unsigned",
       "name": "zipCode",
       "type": "uint",
     },
-    Object {
+    {
       "comment": "Just store the abbreviation for the state",
       "name": "state",
       "size": 2,
