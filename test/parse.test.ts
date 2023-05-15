@@ -132,7 +132,7 @@ test('bigNarrowPeak', () => {
   expect(
     p.parseLine(
       'chr1\t566753\t566953\t.\t468\t.\t103.84\t5.54347\t4.80079\t154',
-      { uniqueId: 1 },
+      { uniqueId: '1' },
     ),
   ).toMatchSnapshot()
 })

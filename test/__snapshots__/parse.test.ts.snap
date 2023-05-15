@@ -291,7 +291,7 @@ exports[`bigNarrowPeak 2`] = `
   "score": 468,
   "signalValue": 103.84,
   "strand": 0,
-  "uniqueId": 1,
+  "uniqueId": "1",
 }
 `;
 
