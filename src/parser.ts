@@ -94,7 +94,6 @@ export default class BED {
     feature.strand = strandMap[feature.strand as keyof typeof strandMap] || 0
 
     feature.chrom = decodeURIComponent(feature.chrom)
-    console.log({ feature })
     return feature
   }
 }
