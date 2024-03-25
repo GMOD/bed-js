@@ -12,15 +12,15 @@ export interface AutoSqlPreSchema {
  * @return autoSql with type annotations added
  */
 export function detectTypes(autoSql: AutoSqlPreSchema) {
-  const numericTypes = ['uint', 'int', 'float', 'long']
+  const numericTypes = new Set(['uint', 'int', 'float', 'long'])
   return {
     ...autoSql,
     fields: autoSql.fields
       .map(autoField => ({
         ...autoField,
         isArray: autoField.size && autoField.type !== 'char',
-        arrayIsNumeric: autoField.size && numericTypes.includes(autoField.type),
-        isNumeric: !autoField.size && numericTypes.includes(autoField.type),
+        arrayIsNumeric: autoField.size && numericTypes.has(autoField.type),
+        isNumeric: !autoField.size && numericTypes.has(autoField.type),
       }))
 
       // this is needed because the autoSql doesn't properly parse comments in the autoSql

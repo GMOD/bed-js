@@ -43,7 +43,7 @@ export default class BED {
     const { uniqueId } = opts
     const fields = Array.isArray(line) ? line : line.split('\t')
 
-    let feature = {} as { [key: string]: any }
+    let feature = {} as Record<string, any>
     if (
       !this.attemptDefaultBed ||
       (this.attemptDefaultBed && isBed12Like(fields))
@@ -65,7 +65,7 @@ export default class BED {
               columnVal.pop()
             }
             if (arrayIsNumeric) {
-              columnVal = columnVal.map((str: string) => Number(str))
+              columnVal = columnVal.map(Number)
             }
           }
 

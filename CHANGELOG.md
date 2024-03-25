@@ -1,6 +1,6 @@
+- Fix autoSql with comments in column names
+
 ## [2.1.2](https://github.com/GMOD/bed-js/compare/v2.1.1...v2.1.2) (2022-07-24)
-
-
 
 - Add comment string to autoSql types
 
@@ -30,7 +30,8 @@
 
 ## [2.0.4](https://github.com/GMOD/bed-js/compare/v2.0.3...v2.0.4) (2020-12-03)
 
-- Allow for badly formatted comments not entirely within a quote, was exhibited by https://hgdownload.soe.ucsc.edu/gbdb/hg19/gnomAD/pLI/pliByGene.bb
+- Allow for badly formatted comments not entirely within a quote, was exhibited
+  by https://hgdownload.soe.ucsc.edu/gbdb/hg19/gnomAD/pLI/pliByGene.bb
 
 ## [2.0.3](https://github.com/GMOD/bed-js/compare/v2.0.2...v2.0.3) (2020-07-09)
 
@@ -40,7 +41,8 @@
 
 ## [2.0.2](https://github.com/GMOD/bed-js/compare/v2.0.1...v2.0.2) (2019-11-12)
 
-- Small autoSql grammar improvements e.g. allow \_ in autoSql names (for `_mouseover` from ucsc)
+- Small autoSql grammar improvements e.g. allow \_ in autoSql names (for
+  `_mouseover` from ucsc)
 
 <a name="2.0.1"></a>
 
@@ -54,13 +56,17 @@
 
 - API now processes just text lines with the parseLine method
 - Remove snake case of results
-- Returned values match autoSql very faithfully and uses the naming from UCSC e.g. exact strings from autoSql {chrom, chromStart, chromEnd}
-- Accepts a opts.uniqueId for the parseLine method which adds this to the featureData
-- Parses the default BED schema with a defaultBedSchema.as autoSql definition instead of a separate method
+- Returned values match autoSql very faithfully and uses the naming from UCSC
+  e.g. exact strings from autoSql {chrom, chromStart, chromEnd}
+- Accepts a opts.uniqueId for the parseLine method which adds this to the
+  featureData
+- Parses the default BED schema with a defaultBedSchema.as autoSql definition
+  instead of a separate method
 
 ## [1.0.4](https://github.com/GMOD/bed-js/compare/v1.0.3...v1.0.4) (2019-04-14)
 
-- Changed parseBedText to accept an Options argument with offset and optionally a uniqueId
+- Changed parseBedText to accept an Options argument with offset and optionally
+  a uniqueId
 
 ## [1.0.3](https://github.com/GMOD/bed-js/compare/v1.0.2...v1.0.3) (2019-04-02)
 
