@@ -1,16 +1,11 @@
 {
-  "include": ["src"],
   "compilerOptions": {
-    "outDir": "dist",
-    "types": ["node", "jest"],
-    "lib": ["dom", "esnext"],
-    "declaration": true,
     "moduleResolution": "node",
-    "sourceMap": true,
+    "declaration": true,
+    "outDir": "dist",
     "strict": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "esModuleInterop": true,
-    "allowJs": true
-  }
+    "sourceMap": true,
+    "esModuleInterop": true
+  },
+  "include": ["src"]
 }

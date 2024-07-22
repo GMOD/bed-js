@@ -1,10 +1,12 @@
+// @ts-expect-error
 import parser from './autoSql'
 import types from './defaultTypes'
 import { detectTypes, AutoSqlSchema, AutoSqlPreSchema } from './util'
 
 const strandMap = { '.': 0, '-': -1, '+': 1 }
 
-// heuristic that a BED file is BED12 like...the number in col 10 is blockCount-like
+// heuristic that a BED file is BED12 like...the number in col 10 is
+// blockCount-like
 function isBed12Like(fields: string[]) {
   return (
     fields.length >= 12 &&

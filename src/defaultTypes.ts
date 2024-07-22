@@ -1,3 +1,4 @@
+// @ts-expect-error
 import { parse } from './autoSql'
 import { AutoSqlPreSchema } from './util'
 import * as types from './as/autoSqlSchemas'
