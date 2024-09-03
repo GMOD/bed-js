@@ -1,3 +1,4 @@
+import { test, expect } from 'vitest'
 import BED from '../src'
 
 test('BED3', () => {
@@ -23,8 +24,8 @@ test('BED6', () => {
   expect(f2).toMatchSnapshot()
   expect(f3).toMatchSnapshot()
   expect(f2.chrom).toEqual('co,tigA')
-  expect(f2.chromStart).toEqual(10875)
-  expect(f2.chromEnd).toEqual(10884)
+  expect(f2.chromStart).toEqual(10_875)
+  expect(f2.chromEnd).toEqual(10_884)
   expect(f3.strand).toEqual(0)
 })
 test('BED12', () => {
@@ -200,8 +201,8 @@ test('gdc cancer', () => {
     lstring case_id;                "Case ID number"
 )`
   const p = new BED({ autoSql })
-  const ret = p.parseLine(
+  const returnValue = p.parseLine(
     'chr1\t1\t10\tT>G\t1\t.\t1815756\t1815757\t0,0,0\t1\t1\t0\t1\t0.0108695652174\tGNB1\t2782\tSplice_Region\tSNP\tT\tT\tG\tnovel\t\t--\t--\t--\t--\t--\t--\t--\t--\tfemale\tTCGA-ACC\tnot hispanic or latino\tTCGA-OR-A5KB-01A-11D-A30A-10\tTCGA-OR-A5KB-11A-11D-A30A-10\t09454ed6-64bc-4a35-af44-7c4344623d45',
   )
-  expect(ret).toMatchSnapshot()
+  expect(returnValue).toMatchSnapshot()
 })

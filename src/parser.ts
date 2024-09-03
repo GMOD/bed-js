@@ -10,8 +10,9 @@ const strandMap = { '.': 0, '-': -1, '+': 1 }
 function isBed12Like(fields: string[]) {
   return (
     fields.length >= 12 &&
-    !Number.isNaN(parseInt(fields[9], 10)) &&
-    fields[10]?.split(',').filter(f => !!f).length === parseInt(fields[9], 10)
+    !Number.isNaN(Number.parseInt(fields[9], 10)) &&
+    fields[10]?.split(',').filter(f => !!f).length ===
+      Number.parseInt(fields[9], 10)
   )
 }
 export default class BED {
@@ -19,14 +20,17 @@ export default class BED {
 
   private attemptDefaultBed?: boolean
 
-  constructor(args: { autoSql?: string; type?: string } = {}) {
-    if (args.autoSql) {
-      this.autoSql = detectTypes(parser.parse(args.autoSql) as AutoSqlPreSchema)
-    } else if (args.type) {
-      if (!types[args.type]) {
+  constructor(arguments_: { autoSql?: string; type?: string } = {}) {
+    if (arguments_.autoSql) {
+      this.autoSql = detectTypes(
+        parser.parse(arguments_.autoSql) as AutoSqlPreSchema,
+      )
+    } else if (arguments_.type) {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      if (!types[arguments_.type]) {
         throw new Error('Type not found')
       }
-      this.autoSql = detectTypes(types[args.type])
+      this.autoSql = detectTypes(types[arguments_.type])
     } else {
       this.autoSql = detectTypes(types.defaultBedSchema)
       this.attemptDefaultBed = true
@@ -40,44 +44,45 @@ export default class BED {
    * @param opts - supply opts.uniqueId
    * @return a object representing a feature
    */
-  parseLine(line: string | string[], opts: { uniqueId?: string } = {}) {
+  parseLine(line: string | string[], options: { uniqueId?: string } = {}) {
     const { autoSql } = this
-    const { uniqueId } = opts
+    const { uniqueId } = options
     const fields = Array.isArray(line) ? line : line.split('\t')
 
     let feature = {} as Record<string, any>
     if (
       !this.attemptDefaultBed ||
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       (this.attemptDefaultBed && isBed12Like(fields))
     ) {
-      for (let i = 0; i < autoSql.fields.length; i++) {
-        const autoField = autoSql.fields[i]
-        let columnVal: any = fields[i]
+      for (let index = 0; index < autoSql.fields.length; index++) {
+        const autoField = autoSql.fields[index]
+        let columnValue: any = fields[index]
         const { isNumeric, isArray, arrayIsNumeric, name } = autoField
-        if (columnVal === null || columnVal === undefined) {
+        if (columnValue === null || columnValue === undefined) {
           break
         }
-        if (columnVal !== '.') {
+        if (columnValue !== '.') {
           if (isNumeric) {
-            const num = Number(columnVal)
-            columnVal = Number.isNaN(num) ? columnVal : num
+            const number_ = Number(columnValue)
+            columnValue = Number.isNaN(number_) ? columnValue : number_
           } else if (isArray) {
-            columnVal = columnVal.split(',')
-            if (columnVal[columnVal.length - 1] === '') {
-              columnVal.pop()
+            columnValue = columnValue.split(',')
+            if (columnValue.at(-1) === '') {
+              columnValue.pop()
             }
             if (arrayIsNumeric) {
-              columnVal = columnVal.map(Number)
+              columnValue = columnValue.map(Number)
             }
           }
 
-          feature[name] = columnVal
+          feature[name] = columnValue
         }
       }
     } else {
       const fieldNames = ['chrom', 'chromStart', 'chromEnd', 'name']
       feature = Object.fromEntries(
-        fields.map((f, i) => [fieldNames[i] || 'field' + i, f]),
+        fields.map((f, index) => [fieldNames[index] || 'field' + index, f]),
       )
       feature.chromStart = +feature.chromStart
       feature.chromEnd = +feature.chromEnd

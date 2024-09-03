@@ -3,10 +3,9 @@ export interface AutoSqlPreSchema {
 }
 
 /*
- * adds some type annotations to the autoSql schema
- * for numeric fields ['uint', 'int', 'float', 'long'] "isNumeric" is added
- * for array types "isArray" is added
- * for numeric array types "isArray" and "arrayIsNumeric" is set
+ * adds some type annotations to the autoSql schema for numeric fields ['uint',
+ * 'int', 'float', 'long'] "isNumeric" is added for array types "isArray" is
+ * added for numeric array types "isArray" and "arrayIsNumeric" is set
  *
  * @param autoSql - an autoSql schema from the peg parser
  * @return autoSql with type annotations added

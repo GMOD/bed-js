@@ -4,8 +4,8 @@ import { AutoSqlPreSchema } from './util'
 import * as types from './as/autoSqlSchemas'
 
 export default Object.fromEntries(
-  Object.entries(types).map(([key, val]) => [
+  Object.entries(types).map(([key, value]) => [
     key,
-    parse(val.trim()) as AutoSqlPreSchema,
+    parse(value.trim()) as AutoSqlPreSchema,
   ]),
 )

@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`autoSql parser clinvar CNV table 1`] = `
+exports[`autoSql parser > clinvar CNV table 1`] = `
 {
   "comment": "Browser extensible data (12 fields) plus information about a ClinVar entry",
   "fields": [
@@ -178,7 +178,7 @@ exports[`autoSql parser clinvar CNV table 1`] = `
 }
 `;
 
-exports[`autoSql parser comment 1`] = `
+exports[`autoSql parser > comment 1`] = `
 {
   "comment": "Clinvar Submissions",
   "fields": [
@@ -272,7 +272,7 @@ exports[`autoSql parser comment 1`] = `
 }
 `;
 
-exports[`autoSql parser pli 1`] = `
+exports[`autoSql parser > pli 1`] = `
 {
   "comment": "bed12+5 for displaying gnomAD haploinsufficiency prediction scores",
   "fields": [
@@ -375,7 +375,7 @@ exports[`autoSql parser pli 1`] = `
 }
 `;
 
-exports[`autoSql parser real world 1`] = `
+exports[`autoSql parser > real world 1`] = `
 {
   "comment": "UCSC Genes for chr7 with color plus GeneSymbol and SwissProtID",
   "fields": [
@@ -441,7 +441,7 @@ exports[`autoSql parser real world 1`] = `
 }
 `;
 
-exports[`autoSql parser resolves multiple values 1`] = `
+exports[`autoSql parser > resolves multiple values 1`] = `
 {
   "comment": "A three dimensional point",
   "fields": [
@@ -466,7 +466,7 @@ exports[`autoSql parser resolves multiple values 1`] = `
 }
 `;
 
-exports[`autoSql parser resolves multiple values 2`] = `
+exports[`autoSql parser > resolves multiple values 2`] = `
 {
   "comment": "A red/green/blue format color",
   "fields": [
@@ -491,7 +491,7 @@ exports[`autoSql parser resolves multiple values 2`] = `
 }
 `;
 
-exports[`autoSql parser resolves multiple values 3`] = `
+exports[`autoSql parser > resolves multiple values 3`] = `
 {
   "comment": "A face of a three dimensional solid",
   "fields": [
@@ -517,7 +517,7 @@ exports[`autoSql parser resolves multiple values 3`] = `
 }
 `;
 
-exports[`autoSql parser resolves multiple values 4`] = `
+exports[`autoSql parser > resolves multiple values 4`] = `
 {
   "comment": "A solid three dimensional object",
   "fields": [
@@ -549,7 +549,7 @@ exports[`autoSql parser resolves multiple values 4`] = `
 }
 `;
 
-exports[`autoSql parser resolves symbolic 1`] = `
+exports[`autoSql parser > resolves symbolic 1`] = `
 {
   "comment": "example of enum and set symbolic columns",
   "fields": [
@@ -584,7 +584,7 @@ exports[`autoSql parser resolves symbolic 1`] = `
 }
 `;
 
-exports[`autoSql parser simple example 1`] = `
+exports[`autoSql parser > simple example 1`] = `
 {
   "comment": "A simple address book",
   "fields": [

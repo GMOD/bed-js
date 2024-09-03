@@ -1,3 +1,4 @@
+import { describe, it, test, expect } from 'vitest'
 import parser from '../src/autoSql'
 
 describe('autoSql parser', () => {
