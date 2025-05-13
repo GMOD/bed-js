@@ -1,7 +1,7 @@
 // @ts-expect-error
-import parser from './autoSql'
-import types from './defaultTypes'
-import { detectTypes, AutoSqlSchema, AutoSqlPreSchema } from './util'
+import parser from './autoSql.js'
+import types from './defaultTypes.ts'
+import { detectTypes, AutoSqlSchema, AutoSqlPreSchema } from './util.ts'
 
 const strandMap = { '.': 0, '-': -1, '+': 1 }
 

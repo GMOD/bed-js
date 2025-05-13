@@ -1,5 +1,5 @@
 import { test, expect } from 'vitest'
-import BED from '../src'
+import BED from '../src/index.ts'
 
 test('BED3', () => {
   const p = new BED()
