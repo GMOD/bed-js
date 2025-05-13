@@ -1,3 +1,7 @@
+## [2.1.4](https://github.com/GMOD/bed-js/compare/v2.1.3...v2.1.4) (2025-05-13)
+
+
+
 ## [2.1.3](https://github.com/GMOD/bed-js/compare/v2.1.2...v2.1.3) (2024-3-25)
 
 - Fix autoSql with comments in column names
