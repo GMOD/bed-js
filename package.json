@@ -1,6 +1,6 @@
 {
   "name": "@gmod/bed",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "A BED file format parser with autoSql support",
   "main": "dist/index.js",
   "module": "esm/index.js",
@@ -27,12 +27,12 @@
     "lint": "eslint --report-unused-disable-directives --max-warnings 0 src test",
     "test": "vitest",
     "clean": "rimraf dist esm",
-    "generate": "pegjs -o src/autoSql.js autoSql.pegjs",
+    "generate": "pegjs -o src/autoSql.ts autoSql.pegjs",
     "prebuild": "npm run clean",
     "build:esm": "tsc --target es2020 --outDir esm",
     "build:es5": "tsc --target es2020 --module commonjs --outDir dist",
     "postbuild:es5": "echo '{\"type\": \"commonjs\"}' > dist/package.json",
-    "build": "npm run generate && npm run build:esm && npm run build:es5",
+    "build": "npm run build:esm && npm run build:es5",
     "preversion": "npm test run && npm run build",
     "version": "standard-changelog && git add CHANGELOG.md",
     "postversion": "git push --follow-tags"
