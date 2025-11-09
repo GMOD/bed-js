@@ -1,6 +1,6 @@
 import parser from './autoSql.ts'
 import types from './defaultTypes.ts'
-import { detectTypes, AutoSqlSchema, AutoSqlPreSchema } from './util.ts'
+import { AutoSqlPreSchema, AutoSqlSchema, detectTypes } from './util.ts'
 
 const strandMap = { '.': 0, '-': -1, '+': 1 }
 

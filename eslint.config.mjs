@@ -1,7 +1,9 @@
 import eslint from '@eslint/js'
+import { defineConfig } from 'eslint/config'
+import importPlugin from 'eslint-plugin-import'
 import tseslint from 'typescript-eslint'
 
-export default tseslint.config(
+export default defineConfig(
   {
     ignores: [
       'esm/**/*',
@@ -10,6 +12,7 @@ export default tseslint.config(
       '*.mjs',
       'example/*',
       'src/autoSql.js',
+      'src/autoSql.ts',
     ],
   },
   {
@@ -21,6 +24,7 @@ export default tseslint.config(
     },
   },
   eslint.configs.recommended,
+  importPlugin.flatConfigs.recommended,
   ...tseslint.configs.recommended,
   ...tseslint.configs.stylisticTypeChecked,
   ...tseslint.configs.strictTypeChecked,
@@ -37,6 +41,25 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-argument': 0,
       '@typescript-eslint/restrict-plus-operands': 0,
       semi: ['error', 'never'],
+
+      'import/no-unresolved': 'off',
+      'import/extensions': ['error', 'ignorePackages'],
+      'import/order': [
+        'error',
+        {
+          named: true,
+          'newlines-between': 'always',
+          alphabetize: {
+            order: 'asc',
+          },
+          groups: [
+            'builtin',
+            ['external', 'internal'],
+            ['parent', 'sibling', 'index', 'object'],
+            'type',
+          ],
+        },
+      ],
     },
   },
 )
