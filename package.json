@@ -36,7 +36,7 @@
     "lint": "eslint --report-unused-disable-directives --max-warnings 0 src test",
     "clean": "rimraf dist esm",
     "format": "prettier --write .",
-    "generate": "pegjs -o src/autoSql.ts autoSql.pegjs",
+    "generate": "pegjs -o src/autoSql.js autoSql.pegjs",
     "build:esm": "tsc --outDir esm",
     "build:es5": "tsc --module commonjs --outDir dist",
     "build": "yarn build:esm && yarn build:es5",
