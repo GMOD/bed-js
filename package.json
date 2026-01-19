@@ -2,15 +2,23 @@
   "name": "@gmod/bed",
   "version": "2.1.7",
   "description": "A BED file format parser with autoSql support",
-  "main": "dist/index.js",
-  "module": "esm/index.js",
+  "license": "MIT",
   "repository": "github:GMOD/bed-js",
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "import": {
+      "import": "./esm/index.js"
+    },
+    "require": {
+      "require": "./dist/index.js"
+    }
+  },
   "author": {
     "name": "Colin Diesh",
     "email": "colin.diesh@gmail.com",
     "url": "https://github.com/cmdcolin"
   },
-  "license": "MIT",
   "homepage": "https://github.com/GMOD/bed-js",
   "bugs": {
     "url": "https://github.com/GMOD/bed-js/issues"
@@ -24,32 +32,33 @@
     "node": ">=6"
   },
   "scripts": {
-    "lint": "eslint --report-unused-disable-directives --max-warnings 0 src test",
     "test": "vitest",
+    "lint": "eslint --report-unused-disable-directives --max-warnings 0 src test",
     "clean": "rimraf dist esm",
+    "format": "prettier --write .",
     "generate": "pegjs -o src/autoSql.ts autoSql.pegjs",
-    "prebuild": "npm run clean",
-    "build:esm": "tsc --target es2020 --outDir esm",
-    "build:es5": "tsc --target es2020 --module commonjs --outDir dist",
+    "build:esm": "tsc --outDir esm",
+    "build:es5": "tsc --module commonjs --outDir dist",
+    "build": "yarn build:esm && yarn build:es5",
+    "prebuild": "yarn clean",
     "postbuild:es5": "echo '{\"type\": \"commonjs\"}' > dist/package.json",
-    "build": "npm run build:esm && npm run build:es5",
-    "preversion": "npm test run && npm run build",
+    "preversion": "yarn lint && yarn test --run && yarn build",
     "version": "standard-changelog && git add CHANGELOG.md",
     "postversion": "git push --follow-tags"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.4.0",
-    "@typescript-eslint/parser": "^8.4.0",
-    "@vitest/coverage-v8": "^3.0.3",
+    "@typescript-eslint/eslint-plugin": "^8.53.0",
+    "@typescript-eslint/parser": "^8.53.0",
+    "@vitest/coverage-v8": "^4.0.17",
+    "eslint": "^9.39.2",
     "eslint-plugin-import": "^2.32.0",
-    "eslint": "^9.39.1",
     "pegjs": "^0.10.0",
-    "prettier": "^3.3.3",
-    "rimraf": "^6.0.1",
-    "standard-changelog": "^6.0.0",
-    "typescript": "^5.5.4",
-    "typescript-eslint": "^8.4.0",
-    "vitest": "^3.0.1"
+    "prettier": "^3.8.0",
+    "rimraf": "^6.1.2",
+    "standard-changelog": "^7.0.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.53.0",
+    "vitest": "^4.0.17"
   },
   "keywords": [
     "bed",
