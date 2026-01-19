@@ -1,3 +1,7 @@
+## [2.1.8](https://github.com/GMOD/bed-js/compare/v2.1.7...v2.1.8) (2026-01-19)
+
+
+
 ## [2.1.7](https://github.com/GMOD/bed-js/compare/v2.1.5...v2.1.7) (2025-05-13)
 
 
