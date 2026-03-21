@@ -50,7 +50,7 @@ export default class BED {
     const { uniqueId } = options
     const fields = Array.isArray(line) ? line : line.split('\t')
 
-    let feature = {} as Record<string, any>
+    const feature: Record<string, string | number | string[] | number[]> = {}
     if (
       !this.attemptDefaultBed ||
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -58,41 +58,42 @@ export default class BED {
     ) {
       for (let index = 0; index < autoSql.fields.length; index++) {
         const autoField = autoSql.fields[index]
-        let columnValue: any = fields[index]
+        const rawColumn = fields[index]
         const { isNumeric, isArray, arrayIsNumeric, name } = autoField
-        if (columnValue === null || columnValue === undefined) {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (rawColumn === undefined) {
           break
         }
-        if (columnValue !== '.') {
+        if (rawColumn !== '.') {
           if (isNumeric) {
-            const number_ = Number(columnValue)
-            columnValue = Number.isNaN(number_) ? columnValue : number_
+            const number_ = Number(rawColumn)
+            feature[name] = Number.isNaN(number_) ? rawColumn : number_
           } else if (isArray) {
-            columnValue = columnValue.split(',')
-            if (columnValue.at(-1) === '') {
-              columnValue.pop()
+            const parts = rawColumn.split(',')
+            if (parts.at(-1) === '') {
+              parts.pop()
             }
-            if (arrayIsNumeric) {
-              columnValue = columnValue.map(Number)
-            }
+            feature[name] = arrayIsNumeric ? parts.map(Number) : parts
+          } else {
+            feature[name] = rawColumn
           }
-
-          feature[name] = columnValue
         }
       }
     } else {
       const fieldNames = ['chrom', 'chromStart', 'chromEnd', 'name']
-      feature = Object.fromEntries(
-        fields.map((f, index) => [fieldNames[index] || 'field' + index, f]),
-      )
-      feature.chromStart = +feature.chromStart
-      feature.chromEnd = +feature.chromEnd
-      if (!Number.isNaN(Number.parseFloat(feature.field4))) {
-        feature.score = +feature.field4
+      for (let i = 0; i < fields.length; i++) {
+        feature[fieldNames[i] ?? 'field' + i] = fields[i]
+      }
+      feature.chromStart = Number(fields[1])
+      feature.chromEnd = Number(fields[2])
+      const field4 = fields[4]
+      if (!Number.isNaN(Number.parseFloat(field4))) {
+        feature.score = Number.parseFloat(field4)
         delete feature.field4
       }
-      if (feature.field5 === '+' || feature.field5 === '-') {
-        feature.strand = feature.field5
+      const field5 = fields[5]
+      if (field5 === '+' || field5 === '-') {
+        feature.strand = field5
         delete feature.field5
       }
     }
@@ -101,7 +102,7 @@ export default class BED {
     }
     feature.strand = strandMap[feature.strand as keyof typeof strandMap] || 0
 
-    feature.chrom = decodeURIComponent(feature.chrom)
+    feature.chrom = decodeURIComponent(String(feature.chrom))
     return feature
   }
 }
