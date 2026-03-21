@@ -32,6 +32,7 @@ export default defineConfig(
     rules: {
       'no-underscore-dangle': 'off',
       curly: 'error',
+      '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/ban-ts-comment': 'off',

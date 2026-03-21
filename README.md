@@ -14,9 +14,6 @@ You can pipe your file through this programs parseLine function
 ```js
 import BED from '@gmod/bed'
 
-// you might require compatibility with node.js to use the default export with require e.g.
-// const BED = require('@gmod/bed').default
-
 var parser = new BED()
 var text = fs.readFileSync('file.txt', 'utf8')
 var results = text.split('\n').map(line => parser.parseLine(line))
@@ -118,7 +115,8 @@ header.autoSql) then you initialize the schema in the constructor and then use
 parseLine as normal
 
 ```
-const {BigBed} = require('@gmod/bbi')
+import { BigBed } from '@gmod/bbi'
+
 const bigbed = new BigBed({path: 'yourfile'})
 const {autoSql} = await bigbed.getHeader()
 const p = new BED({ autoSql })
