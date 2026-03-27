@@ -56,7 +56,7 @@
     "prettier": "^3.8.0",
     "rimraf": "^6.1.2",
     "standard-changelog": "^7.0.1",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.2",
     "typescript-eslint": "^8.53.0",
     "vitest": "^4.0.17"
   },
