@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "moduleResolution": "bundler",
-    "module": "esnext",
+    "moduleResolution": "nodenext",
+    "module": "nodenext",
     "declaration": true,
     "target": "esnext",
     "outDir": "dist",
@@ -13,5 +13,7 @@
     "rewriteRelativeImportExtensions": true,
     "esModuleInterop": true
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }
