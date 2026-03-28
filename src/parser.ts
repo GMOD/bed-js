@@ -2,7 +2,7 @@ import parser from './autoSql.js'
 import types from './defaultTypes.ts'
 import { detectTypes } from './util.ts'
 
-import type { AutoSqlPreSchema, AutoSqlSchema} from './util.ts'
+import type { AutoSqlPreSchema, AutoSqlSchema } from './util.ts'
 
 const strandMap = { '.': 0, '-': -1, '+': 1 }
 

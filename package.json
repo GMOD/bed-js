@@ -3,7 +3,10 @@
   "version": "2.1.10",
   "description": "A BED file format parser with autoSql support",
   "license": "MIT",
-  "repository": "github:GMOD/bed-js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GMOD/bed-js.git"
+  },
   "type": "module",
   "types": "./dist/index.d.ts",
   "exports": {
