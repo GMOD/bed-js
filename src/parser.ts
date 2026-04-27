@@ -11,9 +11,9 @@ const strandMap = { '.': 0, '-': -1, '+': 1 }
 function isBed12Like(fields: string[]) {
   return (
     fields.length >= 12 &&
-    !Number.isNaN(Number.parseInt(fields[9], 10)) &&
+    !Number.isNaN(Number.parseInt(fields[9]!, 10)) &&
     fields[10]?.split(',').filter(f => !!f).length ===
-      Number.parseInt(fields[9], 10)
+      Number.parseInt(fields[9]!, 10)
   )
 }
 export default class BED {
@@ -27,13 +27,12 @@ export default class BED {
         parser.parse(arguments_.autoSql) as AutoSqlPreSchema,
       )
     } else if (arguments_.type) {
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (!types[arguments_.type]) {
         throw new Error('Type not found')
       }
-      this.autoSql = detectTypes(types[arguments_.type])
+      this.autoSql = detectTypes(types[arguments_.type]!)
     } else {
-      this.autoSql = detectTypes(types.defaultBedSchema)
+      this.autoSql = detectTypes(types.defaultBedSchema!)
       this.attemptDefaultBed = true
     }
   }
@@ -57,10 +56,10 @@ export default class BED {
       (this.attemptDefaultBed && isBed12Like(fields))
     ) {
       for (let index = 0; index < autoSql.fields.length; index++) {
-        const autoField = autoSql.fields[index]
+        const autoField = autoSql.fields[index]!
         const rawColumn = fields[index]
         const { isNumeric, isArray, arrayIsNumeric, name } = autoField
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+
         if (rawColumn === undefined) {
           break
         }
@@ -82,12 +81,12 @@ export default class BED {
     } else {
       const fieldNames = ['chrom', 'chromStart', 'chromEnd', 'name']
       for (let i = 0; i < fields.length; i++) {
-        feature[fieldNames[i] ?? 'field' + i] = fields[i]
+        feature[fieldNames[i] ?? 'field' + i] = fields[i]!
       }
-      feature.chromStart = Number(fields[1])
-      feature.chromEnd = Number(fields[2])
+      feature.chromStart = Number(fields[1]!)
+      feature.chromEnd = Number(fields[2]!)
       const field4 = fields[4]
-      if (!Number.isNaN(Number.parseFloat(field4))) {
+      if (field4 !== undefined && !Number.isNaN(Number.parseFloat(field4))) {
         feature.score = Number.parseFloat(field4)
         delete feature.field4
       }

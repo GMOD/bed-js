@@ -6,6 +6,7 @@ import tseslint from 'typescript-eslint'
 export default defineConfig(
   {
     ignores: [
+      'coverage/',
       'esm/**/*',
       'dist/**/*',
       '*.js',
@@ -39,6 +40,7 @@ export default defineConfig(
         'error',
         { 'ts-expect-error': 'allow-with-description', 'ts-ignore': true },
       ],
+      '@typescript-eslint/no-non-null-assertion': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-unsafe-call': 'off',
