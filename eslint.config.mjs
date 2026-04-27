@@ -1,6 +1,6 @@
 import eslint from '@eslint/js'
 import { defineConfig } from 'eslint/config'
-import importPlugin from 'eslint-plugin-import'
+import importPlugin from 'eslint-plugin-import-x'
 import tseslint from 'typescript-eslint'
 
 export default defineConfig(
@@ -44,12 +44,12 @@ export default defineConfig(
       '@typescript-eslint/no-unsafe-call': 'off',
       '@typescript-eslint/no-unsafe-argument': 'off',
       '@typescript-eslint/restrict-plus-operands': 'off',
-      'import/no-named-as-default-member': 'off',
+      'import-x/no-named-as-default-member': 'off',
       semi: ['error', 'never'],
 
-      'import/no-unresolved': 'off',
-      'import/extensions': ['error', 'ignorePackages'],
-      'import/order': [
+      'import-x/no-unresolved': 'off',
+      'import-x/extensions': ['error', 'ignorePackages'],
+      'import-x/order': [
         'error',
         {
           named: true,
