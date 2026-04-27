@@ -149,3 +149,11 @@ https://genome-source.gi.ucsc.edu/gitlist/kent.git/blob/master/src/hg/autoSql/au
 
 also see http://genomewiki.ucsc.edu/index.php/AutoSql and
 https://www.linuxjournal.com/article/5949
+
+## Publishing
+
+[Trusted publishing](https://docs.npmjs.com/about-trusted-publishing) via GitHub Actions.
+
+```bash
+npm version patch  # or minor/major
+```
