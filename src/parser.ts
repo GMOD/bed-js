@@ -48,11 +48,7 @@ export default class BED {
     const fields = Array.isArray(line) ? line : line.split('\t')
 
     const feature: Record<string, string | number | string[] | number[]> = {}
-    if (
-      !this.attemptDefaultBed ||
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      (this.attemptDefaultBed && isBed12Like(fields))
-    ) {
+    if (!this.attemptDefaultBed || isBed12Like(fields)) {
       for (let index = 0; index < autoSql.fields.length; index++) {
         const autoField = autoSql.fields[index]!
         const rawColumn = fields[index]
@@ -97,7 +93,8 @@ export default class BED {
     if (uniqueId) {
       feature.uniqueId = uniqueId
     }
-    feature.strand = strandMap[feature.strand as keyof typeof strandMap] || 0
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    feature.strand = strandMap[feature.strand as keyof typeof strandMap] ?? 0
 
     feature.chrom = decodeURIComponent(String(feature.chrom))
     return feature
