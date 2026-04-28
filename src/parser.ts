@@ -1,6 +1,8 @@
-import parser from './autoSql.js'
+import { parse } from './autoSql.js'
 import types from './defaultTypes.ts'
-import { AutoSqlPreSchema, AutoSqlSchema, detectTypes } from './util.ts'
+import { detectTypes } from './util.ts'
+
+import type { AutoSqlPreSchema, AutoSqlSchema } from './util.ts'
 
 const strandMap = { '.': 0, '-': -1, '+': 1 }
 
@@ -9,9 +11,9 @@ const strandMap = { '.': 0, '-': -1, '+': 1 }
 function isBed12Like(fields: string[]) {
   return (
     fields.length >= 12 &&
-    !Number.isNaN(Number.parseInt(fields[9], 10)) &&
+    !Number.isNaN(Number.parseInt(fields[9]!, 10)) &&
     fields[10]?.split(',').filter(f => !!f).length ===
-      Number.parseInt(fields[9], 10)
+      Number.parseInt(fields[9]!, 10)
   )
 }
 export default class BED {
@@ -21,17 +23,14 @@ export default class BED {
 
   constructor(arguments_: { autoSql?: string; type?: string } = {}) {
     if (arguments_.autoSql) {
-      this.autoSql = detectTypes(
-        parser.parse(arguments_.autoSql) as AutoSqlPreSchema,
-      )
+      this.autoSql = detectTypes(parse(arguments_.autoSql) as AutoSqlPreSchema)
     } else if (arguments_.type) {
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (!types[arguments_.type]) {
         throw new Error('Type not found')
       }
-      this.autoSql = detectTypes(types[arguments_.type])
+      this.autoSql = detectTypes(types[arguments_.type]!)
     } else {
-      this.autoSql = detectTypes(types.defaultBedSchema)
+      this.autoSql = detectTypes(types.defaultBedSchema!)
       this.attemptDefaultBed = true
     }
   }
@@ -48,49 +47,50 @@ export default class BED {
     const { uniqueId } = options
     const fields = Array.isArray(line) ? line : line.split('\t')
 
-    let feature = {} as Record<string, any>
+    const feature: Record<string, string | number | string[] | number[]> = {}
     if (
       !this.attemptDefaultBed ||
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       (this.attemptDefaultBed && isBed12Like(fields))
     ) {
       for (let index = 0; index < autoSql.fields.length; index++) {
-        const autoField = autoSql.fields[index]
-        let columnValue: any = fields[index]
+        const autoField = autoSql.fields[index]!
+        const rawColumn = fields[index]
         const { isNumeric, isArray, arrayIsNumeric, name } = autoField
-        if (columnValue === null || columnValue === undefined) {
+
+        if (rawColumn === undefined) {
           break
         }
-        if (columnValue !== '.') {
+        if (rawColumn !== '.') {
           if (isNumeric) {
-            const number_ = Number(columnValue)
-            columnValue = Number.isNaN(number_) ? columnValue : number_
+            const number_ = Number(rawColumn)
+            feature[name] = Number.isNaN(number_) ? rawColumn : number_
           } else if (isArray) {
-            columnValue = columnValue.split(',')
-            if (columnValue.at(-1) === '') {
-              columnValue.pop()
+            const parts = rawColumn.split(',')
+            if (parts.at(-1) === '') {
+              parts.pop()
             }
-            if (arrayIsNumeric) {
-              columnValue = columnValue.map(Number)
-            }
+            feature[name] = arrayIsNumeric ? parts.map(Number) : parts
+          } else {
+            feature[name] = rawColumn
           }
-
-          feature[name] = columnValue
         }
       }
     } else {
       const fieldNames = ['chrom', 'chromStart', 'chromEnd', 'name']
-      feature = Object.fromEntries(
-        fields.map((f, index) => [fieldNames[index] || 'field' + index, f]),
-      )
-      feature.chromStart = +feature.chromStart
-      feature.chromEnd = +feature.chromEnd
-      if (!Number.isNaN(Number.parseFloat(feature.field4))) {
-        feature.score = +feature.field4
+      for (let i = 0; i < fields.length; i++) {
+        feature[fieldNames[i] ?? 'field' + i] = fields[i]!
+      }
+      feature.chromStart = Number(fields[1]!)
+      feature.chromEnd = Number(fields[2]!)
+      const field4 = fields[4]
+      if (field4 !== undefined && !Number.isNaN(Number.parseFloat(field4))) {
+        feature.score = Number.parseFloat(field4)
         delete feature.field4
       }
-      if (feature.field5 === '+' || feature.field5 === '-') {
-        feature.strand = feature.field5
+      const field5 = fields[5]
+      if (field5 === '+' || field5 === '-') {
+        feature.strand = field5
         delete feature.field5
       }
     }
@@ -99,7 +99,7 @@ export default class BED {
     }
     feature.strand = strandMap[feature.strand as keyof typeof strandMap] || 0
 
-    feature.chrom = decodeURIComponent(feature.chrom)
+    feature.chrom = decodeURIComponent(String(feature.chrom))
     return feature
   }
 }

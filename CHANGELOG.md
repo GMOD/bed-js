@@ -1,30 +1,16 @@
 ## [2.1.10](https://github.com/GMOD/bed-js/compare/v2.1.9...v2.1.10) (2026-01-19)
 
-
-
 ## [2.1.9](https://github.com/GMOD/bed-js/compare/v2.1.8...v2.1.9) (2026-01-19)
-
-
 
 ## [2.1.8](https://github.com/GMOD/bed-js/compare/v2.1.7...v2.1.8) (2026-01-19)
 
-
-
 ## [2.1.7](https://github.com/GMOD/bed-js/compare/v2.1.5...v2.1.7) (2025-05-13)
-
-
 
 ## [2.1.6](https://github.com/GMOD/bed-js/compare/v2.1.5...v2.1.6) (2025-05-13)
 
-
-
 ## [2.1.5](https://github.com/GMOD/bed-js/compare/v2.1.4...v2.1.5) (2025-05-13)
 
-
-
 ## [2.1.4](https://github.com/GMOD/bed-js/compare/v2.1.3...v2.1.4) (2025-05-13)
-
-
 
 ## [2.1.3](https://github.com/GMOD/bed-js/compare/v2.1.2...v2.1.3) (2024-3-25)
 

@@ -241,7 +241,7 @@ exports[`bigInteract 1`] = `
   "targetChrom": "chr3",
   "targetEnd": 63705638,
   "targetStart": 63702628,
-  "value": "10",
+  "value": 10,
 }
 `;
 
@@ -430,9 +430,9 @@ exports[`mafFrames 1`] = `
   "chrom": "chr22_KI270731v1_random",
   "chromEnd": 12574,
   "chromStart": 11287,
-  "frame": "0",
-  "isExonEnd": "1",
-  "isExonStart": "1",
+  "frame": 0,
+  "isExonEnd": 1,
+  "isExonStart": 1,
   "name": "ENST00000619792.1",
   "nextFramePos": -1,
   "prevFramePos": -1,

@@ -1,15 +1,20 @@
 {
+  "include": ["src"],
   "compilerOptions": {
-    "moduleResolution": "node",
-    "declaration": true,
-    "target": "esnext",
+    "target": "es2022",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "lib": ["esnext"],
+    "types": ["node"],
+    "rootDir": "src",
     "outDir": "dist",
-    "strict": true,
+    "declaration": true,
     "sourceMap": true,
+    "strict": true,
     "allowImportingTsExtensions": true,
-    "allowJs": true,
     "rewriteRelativeImportExtensions": true,
-    "esModuleInterop": true
-  },
-  "include": ["src"]
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noUncheckedIndexedAccess": true
+  }
 }

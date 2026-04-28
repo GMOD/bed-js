@@ -1,5 +1,26 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`autoSql parser > case insensitive keywords 1`] = `
+[
+  "int",
+  "uint",
+  "short",
+  "ushort",
+  "byte",
+  "ubyte",
+  "float",
+  "double",
+  "bigint",
+  "string",
+  "lstring",
+  "char",
+  "enum",
+  "set",
+  "uint",
+  "string",
+]
+`;
+
 exports[`autoSql parser > clinvar CNV table 1`] = `
 {
   "comment": "Browser extensible data (12 fields) plus information about a ClinVar entry",
@@ -270,6 +291,120 @@ exports[`autoSql parser > comment 1`] = `
   "name": "clinsub",
   "type": "table",
 }
+`;
+
+exports[`autoSql parser > field index and auto modifiers 1`] = `
+{
+  "comment": "A simple address book",
+  "fields": [
+    {
+      "comment": "Auto increment primary key",
+      "name": "id",
+      "type": "int",
+    },
+    {
+      "comment": "Name",
+      "name": "name",
+      "type": "string",
+    },
+    {
+      "comment": "City - indexed on first 6 chars",
+      "name": "city",
+      "type": "string",
+    },
+    {
+      "comment": "Zip code",
+      "name": "zipCode",
+      "type": "uint",
+    },
+    {
+      "comment": "State abbreviation",
+      "name": "state",
+      "size": 2,
+      "type": "char",
+    },
+    {
+      "comment": "Skills",
+      "name": "skills",
+      "type": "set",
+      "vals": [
+        "cProg",
+        "javaProg",
+      ],
+    },
+  ],
+  "name": "addressBook",
+  "type": "table",
+}
+`;
+
+exports[`autoSql parser > kent test corpus > hardTest.as 1`] = `
+[
+  {
+    "name": "id",
+    "type": "uint",
+  },
+  {
+    "name": "shortName",
+    "type": "char",
+  },
+  {
+    "name": "longName",
+    "type": "string",
+  },
+  {
+    "name": "aliases",
+    "type": "string",
+  },
+  {
+    "name": "threeD",
+    "type": "object point",
+  },
+  {
+    "name": "ptCount",
+    "type": "int",
+  },
+  {
+    "name": "pts",
+    "type": "short",
+  },
+  {
+    "name": "difCount",
+    "type": "int",
+  },
+  {
+    "name": "difs",
+    "type": "ubyte",
+  },
+  {
+    "name": "xy",
+    "type": "int",
+  },
+  {
+    "name": "valCount",
+    "type": "int",
+  },
+  {
+    "name": "vals",
+    "type": "string",
+  },
+  {
+    "name": "dblVal",
+    "type": "double",
+  },
+  {
+    "name": "fltVal",
+    "type": "float",
+  },
+  {
+    "name": "dblArray",
+    "type": "double",
+  },
+  {
+    "name": "fltArray",
+    "type": "float",
+  },
+]
 `;
 
 exports[`autoSql parser > pli 1`] = `
