@@ -13,10 +13,3 @@ export interface ParseOptions {
 }
 
 export function parse(input: string, options?: ParseOptions): unknown
-
-declare const parser: {
-  SyntaxError: typeof SyntaxError
-  parse: typeof parse
-}
-
-export default parser

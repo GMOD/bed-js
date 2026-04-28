@@ -39,16 +39,18 @@
     "preversion": "pnpm lint && pnpm test --run && pnpm build",
     "postversion": "git push --follow-tags",
     "build": "pnpm build:esm && pnpm build:es5",
-    "generate": "pegjs -o src/autoSql.js autoSql.pegjs && node -e \"const fs=require('fs');const f='src/autoSql.js';fs.writeFileSync(f,fs.readFileSync(f,'utf8').replace(/module\\.exports\\s*=\\s*\\{[^}]+\\};?/,'export { peg\\$SyntaxError as SyntaxError, peg\\$parse as parse };\\nexport default { SyntaxError: peg\\$SyntaxError, parse: peg\\$parse };'))\"",
+    "generate": "peggy --format es -o src/autoSql.js autoSql.pegjs",
     "version": "standard-changelog && git add CHANGELOG.md"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^25.6.0",
     "@typescript-eslint/eslint-plugin": "^8.59.0",
     "@typescript-eslint/parser": "^8.59.0",
     "@vitest/coverage-v8": "^4.1.5",
     "eslint": "^10.2.1",
     "eslint-plugin-import-x": "^4.16.2",
-    "pegjs": "^0.10.0",
+    "peggy": "^5.1.0",
     "prettier": "^3.8.3",
     "rimraf": "^6.1.3",
     "standard-changelog": "^7.0.1",
@@ -65,8 +67,5 @@
   ],
   "publishConfig": {
     "access": "public"
-  },
-  "dependencies": {
-    "@jbrowse/quick-lru": "^7.3.5"
   }
 }

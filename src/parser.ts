@@ -1,4 +1,4 @@
-import parser from './autoSql.js'
+import { parse } from './autoSql.js'
 import types from './defaultTypes.ts'
 import { detectTypes } from './util.ts'
 
@@ -23,9 +23,7 @@ export default class BED {
 
   constructor(arguments_: { autoSql?: string; type?: string } = {}) {
     if (arguments_.autoSql) {
-      this.autoSql = detectTypes(
-        parser.parse(arguments_.autoSql) as AutoSqlPreSchema,
-      )
+      this.autoSql = detectTypes(parse(arguments_.autoSql) as AutoSqlPreSchema)
     } else if (arguments_.type) {
       if (!types[arguments_.type]) {
         throw new Error('Type not found')
