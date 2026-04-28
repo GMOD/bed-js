@@ -46,10 +46,10 @@ export default defineConfig(
       '@typescript-eslint/no-unsafe-call': 'off',
       '@typescript-eslint/no-unsafe-argument': 'off',
       '@typescript-eslint/restrict-plus-operands': 'off',
-      'import-x/no-named-as-default-member': 'off',
       semi: ['error', 'never'],
 
       'import-x/no-unresolved': 'off',
+      'import-x/no-named-as-default-member': 'off',
       'import-x/extensions': ['error', 'ignorePackages'],
       'import-x/order': [
         'error',

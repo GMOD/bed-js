@@ -12,6 +12,7 @@
     "sourceMap": true,
     "strict": true,
     "allowImportingTsExtensions": true,
+    "allowJs": true,
     "rewriteRelativeImportExtensions": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
