@@ -21,14 +21,14 @@ export default class BED {
 
   private attemptDefaultBed?: boolean
 
-  constructor(arguments_: { autoSql?: string; type?: string } = {}) {
-    if (arguments_.autoSql) {
-      this.autoSql = detectTypes(parse(arguments_.autoSql) as AutoSqlPreSchema)
-    } else if (arguments_.type) {
-      if (!types[arguments_.type]) {
+  constructor(opts: { autoSql?: string; type?: string } = {}) {
+    if (opts.autoSql) {
+      this.autoSql = detectTypes(parse(opts.autoSql) as AutoSqlPreSchema)
+    } else if (opts.type) {
+      if (!types[opts.type]) {
         throw new Error('Type not found')
       }
-      this.autoSql = detectTypes(types[arguments_.type]!)
+      this.autoSql = detectTypes(types[opts.type]!)
     } else {
       this.autoSql = detectTypes(types.defaultBedSchema!)
       this.attemptDefaultBed = true
@@ -73,21 +73,25 @@ export default class BED {
         }
       }
     } else {
-      const fieldNames = ['chrom', 'chromStart', 'chromEnd', 'name']
-      for (let i = 0; i < fields.length; i++) {
-        feature[fieldNames[i] ?? 'field' + i] = fields[i]!
+      feature.chrom = fields[0]!
+      feature.chromStart = Number(fields[1])
+      feature.chromEnd = Number(fields[2])
+      if (fields[3] !== undefined) {
+        feature.name = fields[3]
       }
-      feature.chromStart = Number(fields[1]!)
-      feature.chromEnd = Number(fields[2]!)
       const field4 = fields[4]
-      if (field4 !== undefined && !Number.isNaN(Number.parseFloat(field4))) {
-        feature.score = Number.parseFloat(field4)
-        delete feature.field4
+      if (field4 !== undefined) {
+        const asNum = Number.parseFloat(field4)
+        feature[Number.isNaN(asNum) ? 'field4' : 'score'] = Number.isNaN(asNum)
+          ? field4
+          : asNum
       }
       const field5 = fields[5]
-      if (field5 === '+' || field5 === '-') {
-        feature.strand = field5
-        delete feature.field5
+      if (field5 !== undefined) {
+        feature[field5 === '+' || field5 === '-' ? 'strand' : 'field5'] = field5
+      }
+      for (let i = 6; i < fields.length; i++) {
+        feature['field' + i] = fields[i]!
       }
     }
     if (uniqueId) {

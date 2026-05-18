@@ -25,7 +25,7 @@ export function detectTypes(autoSql: AutoSqlPreSchema) {
       }))
 
       // this is needed because the autoSql doesn't properly parse comments in the autoSql
-      .filter(f => !!f.name),
+      .filter(f => f.name),
   }
 }
 
