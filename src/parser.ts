@@ -9,11 +9,11 @@ const strandMap = { '.': 0, '-': -1, '+': 1 }
 // heuristic that a BED file is BED12 like...the number in col 10 is
 // blockCount-like
 function isBed12Like(fields: string[]) {
+  const blockCount = Number.parseInt(fields[9]!, 10)
   return (
     fields.length >= 12 &&
-    !Number.isNaN(Number.parseInt(fields[9]!, 10)) &&
-    fields[10]?.split(',').filter(f => !!f).length ===
-      Number.parseInt(fields[9]!, 10)
+    !Number.isNaN(blockCount) &&
+    fields[10]?.split(',').filter(f => f).length === blockCount
   )
 }
 export default class BED {
@@ -59,8 +59,8 @@ export default class BED {
         }
         if (rawColumn !== '.') {
           if (isNumeric) {
-            const number_ = Number(rawColumn)
-            feature[name] = Number.isNaN(number_) ? rawColumn : number_
+            const num = Number(rawColumn)
+            feature[name] = Number.isNaN(num) ? rawColumn : num
           } else if (isArray) {
             const parts = rawColumn.split(',')
             if (parts.at(-1) === '') {
@@ -82,9 +82,11 @@ export default class BED {
       const field4 = fields[4]
       if (field4 !== undefined) {
         const asNum = Number.parseFloat(field4)
-        feature[Number.isNaN(asNum) ? 'field4' : 'score'] = Number.isNaN(asNum)
-          ? field4
-          : asNum
+        if (Number.isNaN(asNum)) {
+          feature.field4 = field4
+        } else {
+          feature.score = asNum
+        }
       }
       const field5 = fields[5]
       if (field5 !== undefined) {
