@@ -1,7 +1,7 @@
 # bed-js
 
 [![Coverage Status](https://img.shields.io/codecov/c/github/GMOD/bed-js/main.svg?style=flat-square)](https://codecov.io/gh/GMOD/bed-js/branch/main)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/GMOD/bed-js/push.yml?branch=master)](https://github.com/GMOD/bed-js/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/GMOD/bed-js/push.yml?branch=main)](https://github.com/GMOD/bed-js/actions)
 
 Performs parsing of BED files including autoSql
 
@@ -9,14 +9,14 @@ Performs parsing of BED files including autoSql
 
 ### Example
 
-You can pipe your file through this programs parseLine function
+You can pipe your file through this program's parseLine function
 
 ```js
 import BED from '@gmod/bed'
 
-var parser = new BED()
-var text = fs.readFileSync('file.txt', 'utf8')
-var results = text.split('\n').map(line => parser.parseLine(line))
+const parser = new BED()
+const text = fs.readFileSync('file.txt', 'utf8')
+const results = text.split('\n').map(line => parser.parseLine(line))
 ```
 
 ## API
@@ -41,7 +41,7 @@ The predefined types can include
     mafSummary
 
 If neither autoSql or type is specified, the default BED schema is used (see
-[here](src/as/defaultBedSchema.as))
+[here](src/as/autoSqlSchemas.ts))
 
 ### parseLine(line, opts)
 
