@@ -1,6 +1,6 @@
 # bed-js
 
-[![Coverage Status](https://img.shields.io/codecov/c/github/GMOD/bed-js/master.svg?style=flat-square)](https://codecov.io/gh/GMOD/bed-js/branch/master)
+[![Coverage Status](https://img.shields.io/codecov/c/github/GMOD/bed-js/main.svg?style=flat-square)](https://codecov.io/gh/GMOD/bed-js/branch/main)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/GMOD/bed-js/push.yml?branch=master)](https://github.com/GMOD/bed-js/actions)
 
 Performs parsing of BED files including autoSql
@@ -156,5 +156,5 @@ https://www.linuxjournal.com/article/5949
 Actions.
 
 ```bash
-npm version patch  # or minor/major
+pnpm version patch  # or minor/major
 ```
