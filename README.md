@@ -1,7 +1,7 @@
 # bed-js
 
 [![Coverage Status](https://img.shields.io/codecov/c/github/GMOD/bed-js/main.svg?style=flat-square)](https://codecov.io/gh/GMOD/bed-js/branch/main)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/GMOD/bed-js/push.yml?branch=main)](https://github.com/GMOD/bed-js/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/GMOD/bed-js/publish.yml?branch=main)](https://github.com/GMOD/bed-js/actions)
 
 Performs parsing of BED files including autoSql
 
