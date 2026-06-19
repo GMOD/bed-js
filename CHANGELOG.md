@@ -1,3 +1,12 @@
+## [2.2.6](https://github.com/GMOD/bed-js/compare/v2.2.5...v2.2.6) (2026-06-19)
+
+
+### Bug Fixes
+
+* remove stale workflow query link from CI badge ([e5b8555](https://github.com/GMOD/bed-js/commit/e5b855514093f27a4d5feceff76bdffb23a0a854))
+* robustify autoSql comment parsing and chrom decoding ([22edc93](https://github.com/GMOD/bed-js/commit/22edc9308fef5c1f3b9e1a384d38dcf5c22c3861))
+* update CI badge to reference publish.yml workflow ([7496aa8](https://github.com/GMOD/bed-js/commit/7496aa81211aa8c938a3dc38b12b19e83350b6f0))
+
 ## [2.2.5](https://github.com/GMOD/bed-js/compare/v2.2.4...v2.2.5) (2026-05-19)
 
 ## [2.2.4](https://github.com/GMOD/bed-js/compare/v2.2.3...v2.2.4) (2026-05-19)
