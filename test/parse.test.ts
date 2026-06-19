@@ -16,6 +16,17 @@ test('errors', () => {
   expect(() => new BED({ type: 'notexist' })).toThrow(/not found/)
 })
 
+// a bare '%' in a contig name makes decodeURIComponent throw; the lightweight
+// decoder must leave it intact rather than crash, while still decoding %XX
+test('chrom with bare percent does not crash', () => {
+  const p = new BED()
+  // a bare '%' not followed by two hex digits is left untouched
+  expect(p.parseLine('chr%_test\t10\t100').chrom).toEqual('chr%_test')
+  expect(p.parseLine('contig%\t10\t100').chrom).toEqual('contig%')
+  // well-formed %XX escapes are still decoded, even alongside a bad one
+  expect(p.parseLine('a%2Cb%zz\t10\t100').chrom).toEqual('a,b%zz')
+})
+
 test('BED6', () => {
   const p = new BED()
   const f1 = p.parseLine('contigA\t10875\t10884\ttest\t0.50\t-')

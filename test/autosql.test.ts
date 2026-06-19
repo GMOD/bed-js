@@ -239,6 +239,25 @@ describe('autoSql parser', () => {
     expect(result.fields[1]!.comment).toBe('no trailing space')
   })
 
+  // comment is the text between the first and last quote on the line: content
+  // after the close quote is dropped, but inner quotes are preserved verbatim
+  test('comment takes text between first and last quote', () => {
+    const result = parse(
+      'table t\n"d"\n(\nstring a; "real comment" trailing junk\nstring b; "the "gene" name"\n)',
+    ) as { fields: { comment: string }[] }
+    expect(result.fields[0]!.comment).toBe('real comment')
+    expect(result.fields[1]!.comment).toBe('the "gene" name')
+  })
+
+  // unclosed quotes (seen in real UCSC .bb files) still fall back to lenient
+  // rest-of-line parsing rather than failing
+  test('unclosed comment quote falls back to lenient parse', () => {
+    const result = parse(
+      'table t\n"d"\n(\nlstring changes;     "changes\n)',
+    ) as { fields: { comment: string }[] }
+    expect(result.fields[0]!.comment).toBe('changes')
+  })
+
   test('auto without preceding index', () => {
     const table = `table t
 "test"

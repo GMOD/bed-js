@@ -6,6 +6,17 @@ import type { AutoSqlPreSchema, AutoSqlSchema } from './util.ts'
 
 const strandMap = { '.': 0, '-': -1, '+': 1 }
 
+// Lightweight percent-decode for chrom names: rewrites only well-formed %XX
+// escapes and leaves a bare '%' untouched. decodeURIComponent throws on a '%'
+// not followed by valid hex (e.g. a contig name like "chr%_test"), taking down
+// the whole parse; the BED spec defines chrom as [A-Za-z0-9_] with no
+// percent-encoding, so the full UTF-8 machinery isn't warranted here.
+function decodeChrom(chrom: string) {
+  return chrom.replace(/%([0-9A-Fa-f]{2})/g, (_, hex: string) =>
+    String.fromCharCode(Number.parseInt(hex, 16)),
+  )
+}
+
 // heuristic that a BED file is BED12 like...the number in col 10 is
 // blockCount-like
 function isBed12Like(fields: string[]) {
@@ -102,7 +113,7 @@ export default class BED {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     feature.strand = strandMap[feature.strand as keyof typeof strandMap] ?? 0
 
-    feature.chrom = decodeURIComponent(String(feature.chrom))
+    feature.chrom = decodeChrom(String(feature.chrom))
     return feature
   }
 }

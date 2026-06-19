@@ -15,14 +15,11 @@ comment = nonQuotedString
 
 fieldList =
     f1:field _ fds:(_ w:field { return w; })* _  {
-      if(f1.name) {
-        fds.unshift(f1);
-      }
-      return fds;
+      return [f1, ...fds].filter(f => f && f.name);
     }
 
 commentStart = '#'
-internalComment = _ commentStart nonQuotedString _
+internalComment = _ commentStart nonQuotedString _ { return null }
 
 fieldModifier =
         indexType (_ '[' _ number _ ']')? /
@@ -52,7 +49,14 @@ fieldSize = number /
 
 name = [a-zA-Z_][a-zA-Z0-9_]* { return text() }
 
-nonQuotedString = t:([^\n\r]*) { return t.join('').trim().replace(/^"|"$/g, '') }
+nonQuotedString = t:([^\n\r]*) {
+    const s = t.join('').trim();
+    // text between the first and last quote on the line (preserving any inner
+    // quotes, dropping anything after the close quote); fall back to stripping
+    // a lone leading/trailing quote for unclosed-quote comments seen in the wild
+    const m = /^"(.*)".*$/.exec(s);
+    return m ? m[1] : s.replace(/^"|"$/g, '');
+  }
 
 number "integer"
   = [0-9]+ { return parseInt(text(), 10); }
