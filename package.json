@@ -1,6 +1,7 @@
 {
   "name": "@gmod/bed",
   "version": "2.2.6",
+  "packageManager": "pnpm@11.15.1",
   "description": "A BED file format parser with autoSql support",
   "license": "MIT",
   "repository": {
@@ -8,6 +9,7 @@
     "url": "https://github.com/GMOD/bed-js.git"
   },
   "type": "module",
+  "sideEffects": false,
   "exports": {
     "import": "./esm/index.js",
     "require": "./dist/index.js"
