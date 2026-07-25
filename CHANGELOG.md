@@ -1,3 +1,5 @@
+## [2.2.7](https://github.com/GMOD/bed-js/compare/v2.2.6...v2.2.7) (2026-07-25)
+
 ## [2.2.6](https://github.com/GMOD/bed-js/compare/v2.2.5...v2.2.6) (2026-06-19)
 
 
