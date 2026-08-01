@@ -1,3 +1,18 @@
+## [2.2.8](https://github.com/GMOD/bed-js/compare/v2.2.7...v2.2.8) (2026-08-01)
+
+### Bug Fixes
+
+- Don't fabricate a chrom field for schemas without a chrom column
+- Add main/types so node10 moduleResolution can find the package
+
+### Chores
+
+- Replace standard-changelog with git-cliff for changelog generation
+
+### Documentation
+
+- Backfill CHANGELOG.md for v2.1.10 through v2.2.7
+
 ## [2.2.7](https://github.com/GMOD/bed-js/compare/v2.2.6...v2.2.7) (2026-07-25)
 
 
