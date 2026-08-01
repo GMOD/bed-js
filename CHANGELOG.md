@@ -1,5 +1,13 @@
 ## [2.2.7](https://github.com/GMOD/bed-js/compare/v2.2.6...v2.2.7) (2026-07-25)
 
+
+### Chores
+
+* pin pnpm via `packageManager`, declare `sideEffects: false` ([733c635](https://github.com/GMOD/bed-js/commit/733c635a61dcee807e005d305aa2b7776ae010a6))
+* sha-pin CI actions, take pnpm version from `packageManager`, move test jobs to node 24 ([99181f0](https://github.com/GMOD/bed-js/commit/99181f028bad18f33e9ac8ba41deffccf7c56944))
+* set pnpm `minimumReleaseAge` to 3 days ([6690c8e](https://github.com/GMOD/bed-js/commit/6690c8e5c35e3939e22296e42ceb3ac9bdcb361e))
+* ban TS parameter properties, since they aren't type-strippable ([ca51208](https://github.com/GMOD/bed-js/commit/ca51208fc5e50a54f3b7d4748ff96714656a1166))
+
 ## [2.2.6](https://github.com/GMOD/bed-js/compare/v2.2.5...v2.2.6) (2026-06-19)
 
 
@@ -9,19 +17,66 @@
 * robustify autoSql comment parsing and chrom decoding ([22edc93](https://github.com/GMOD/bed-js/commit/22edc9308fef5c1f3b9e1a384d38dcf5c22c3861))
 * update CI badge to reference publish.yml workflow ([7496aa8](https://github.com/GMOD/bed-js/commit/7496aa81211aa8c938a3dc38b12b19e83350b6f0))
 
+### Chores
+
+* bump deps ([0b1fe91](https://github.com/GMOD/bed-js/commit/0b1fe911ca6e900b984c7b41c07f527027419f05))
+
 ## [2.2.5](https://github.com/GMOD/bed-js/compare/v2.2.4...v2.2.5) (2026-05-19)
+
+### CI
+
+* rename merged workflow back to publish.yml, since npm trusted publishing pins to the workflow file path via the OIDC `job_workflow_ref` claim and the merge in 2.2.4 deleted the old publish.yml ([3343793](https://github.com/GMOD/bed-js/commit/3343793f5c23563703ccdbb4d695dfdf8c23ec26))
 
 ## [2.2.4](https://github.com/GMOD/bed-js/compare/v2.2.3...v2.2.4) (2026-05-19)
 
+### CI
+
+* merge publish into the push workflow, gating the publish job on `needs: test` plus a tag-ref guard so a tag can't ship without tests passing in the same run ([384f83a](https://github.com/GMOD/bed-js/commit/384f83a97d8945d771ff9b1cf2d09c211c5fa2a6))
+
 ## [2.2.3](https://github.com/GMOD/bed-js/compare/v2.2.2...v2.2.3) (2026-05-18)
+
+### Chores
+
+* add pnpm workspace file ([a0ef7fd](https://github.com/GMOD/bed-js/commit/a0ef7fd3d316882230c3c8607ea5037de0e0b104))
+* simplify package.json: drop the `main` field (superseded by `exports`) and redundant `@typescript-eslint/*` deps ([4b01290](https://github.com/GMOD/bed-js/commit/4b01290e795011f38248ed2ebeb87132e7141ed1))
+* minor parser cleanups: extract `blockCount` in `isBed12Like` to avoid a double `parseInt`, drop a redundant `!!`, rename `number_` to `num`, nest the field4/score `isNaN` check ([81373d3](https://github.com/GMOD/bed-js/commit/81373d39df3b228cca7fa0882574a8ac1e5b9863))
 
 ## [2.2.2](https://github.com/GMOD/bed-js/compare/v2.2.1...v2.2.2) (2026-05-18)
 
+### Chores
+
+* refactor parser and util for clarity: rename constructor param `arguments_` to `opts`, replace a loop/overwrite/delete pattern in the minimal-BED path with direct field assignment, drop a redundant `!!` in a util.ts filter ([5d80b7a](https://github.com/GMOD/bed-js/commit/5d80b7ace771888cc3e2fa53bcd85de89d92a68c))
+* fix README: branch badge, typo, `var` to `const`, dead link ([81c0d3b](https://github.com/GMOD/bed-js/commit/81c0d3b9c989cc153718d6ba35063a8ad11d11ec))
+* update README: switch the publishing example from `npm version` to `pnpm version`, point remaining master-branch codecov badges at main ([ab398dc](https://github.com/GMOD/bed-js/commit/ab398dcc4828304d5ece0592128045ee9384aef0))
+
 ## [2.2.1](https://github.com/GMOD/bed-js/compare/v2.2.0...v2.2.1) (2026-04-28)
+
+### Chores
+
+* enable `allowJs` in tsconfig so the generated autoSql parser is picked up by tsc directly ([d94f260](https://github.com/GMOD/bed-js/commit/d94f2603c3a37677823f4698aa3d942833eb82a7))
 
 # [2.2.0](https://github.com/GMOD/bed-js/compare/v2.1.10...v2.2.0) (2026-04-28)
 
+### Features
+
+* switch the autoSql grammar from pegjs to peggy and make declared types (`int`, `string`, etc.) and the `simple`/`object`/`table` declaration keyword case-insensitive ([9738cdd](https://github.com/GMOD/bed-js/commit/9738cddfb1c2152e5a0971e88c4240840dccd23e))
+
+### Bug Fixes
+
+* require a word boundary after `primary`/`index`/`unique`/`auto` field modifiers so they don't false-match inside longer identifiers, and support multiple modifiers per field ([9738cdd](https://github.com/GMOD/bed-js/commit/9738cddfb1c2152e5a0971e88c4240840dccd23e))
+* trim `nonQuotedString` comments before stripping surrounding quotes ([9738cdd](https://github.com/GMOD/bed-js/commit/9738cddfb1c2152e5a0971e88c4240840dccd23e))
+* coerce `isArray`/`arrayIsNumeric` in `detectTypes` to real booleans instead of a possibly-`0` size ([71e2dad](https://github.com/GMOD/bed-js/commit/71e2dadd7ac7db26ae89357c7987879089174c28))
+
+### Chores
+
+* add a LICENSE file ([6c4efa2](https://github.com/GMOD/bed-js/commit/6c4efa23e67619db89192a6f1a20f3db2985ed23))
+* simplify `parseLine`'s `attemptDefaultBed` condition, switch `feature.strand`'s fallback from `||` to `??`, and update CI workflow versions ([71e2dad](https://github.com/GMOD/bed-js/commit/71e2dadd7ac7db26ae89357c7987879089174c28))
+
 ## [2.1.10](https://github.com/GMOD/bed-js/compare/v2.1.9...v2.1.10) (2026-01-19)
+
+### Chores
+
+* switch to ESM: export the generated autoSql parser with `export`/`export default` instead of `module.exports`, build `esm/` with `--module nodenext` ([0a47dde](https://github.com/GMOD/bed-js/commit/0a47ddea6dbf7f91acde9f01dbb8ede78e3166f5))
 
 ## [2.1.9](https://github.com/GMOD/bed-js/compare/v2.1.8...v2.1.9) (2026-01-19)
 
