@@ -40,7 +40,6 @@ const root = 'node_modules/@gmod/bed'
 const pkg = JSON.parse(readFileSync(`${root}/package.json`, 'utf8'))
 const entries = {
   main: pkg.main,
-  types: pkg.types,
   'exports.import': pkg.exports?.import,
   'exports.require': pkg.exports?.require,
 }
@@ -51,12 +50,12 @@ for (const [field, value] of Object.entries(entries)) {
   if (!existsSync(resolve(root, value))) {
     throw new Error(`"${field}" points at ${value}, missing from the tarball`)
   }
-}
-// node16/bundler resolution finds ESM types by adjacency rather than a
-// "types" condition, so the .d.ts next to the ESM entry has to be there too
-const esmTypes = pkg.exports.import.replace(/\.js$/, '.d.ts')
-if (!existsSync(resolve(root, esmTypes))) {
-  throw new Error(`no ${esmTypes} next to the ESM entry`)
+  // there is no "types" field: tsc picks up the .d.ts sitting next to each
+  // entry point, so that adjacency is what has to hold
+  const declaration = value.replace(/\.js$/, '.d.ts')
+  if (!existsSync(resolve(root, declaration))) {
+    throw new Error(`no ${declaration} next to the "${field}" entry`)
+  }
 }
 console.log('entry points ok')
 JS
