@@ -16,6 +16,24 @@ test('errors', () => {
   expect(() => new BED({ type: 'notexist' })).toThrow(/not found/)
 })
 
+// a schema whose first column isn't called chrom used to get a literal
+// chrom:"undefined" field from String(undefined)
+test('schema with no chrom field', () => {
+  const p = new BED({
+    autoSql: `table noChrom
+"no chrom column here"
+(
+string seqid; "Sequence name"
+uint   start; "Start position"
+)`,
+  })
+  expect(p.parseLine('contigA\t10')).toEqual({
+    seqid: 'contigA',
+    start: 10,
+    strand: 0,
+  })
+})
+
 // a bare '%' in a contig name makes decodeURIComponent throw; the lightweight
 // decoder must leave it intact rather than crash, while still decoding %XX
 test('chrom with bare percent does not crash', () => {

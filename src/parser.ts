@@ -1,10 +1,14 @@
 import { parse } from './autoSql.js'
-import types from './defaultTypes.ts'
+import { getBuiltinSchema } from './defaultTypes.ts'
 import { detectTypes } from './util.ts'
 
 import type { AutoSqlPreSchema, AutoSqlSchema } from './util.ts'
 
-const strandMap = { '.': 0, '-': -1, '+': 1 }
+export type Feature = Record<string, string | number | string[] | number[]>
+
+function parseStrand(strand: unknown) {
+  return strand === '+' ? 1 : strand === '-' ? -1 : 0
+}
 
 // Lightweight percent-decode for chrom names: rewrites only well-formed %XX
 // escapes and leaves a bare '%' untouched. decodeURIComponent throws on a '%'
@@ -30,20 +34,20 @@ function isBed12Like(fields: string[]) {
 export default class BED {
   public autoSql: AutoSqlSchema
 
-  private attemptDefaultBed?: boolean
+  private readonly attemptDefaultBed: boolean
 
   constructor(opts: { autoSql?: string; type?: string } = {}) {
-    if (opts.autoSql) {
-      this.autoSql = detectTypes(parse(opts.autoSql) as AutoSqlPreSchema)
-    } else if (opts.type) {
-      if (!types[opts.type]) {
-        throw new Error('Type not found')
-      }
-      this.autoSql = detectTypes(types[opts.type]!)
+    const { autoSql, type } = opts
+    this.attemptDefaultBed = !autoSql && !type
+    let schema: AutoSqlPreSchema
+    if (autoSql) {
+      schema = parse(autoSql) as AutoSqlPreSchema
+    } else if (type) {
+      schema = getBuiltinSchema(type)
     } else {
-      this.autoSql = detectTypes(types.defaultBedSchema!)
-      this.attemptDefaultBed = true
+      schema = getBuiltinSchema('defaultBedSchema')
     }
+    this.autoSql = detectTypes(schema)
   }
 
   /*
@@ -58,7 +62,7 @@ export default class BED {
     const { uniqueId } = options
     const fields = Array.isArray(line) ? line : line.split('\t')
 
-    const feature: Record<string, string | number | string[] | number[]> = {}
+    const feature: Feature = {}
     if (!this.attemptDefaultBed || isBed12Like(fields)) {
       for (let index = 0; index < autoSql.fields.length; index++) {
         const autoField = autoSql.fields[index]!
@@ -110,10 +114,12 @@ export default class BED {
     if (uniqueId) {
       feature.uniqueId = uniqueId
     }
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    feature.strand = strandMap[feature.strand as keyof typeof strandMap] ?? 0
+    feature.strand = parseStrand(feature.strand)
 
-    feature.chrom = decodeChrom(String(feature.chrom))
+    const { chrom } = feature
+    if (typeof chrom === 'string') {
+      feature.chrom = decodeChrom(chrom)
+    }
     return feature
   }
 }
