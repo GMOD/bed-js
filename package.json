@@ -41,7 +41,7 @@
     "postversion": "git push --follow-tags",
     "build": "pnpm build:esm && pnpm build:es5",
     "generate": "peggy --format es -o src/autoSql.js autoSql.pegjs",
-    "version": "standard-changelog && git add CHANGELOG.md"
+    "version": "git-cliff --tag v$npm_package_version --unreleased --prepend CHANGELOG.md && git add CHANGELOG.md"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -49,10 +49,10 @@
     "@vitest/coverage-v8": "^4.1.9",
     "eslint": "^10.5.0",
     "eslint-plugin-import-x": "^4.16.2",
+    "git-cliff": "^2.13.1",
     "peggy": "^5.1.0",
     "prettier": "^3.8.4",
     "rimraf": "^6.1.3",
-    "standard-changelog": "^7.0.1",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.61.1",
     "vitest": "^4.1.9"
