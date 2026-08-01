@@ -1,3 +1,9 @@
+## [2.2.9](https://github.com/GMOD/bed-js/compare/v2.2.8...v2.2.9) (2026-08-01)
+
+### Chores
+
+- Drop redundant types field, main alone is enough
+
 ## [2.2.8](https://github.com/GMOD/bed-js/compare/v2.2.7...v2.2.8) (2026-08-01)
 
 ### Bug Fixes
