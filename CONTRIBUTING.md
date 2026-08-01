@@ -4,12 +4,14 @@
 
 ```sh
 pnpm install
-pnpm test
+pnpm test        # pnpm test:watch to re-run on change
 pnpm build
+pnpm test:pack   # packs the tarball and imports it through both entry points
 ```
 
-Use `npm version patch/minor/major` to release — it runs lint, tests, and build,
-then pushes the version tag which triggers the publish workflow.
+Use `pnpm version patch/minor/major` to release — it runs lint, tests, build,
+and the pack test, then pushes the version tag which triggers the publish
+workflow.
 
 ## Publishing
 

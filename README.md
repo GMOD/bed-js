@@ -16,8 +16,14 @@ import BED from '@gmod/bed'
 
 const parser = new BED()
 const text = fs.readFileSync('file.txt', 'utf8')
-const results = text.split('\n').map(line => parser.parseLine(line))
+const results = text
+  .split('\n')
+  .filter(line => line.trim() && !/^(#|track|browser)/.test(line))
+  .map(line => parser.parseLine(line))
 ```
+
+parseLine has no notion of header or comment lines, so filter them out first —
+see [Important notes](#important-notes).
 
 ## API
 
@@ -126,8 +132,9 @@ p.parseLine(line)
 
 ### Important notes
 
-- Does not parse "browser" or "track" lines and will throw an error if parseLine
-  receives one of these
+- Every line is parsed as a feature. `track`, `browser`, `#` comment, and blank
+  lines are not recognized and produce junk features with `NaN` coordinates
+  rather than an error, so filter them out before calling parseLine
 - By default, parseLine parses only tab delimited text, if you want to use
   spaces as is allowed by UCSC then pass an array to `line` for parseLine
 - Converts strand from {+,-,.} to {1,-1,0} and also sets strand 0 even if no

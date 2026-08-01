@@ -10,6 +10,8 @@
   },
   "type": "module",
   "sideEffects": false,
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
     "import": "./esm/index.js",
     "require": "./dist/index.js"
@@ -29,7 +31,9 @@
     "src"
   ],
   "scripts": {
-    "test": "vitest",
+    "test": "vitest --run",
+    "test:watch": "vitest",
+    "test:pack": "./scripts/test-pack.sh",
     "clean": "rimraf dist esm",
     "format": "prettier --write .",
     "lint": "eslint --report-unused-disable-directives --max-warnings 0",
@@ -37,7 +41,7 @@
     "build:esm": "tsc --outDir esm",
     "build:es5": "tsc --module commonjs --moduleResolution bundler --outDir dist",
     "postbuild:es5": "echo '{\"type\": \"commonjs\"}' > dist/package.json",
-    "preversion": "pnpm lint && pnpm test --run && pnpm build",
+    "preversion": "pnpm lint && pnpm test && pnpm build && pnpm test:pack",
     "postversion": "git push --follow-tags",
     "build": "pnpm build:esm && pnpm build:es5",
     "generate": "peggy --format es -o src/autoSql.js autoSql.pegjs",
