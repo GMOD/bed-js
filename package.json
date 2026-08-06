@@ -30,7 +30,7 @@
     "src"
   ],
   "scripts": {
-    "test": "vitest --run",
+    "test": "vitest",
     "test:watch": "vitest",
     "test:pack": "./scripts/test-pack.sh",
     "clean": "rimraf dist esm",
