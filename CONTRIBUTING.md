@@ -4,7 +4,7 @@
 
 ```sh
 pnpm install
-pnpm test        # pnpm test:watch to re-run on change
+pnpm test        # watches; pnpm test --run for a single pass
 pnpm build
 pnpm test:pack   # packs the tarball and imports it through both entry points
 ```
