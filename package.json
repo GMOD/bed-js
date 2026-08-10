@@ -45,7 +45,7 @@
     "postversion": "git push --follow-tags",
     "build": "pnpm build:esm && pnpm build:es5",
     "generate": "peggy --format es -o src/autoSql.js autoSql.pegjs",
-    "version": "git-cliff --tag v$npm_package_version --unreleased --prepend CHANGELOG.md && prettier --write CHANGELOG.md && git add CHANGELOG.md"
+    "version": "git-cliff --tag v$npm_package_version --unreleased --prepend CHANGELOG.md && git add CHANGELOG.md"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
