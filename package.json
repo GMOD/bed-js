@@ -1,6 +1,6 @@
 {
   "name": "@gmod/bed",
-  "version": "2.2.9",
+  "version": "2.2.10",
   "packageManager": "pnpm@11.15.1",
   "description": "A BED file format parser with autoSql support",
   "license": "MIT",
