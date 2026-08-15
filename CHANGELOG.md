@@ -1,3 +1,25 @@
+## [2.3.0](https://github.com/GMOD/bed-js/compare/v2.2.10...v2.3.0) (2026-08-15)
+
+### Bug Fixes
+
+- Stop shipping every schema again as a string literal type ([605954e](https://github.com/GMOD/bed-js/commit/605954e1e09be492d8eef1a8b126401d4a3352e5))
+- Keep the data in a BED12+n line, an empty column, and a bigint column ([ca1f02b](https://github.com/GMOD/bed-js/commit/ca1f02ba4bfa882cacb07ce8650320df42149f33))
+
+### Chores
+
+- Render only the commit subject, and link the commit ([08b893c](https://github.com/GMOD/bed-js/commit/08b893c8c41a160e4a5901557e60e1c9c074156c))
+- Create a GitHub release for each published tag ([81c96a4](https://github.com/GMOD/bed-js/commit/81c96a451a9a51446df8f90993d37b7ac9c0dd65))
+- Enforce type strippability in tsconfig ([eb40c2a](https://github.com/GMOD/bed-js/commit/eb40c2a72a61cae4270c7b1756fa493061335be3))
+- Keep agent worktrees out of the toolchain's way ([c559a73](https://github.com/GMOD/bed-js/commit/c559a7308f3666d68f8e3cad32d374cf0683e0dc))
+
+### Features
+
+- Parse a headered BED from its column names ([0129f0d](https://github.com/GMOD/bed-js/commit/0129f0dbf949bd01ebcb5d518ebce124eff7f4c7))
+
+### Refactoring
+
+- Hand-write the autoSql parser, dropping peggy ([5bb5154](https://github.com/GMOD/bed-js/commit/5bb5154ae1a087b4d0f15e0d32ebeb289b2703fe))
+
 ## [2.2.10](https://github.com/GMOD/bed-js/compare/v2.2.9...v2.2.10) (2026-08-10)
 
 ### Chores
