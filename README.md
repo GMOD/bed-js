@@ -139,6 +139,11 @@ p.parseLine(line)
   spaces as is allowed by UCSC then pass an array to `line` for parseLine
 - Converts strand from {+,-,.} to {1,-1,0} and also sets strand 0 even if no
   strand is in the autoSql
+- A `.` or empty column is missing data: the field is left unset rather than
+  parsed as the string `.` or the number 0
+- With the default schema, columns past the twelfth of a BED12+n line are kept
+  as `field12`, `field13`, etc. A supplied autoSql is taken as the whole layout,
+  so columns past it are dropped
 
 ## Academic Use
 

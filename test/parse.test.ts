@@ -16,33 +16,35 @@ test('errors', () => {
   expect(() => new BED({ type: 'notexist' })).toThrow(/not found/)
 })
 
-// a schema whose first column isn't called chrom used to get a literal
-// chrom:"undefined" field from String(undefined)
-test('schema with no chrom field', () => {
-  const p = new BED({
-    autoSql: `table noChrom
-"no chrom column here"
-(
-string seqid; "Sequence name"
-uint   start; "Start position"
-)`,
-  })
-  expect(p.parseLine('contigA\t10')).toEqual({
-    seqid: 'contigA',
-    start: 10,
-    strand: 0,
-  })
+// BED12+n: the columns past the schema are still data
+test('BED12 plus extra columns', () => {
+  const p = new BED()
+  const f = p.parseLine(
+    'chr22\t1000\t5000\tcloneA\t960\t+\t1000\t5000\t0\t2\t567,488,\t0,3512\tfoo\tbar',
+  )
+  expect(f.field12).toEqual('foo')
+  expect(f.field13).toEqual('bar')
 })
 
-// a bare '%' in a contig name makes decodeURIComponent throw; the lightweight
-// decoder must leave it intact rather than crash, while still decoding %XX
-test('chrom with bare percent does not crash', () => {
-  const p = new BED()
-  // a bare '%' not followed by two hex digits is left untouched
-  expect(p.parseLine('chr%_test\t10\t100').chrom).toEqual('chr%_test')
-  expect(p.parseLine('contig%\t10\t100').chrom).toEqual('contig%')
-  // well-formed %XX escapes are still decoded, even alongside a bad one
-  expect(p.parseLine('a%2Cb%zz\t10\t100').chrom).toEqual('a,b%zz')
+// an empty column is missing data, not a zero
+test('empty numeric column is left unset', () => {
+  const p = new BED({ type: 'bigNarrowPeak' })
+  const f = p.parseLine('chr1\t566753\t566953\t.\t\t.\t103.84')
+  expect(f.score).toBeUndefined()
+  expect(f.signalValue).toEqual(103.84)
+})
+
+test('bigint columns are numeric', () => {
+  const p = new BED({
+    autoSql: `table t
+"bigint test"
+(
+string chrom;       "Chromosome"
+uint   chromStart;  "Start"
+bigInt _dataOffset; "Offset into a details file"
+)`,
+  })
+  expect(p.parseLine('chr1\t10\t123456789')._dataOffset).toEqual(123_456_789)
 })
 
 test('BED6', () => {

@@ -1,3 +1,6 @@
+import { autoSqlSchemas } from './as/autoSqlSchemas.ts'
+import { parse } from './autoSql.js'
+
 export interface AutoSqlField {
   // fixed-size arrays carry a numeric size (char[2]); variable-length arrays
   // carry the name of the count field (int[blockCount])
@@ -21,6 +24,7 @@ const numericTypes = new Set([
   'ubyte',
   'float',
   'double',
+  'bigint',
 ])
 
 export function detectTypes(autoSql: AutoSqlPreSchema) {
@@ -36,3 +40,24 @@ export function detectTypes(autoSql: AutoSqlPreSchema) {
 }
 
 export type AutoSqlSchema = ReturnType<typeof detectTypes>
+
+export function parseAutoSql(text: string) {
+  return parse(text) as AutoSqlPreSchema
+}
+
+const cache = new Map<string, AutoSqlPreSchema>()
+
+// parsed on first use: parsing every builtin schema up front costs several ms
+// of import time for schemas a given consumer never asks for
+export function getBuiltinSchema(type: string) {
+  let schema = cache.get(type)
+  if (!schema) {
+    const source = autoSqlSchemas[type]
+    if (source === undefined) {
+      throw new Error(`Type not found: ${type}`)
+    }
+    schema = parseAutoSql(source)
+    cache.set(type, schema)
+  }
+  return schema
+}

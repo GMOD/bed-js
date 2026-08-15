@@ -1,10 +1,10 @@
-import { parse } from './autoSql.js'
-import { getBuiltinSchema } from './defaultTypes.ts'
-import { detectTypes } from './util.ts'
+import { detectTypes, getBuiltinSchema, parseAutoSql } from './schema.ts'
 
-import type { AutoSqlPreSchema, AutoSqlSchema } from './util.ts'
+import type { AutoSqlSchema } from './schema.ts'
 
 export type Feature = Record<string, string | number | string[] | number[]>
+
+type DetectedField = AutoSqlSchema['fields'][number]
 
 function parseStrand(strand: unknown) {
   return strand === '+' ? 1 : strand === '-' ? -1 : 0
@@ -16,21 +16,74 @@ function parseStrand(strand: unknown) {
 // the whole parse; the BED spec defines chrom as [A-Za-z0-9_] with no
 // percent-encoding, so the full UTF-8 machinery isn't warranted here.
 function decodeChrom(chrom: string) {
-  return chrom.replace(/%([0-9A-Fa-f]{2})/g, (_, hex: string) =>
-    String.fromCharCode(Number.parseInt(hex, 16)),
-  )
+  return chrom.includes('%')
+    ? chrom.replace(/%([0-9A-Fa-f]{2})/g, (_, hex: string) =>
+        String.fromCharCode(Number.parseInt(hex, 16)),
+      )
+    : chrom
 }
 
 // heuristic that a BED file is BED12 like...the number in col 10 is
 // blockCount-like
 function isBed12Like(fields: string[]) {
+  if (fields.length < 12) {
+    return false
+  }
   const blockCount = Number.parseInt(fields[9]!, 10)
   return (
-    fields.length >= 12 &&
     !Number.isNaN(blockCount) &&
-    fields[10]?.split(',').filter(f => f).length === blockCount
+    fields[10]!.split(',').filter(f => f).length === blockCount
   )
 }
+
+function parseColumn(rawColumn: string, field: DetectedField) {
+  if (field.isNumeric) {
+    if (rawColumn === '') {
+      return undefined
+    }
+    const num = Number(rawColumn)
+    return Number.isNaN(num) ? rawColumn : num
+  } else if (field.isArray) {
+    const parts = rawColumn.split(',')
+    if (parts.at(-1) === '') {
+      parts.pop()
+    }
+    return field.arrayIsNumeric ? parts.map(Number) : parts
+  } else {
+    return rawColumn
+  }
+}
+
+// columns whose meaning we can only guess at, for a line that doesn't look
+// like BED12: score and strand are recognized by their contents, everything
+// else keeps its column number
+function parseGuessedBed(fields: string[]) {
+  const feature: Feature = {}
+  feature.chrom = fields[0]!
+  feature.chromStart = Number(fields[1])
+  feature.chromEnd = Number(fields[2])
+  if (fields[3] !== undefined) {
+    feature.name = fields[3]
+  }
+  const field4 = fields[4]
+  if (field4 !== undefined) {
+    const asNum = Number.parseFloat(field4)
+    if (Number.isNaN(asNum)) {
+      feature.field4 = field4
+    } else {
+      feature.score = asNum
+    }
+  }
+  const field5 = fields[5]
+  if (field5 !== undefined) {
+    feature[field5 === '+' || field5 === '-' ? 'strand' : 'field5'] = field5
+  }
+  for (let i = 6; i < fields.length; i++) {
+    feature['field' + i] = fields[i]!
+  }
+  return feature
+}
+
 export default class BED {
   public autoSql: AutoSqlSchema
 
@@ -39,15 +92,11 @@ export default class BED {
   constructor(opts: { autoSql?: string; type?: string } = {}) {
     const { autoSql, type } = opts
     this.attemptDefaultBed = !autoSql && !type
-    let schema: AutoSqlPreSchema
-    if (autoSql) {
-      schema = parse(autoSql) as AutoSqlPreSchema
-    } else if (type) {
-      schema = getBuiltinSchema(type)
-    } else {
-      schema = getBuiltinSchema('defaultBedSchema')
-    }
-    this.autoSql = detectTypes(schema)
+    this.autoSql = detectTypes(
+      autoSql
+        ? parseAutoSql(autoSql)
+        : getBuiltinSchema(type ?? 'defaultBedSchema'),
+    )
   }
 
   /*
@@ -58,59 +107,14 @@ export default class BED {
    * @return a object representing a feature
    */
   parseLine(line: string | string[], options: { uniqueId?: string } = {}) {
-    const { autoSql } = this
     const { uniqueId } = options
     const fields = Array.isArray(line) ? line : line.split('\t')
 
-    const feature: Feature = {}
-    if (!this.attemptDefaultBed || isBed12Like(fields)) {
-      for (let index = 0; index < autoSql.fields.length; index++) {
-        const autoField = autoSql.fields[index]!
-        const rawColumn = fields[index]
-        const { isNumeric, isArray, arrayIsNumeric, name } = autoField
+    const feature =
+      this.attemptDefaultBed && !isBed12Like(fields)
+        ? parseGuessedBed(fields)
+        : this.parseWithSchema(fields)
 
-        if (rawColumn === undefined) {
-          break
-        }
-        if (rawColumn !== '.') {
-          if (isNumeric) {
-            const num = Number(rawColumn)
-            feature[name] = Number.isNaN(num) ? rawColumn : num
-          } else if (isArray) {
-            const parts = rawColumn.split(',')
-            if (parts.at(-1) === '') {
-              parts.pop()
-            }
-            feature[name] = arrayIsNumeric ? parts.map(Number) : parts
-          } else {
-            feature[name] = rawColumn
-          }
-        }
-      }
-    } else {
-      feature.chrom = fields[0]!
-      feature.chromStart = Number(fields[1])
-      feature.chromEnd = Number(fields[2])
-      if (fields[3] !== undefined) {
-        feature.name = fields[3]
-      }
-      const field4 = fields[4]
-      if (field4 !== undefined) {
-        const asNum = Number.parseFloat(field4)
-        if (Number.isNaN(asNum)) {
-          feature.field4 = field4
-        } else {
-          feature.score = asNum
-        }
-      }
-      const field5 = fields[5]
-      if (field5 !== undefined) {
-        feature[field5 === '+' || field5 === '-' ? 'strand' : 'field5'] = field5
-      }
-      for (let i = 6; i < fields.length; i++) {
-        feature['field' + i] = fields[i]!
-      }
-    }
     if (uniqueId) {
       feature.uniqueId = uniqueId
     }
@@ -119,6 +123,30 @@ export default class BED {
     const { chrom } = feature
     if (typeof chrom === 'string') {
       feature.chrom = decodeChrom(chrom)
+    }
+    return feature
+  }
+
+  private parseWithSchema(fields: string[]) {
+    const schemaFields = this.autoSql.fields
+    const feature: Feature = {}
+    const end = Math.min(fields.length, schemaFields.length)
+    for (let index = 0; index < end; index++) {
+      const rawColumn = fields[index]!
+      if (rawColumn !== '.') {
+        const field = schemaFields[index]!
+        const value = parseColumn(rawColumn, field)
+        if (value !== undefined) {
+          feature[field.name] = value
+        }
+      }
+    }
+    // BED12+n: the schema stops at column 12 but the trailing columns are
+    // still data, so keep them the way the guessed-BED path names its own
+    if (this.attemptDefaultBed) {
+      for (let index = schemaFields.length; index < fields.length; index++) {
+        feature['field' + index] = fields[index]!
+      }
     }
     return feature
   }
