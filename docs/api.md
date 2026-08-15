@@ -8,19 +8,19 @@
 | `type`        | `string`   | one of the [builtin schemas](schemas.md#builtin-types)  |
 | `columnNames` | `string[]` | column names, e.g. from a `#chrom start end ...` header |
 
-At most one applies; with none, the standard BED schema is used and short lines
-get [the schema-less treatment](parsing-behavior.md#without-a-schema). An
-unknown `type` throws `Type not found: <type>`, and a malformed `autoSql` throws
-with the line and column it gave up at.
+At most one applies; with none, the parser falls back on the standard BED schema
+and gives short lines
+[the schema-less treatment](parsing-behavior.md#without-a-schema). An unknown
+`type` throws `Type not found: <type>`, and a malformed `autoSql` throws with
+the line and column it gave up at.
 
-The parsed schema is available as `parser.autoSql`.
+`parser.autoSql` holds the parsed schema.
 
 ## `parseLine(line, opts?)`
 
-- `line: string | string[]` — a tab-delimited line, or an array of columns
-  already split. Pass an array to parse the space-delimited form UCSC also
-  allows.
-- `opts.uniqueId: string` — copied onto the feature as `uniqueId`, for an id the
+- `line: string | string[]` — a tab-delimited line, or the columns already
+  split. Pass an array to parse the space-delimited form UCSC also allows.
+- `opts.uniqueId: string` — lands on the feature as `uniqueId`, for an id the
   line itself doesn't carry.
 
 Returns a `Feature`: a plain object keyed by schema field name.
@@ -35,8 +35,8 @@ p.parseLine('chr1\t0\t100\tpeak1\t100\t+\t1.5\t2.5\t3.5\t50', {
 //   uniqueId: 'peak-1' }
 ```
 
-Every call is independent — one parser instance can be reused across a whole
-file, and across files that share a schema.
+Every call is independent, so one parser instance serves a whole file, and every
+file that shares its schema.
 
 ## Types
 

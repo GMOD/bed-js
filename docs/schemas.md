@@ -1,7 +1,7 @@
 # Schemas
 
-A BED line is just columns, so the parser needs to be told what they mean. Four
-ways, in the order the constructor prefers them.
+A BED line is just columns, so something has to tell the parser what they mean.
+Four ways to do it, in the order the constructor prefers them.
 
 ## A supplied autoSql
 
@@ -16,8 +16,8 @@ const p = new BED({ autoSql })
 p.parseLine(line)
 ```
 
-The autoSql is taken as the whole layout: columns past its last field are
-dropped rather than kept as extras.
+The autoSql counts as the whole layout: columns past its last field drop rather
+than arriving as extras.
 
 ## A builtin type
 
@@ -50,17 +50,17 @@ p.parseLine(
 | `mafFrames`     | kent's source tree — no goldenPath example page                                       |
 | `mafSummary`    | kent's source tree — no goldenPath example page                                       |
 
-The declarations are inlined in
-[`src/as/autoSqlSchemas.ts`](../src/as/autoSqlSchemas.ts), alongside
-`defaultBedSchema` — the standard BED12 columns used when nothing is specified.
-Each is parsed on first use, so importing the package doesn't pay for schemas
-you never ask for.
+[`src/as/autoSqlSchemas.ts`](../src/as/autoSqlSchemas.ts) inlines the
+declarations, alongside `defaultBedSchema` — the standard BED12 columns the
+parser falls back on. Each one parses on first use, so importing the package
+doesn't pay for schemas you never ask for.
 
 ## Column names
 
 A BED file with a header line names its columns but says nothing about their
-types, so types come from the standard column of the same name — `chromStart`
-numeric, `blockSizes` a numeric array — and anything unrecognized is a string.
+types, so each type comes from the standard column of the same name —
+`chromStart` numeric, `blockSizes` a numeric array — and anything unrecognized
+stays a string.
 
 ```js
 const p = new BED({
@@ -70,9 +70,9 @@ p.parseLine('chr1\t0\t100\t1e-4')
 // { chrom: 'chr1', chromStart: 0, chromEnd: 100, pValue: '1e-4', strand: 0 }
 ```
 
-Names are matched against the standard BED and bigGenePred columns, with BED
-winning where the two disagree. Like a supplied autoSql, the list is the whole
-layout.
+The parser matches those names against the standard BED and bigGenePred columns,
+with BED winning where the two disagree. Like a supplied autoSql, the list is
+the whole layout.
 
 ## Nothing at all
 
@@ -82,12 +82,13 @@ forcing the standard names onto it.
 
 ## The autoSql parser
 
-`src/autoSql.ts` is a hand-written parser for the format, used for both the
-builtin schemas and anything supplied. Beyond the documented grammar it handles
-what real UCSC and ENCODE files contain: quoted field names, quoted and numeric
-`enum`/`set` values, unclosed comment quotes, `name[size]` as well as
-`type[size]`, and comments before the declaration. See
-[CONTRIBUTING.md](../CONTRIBUTING.md#the-autosql-parser) for how it's validated.
+`src/autoSql.ts` is a hand-written parser for the format, serving both the
+builtin schemas and anything you supply. Beyond the documented grammar it
+handles what real UCSC and ENCODE files contain: quoted field names, quoted and
+numeric `enum`/`set` values, unclosed comment quotes, `name[size]` as well as
+`type[size]`, and comments before the declaration.
+[CONTRIBUTING.md](../CONTRIBUTING.md#the-autosql-parser) describes how we
+validate it.
 
 References:
 

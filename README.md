@@ -44,7 +44,7 @@ rest.map(line => parser.parseLine(line))
 
 ## Schemas
 
-The constructor decides how columns are named and typed, four ways:
+Four ways to tell the constructor how to name and type the columns:
 
 ```js
 new BED() // standard BED columns
@@ -58,7 +58,7 @@ new BED({ columnNames }) // names from a '#chrom start end ...' header
 - [API](docs/api.md) — constructor, `parseLine`, exported types
 - [Schemas](docs/schemas.md) — the builtin list, autoSql, column-name headers
 - [Parsing behavior](docs/parsing-behavior.md) — strand, missing data, BED12+n,
-  and what gets guessed when there is no schema
+  and what the parser guesses when there is no schema
 - [Contributing](CONTRIBUTING.md) — development and releases
 
 ## Academic Use

@@ -2,19 +2,20 @@
 
 ## Lines
 
-Every line is parsed as a feature. `track`, `browser`, `#` comment and blank
-lines are not recognized and produce junk features with `NaN` coordinates rather
-than an error, so filter them out before calling `parseLine`.
+The parser treats every line as a feature. It does not recognize `track`,
+`browser`, `#` comment or blank lines, and turns them into junk features with
+`NaN` coordinates rather than erroring, so filter them out before calling
+`parseLine`.
 
 Only tabs split a line. UCSC also allows spaces; to parse that form, split it
 yourself and pass the array.
 
 ## Values
 
-- **strand** is converted from `{+,-,.}` to `{1,-1,0}`, and is set to `0` even
-  when the schema has no strand field.
-- **`.` or an empty column is missing data**: the field is left unset rather
-  than parsed as the string `.` or the number `0`.
+- **strand** converts from `{+,-,.}` to `{1,-1,0}`, and lands at `0` even when
+  the schema has no strand field.
+- **`.` or an empty column means missing data**: the parser leaves the field
+  unset rather than storing the string `.` or the number `0`.
 - **A numeric field that doesn't hold a number keeps its string**, so a
   malformed column doesn't silently become `NaN`.
 - **Arrays** (`int[blockCount]`, `char[2]`) split on commas, dropping the
@@ -39,14 +40,14 @@ new BED().parseLine('chr1\t0\t100\tfoo\t50\t+\textra1\textra2')
 Columns 1-4 are `chrom`, `chromStart`, `chromEnd`, `name`. Column 5 is `score`
 if it parses as a number, column 6 is `strand` if it is `+` or `-`, and
 everything else keeps its column number as `fieldN` (zero-based, so column 7 is
-`field6`). On this path `.` is kept as a literal value rather than treated as
+`field6`). On this path `.` stays a literal value rather than counting as
 missing.
 
-Give the parser an `autoSql`, `type`, or `columnNames` and this guessing is off
-entirely — the schema is trusted for lines of any length.
+Give the parser an `autoSql`, `type`, or `columnNames` and the guessing stops
+entirely — it trusts the schema for lines of any length.
 
 ## Extra columns
 
-With the default schema, columns past the twelfth of a BED12+n line are kept as
-`field12`, `field13`, and so on. A supplied autoSql or `columnNames` is taken as
-the complete layout, so columns past its end are dropped.
+With the default schema, columns past the twelfth of a BED12+n line arrive as
+`field12`, `field13`, and so on. A supplied autoSql or `columnNames` counts as
+the complete layout, so anything past its end drops.
