@@ -33,7 +33,7 @@ JSON
 npm install --silent --no-audit --no-fund "./$TARBALL" >/dev/null
 
 cat >entrypoints.mjs <<'JS'
-import { existsSync, readFileSync } from 'node:fs'
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 const root = 'node_modules/@gmod/bed'
@@ -55,6 +55,17 @@ for (const [field, value] of Object.entries(entries)) {
   const declaration = value.replace(/\.js$/, '.d.ts')
   if (!existsSync(resolve(root, declaration))) {
     throw new Error(`no ${declaration} next to the "${field}" entry`)
+  }
+}
+// a schema module left to infer its types writes every schema back out as a
+// string literal type, shipping the whole thing again in each output dir
+const MAX_DECLARATION_SIZE = 8192
+for (const entry of readdirSync(root, { recursive: true })) {
+  if (entry.endsWith('.d.ts')) {
+    const { size } = statSync(resolve(root, entry))
+    if (size > MAX_DECLARATION_SIZE) {
+      throw new Error(`${entry} is ${size} bytes, over ${MAX_DECLARATION_SIZE}`)
+    }
   }
 }
 console.log('entry points ok')
