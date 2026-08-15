@@ -86,7 +86,7 @@ JS
 
 cat >check.mjs <<'JS'
 const autoSql = `table pack
-"supplied at runtime, exercises the peggy parser in the bundle"
+"supplied at runtime, exercises the autoSql parser in the bundle"
 (
 string chrom;      "Chromosome"
 uint   chromStart; "Start"

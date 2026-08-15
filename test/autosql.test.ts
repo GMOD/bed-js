@@ -1,6 +1,6 @@
 import { describe, expect, it, test } from 'vitest'
 
-import { parse } from '../src/autoSql.js'
+import { parse } from '../src/autoSql.ts'
 
 describe('autoSql parser', () => {
   it('simple example', () => {
@@ -182,10 +182,7 @@ describe('autoSql parser', () => {
     bigInt _dataOffset; "Offset into gnomad.v4.1.details.tab.gz for line with more info"
     int _dataLen; "Length of the line in gnomad.v4.1.details.tab.gz"
     )`
-    const result = parse(table) as {
-      comment: string
-      fields: { comment: string }[]
-    }
+    const result = parse(table)
     expect(result.comment).toBe('gnomAD v4.1 exomes variant data')
     expect(result.fields[0]!.comment).toBe(
       'Chromosome (or contig, scaffold, etc.)',
@@ -230,10 +227,7 @@ describe('autoSql parser', () => {
       'string x; "field comment" \n' +
       'uint y;   "no trailing space"\n' +
       ')'
-    const result = parse(table) as {
-      comment: string
-      fields: { comment: string }[]
-    }
+    const result = parse(table)
     expect(result.comment).toBe('table comment')
     expect(result.fields[0]!.comment).toBe('field comment')
     expect(result.fields[1]!.comment).toBe('no trailing space')
@@ -244,7 +238,7 @@ describe('autoSql parser', () => {
   test('comment takes text between first and last quote', () => {
     const result = parse(
       'table t\n"d"\n(\nstring a; "real comment" trailing junk\nstring b; "the "gene" name"\n)',
-    ) as { fields: { comment: string }[] }
+    )
     expect(result.fields[0]!.comment).toBe('real comment')
     expect(result.fields[1]!.comment).toBe('the "gene" name')
   })
@@ -252,9 +246,7 @@ describe('autoSql parser', () => {
   // unclosed quotes (seen in real UCSC .bb files) still fall back to lenient
   // rest-of-line parsing rather than failing
   test('unclosed comment quote falls back to lenient parse', () => {
-    const result = parse(
-      'table t\n"d"\n(\nlstring changes;     "changes\n)',
-    ) as { fields: { comment: string }[] }
+    const result = parse('table t\n"d"\n(\nlstring changes;     "changes\n)')
     expect(result.fields[0]!.comment).toBe('changes')
   })
 
@@ -265,7 +257,7 @@ describe('autoSql parser', () => {
     int id auto;   "auto without primary/index"
     string name;   "name"
     )`
-    const result = parse(table) as { fields: { name: string }[] }
+    const result = parse(table)
     expect(result.fields.map(f => f.name)).toEqual(['id', 'name'])
   })
 
@@ -291,8 +283,8 @@ describe('autoSql parser', () => {
     (
     int count; "count"
     )`
-    expect((parse(simple) as { type: string }).type).toBe('simple')
-    expect((parse(obj) as { type: string }).type).toBe('object')
+    expect(parse(simple).type).toBe('simple')
+    expect(parse(obj).type).toBe('object')
   })
 
   test('case insensitive keywords', () => {
@@ -316,7 +308,7 @@ describe('autoSql parser', () => {
     uint id primary auto; "primary key"
     string city index[4]; "index with size"
     )`
-    const result = parse(table) as { fields: { type: string; name: string }[] }
+    const result = parse(table)
     expect(result.fields.map(f => f.type)).toMatchSnapshot()
   })
 
@@ -376,9 +368,7 @@ table autoTest
       for (const d of decls) {
         expect(() => parse(d)).not.toThrow()
       }
-      const table = parse(decls[1]!) as {
-        fields: { type: string; name: string }[]
-      }
+      const table = parse(decls[1]!)
       expect(
         table.fields.map(f => ({ type: f.type, name: f.name })),
       ).toMatchSnapshot()
@@ -475,6 +465,76 @@ table polyhedron
       for (const d of decls) {
         expect(() => parse(d)).not.toThrow()
       }
+    })
+  })
+
+  // forms that appear in kent's own .as files but that the old peggy grammar
+  // rejected outright, taking the whole schema with them
+  describe('real world schemas the grammar used to reject', () => {
+    // src/hg/lib/dbNsfpLrt.as, snp125Coding.as
+    test('quoted and numeric enum values', () => {
+      const result = parse(`table t
+"d"
+    (
+    enum('A','C','G','T','.') refAl;  "Allele found in reference assembly"
+    enum(1,2,3) frame;                "Frame of codon"
+    enum ("ensembl", "ucsc") authority; "Origin of assembly"
+    )`)
+      expect(result.fields.map(f => f.vals)).toEqual([
+        ['A', 'C', 'G', 'T', '.'],
+        ['1', '2', '3'],
+        ['ensembl', 'ucsc'],
+      ])
+    })
+
+    // src/hg/encode3/encodeDataWarehouse/oneShot/edwToEap1/edwAnalysis.as
+    test('field name quoted to escape a reserved word', () => {
+      const result = parse(`table t
+"d"
+    (
+    string "name" unique; "Command line name"
+    lstring "version"; "Current version"
+    )`)
+      expect(result.fields.map(f => f.name)).toEqual(['name', 'version'])
+    })
+
+    // src/hg/lib/hubConnect.as
+    test('array size after the field name', () => {
+      const result = parse(`table t
+"d"
+    (
+    uint dbCount; "Number of databases"
+    string dbList[dbCount]; "Comma separated list of databases"
+    )`)
+      expect(result.fields[1]).toEqual({
+        type: 'string',
+        size: 'dbCount',
+        name: 'dbList',
+        comment: 'Comma separated list of databases',
+      })
+    })
+
+    // src/hg/lib/ctgPos2.as
+    test('field list closing on the last comment line', () => {
+      const result = parse(`table t
+"d"
+    (
+    string contig;  "Name of contig"
+    char[1] type;   "(W)GS contig, (F)inished"    )`)
+      expect(result.fields.map(f => f.name)).toEqual(['contig', 'type'])
+      expect(result.fields[1]!.comment).toBe('(W)GS contig, (F)inished')
+    })
+
+    // src/hg/makeDb/autoSql/recombEvents.as
+    test('comment lines before the declaration', () => {
+      const result = parse(`# Chr (chromosome)
+# lbnd (lower edge of crossover event)
+table t
+"d"
+    (
+    string chrom; "Chromosome"
+    )`)
+      expect(result.name).toBe('t')
     })
   })
 })

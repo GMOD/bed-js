@@ -1,15 +1,9 @@
 import { autoSqlSchemas } from './as/autoSqlSchemas.ts'
-import { parse } from './autoSql.js'
+import { parse } from './autoSql.ts'
 
-export interface AutoSqlField {
-  // fixed-size arrays carry a numeric size (char[2]); variable-length arrays
-  // carry the name of the count field (int[blockCount])
-  size?: number | string
-  type: string
-  name: string
-  comment: string
-  vals?: string[]
-}
+import type { AutoSqlField } from './autoSql.ts'
+
+export type { AutoSqlField }
 
 export interface AutoSqlPreSchema {
   fields: AutoSqlField[]
@@ -40,10 +34,6 @@ export function detectTypes(autoSql: AutoSqlPreSchema) {
 }
 
 export type AutoSqlSchema = ReturnType<typeof detectTypes>
-
-export function parseAutoSql(text: string) {
-  return parse(text) as AutoSqlPreSchema
-}
 
 const cache = new Map<string, AutoSqlPreSchema>()
 
@@ -82,7 +72,7 @@ export function getBuiltinSchema(type: string) {
     if (source === undefined) {
       throw new Error(`Type not found: ${type}`)
     }
-    schema = parseAutoSql(source)
+    schema = parse(source)
     cache.set(type, schema)
   }
   return schema

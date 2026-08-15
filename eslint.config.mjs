@@ -12,8 +12,6 @@ export default defineConfig(
       '*.js',
       '*.mjs',
       'example/*',
-      'src/autoSql.js',
-      'src/autoSql.ts',
     ],
   },
   {

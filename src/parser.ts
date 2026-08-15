@@ -1,7 +1,7 @@
+import { parse } from './autoSql.ts'
 import {
   detectTypes,
   getBuiltinSchema,
-  parseAutoSql,
   schemaFromColumnNames,
 } from './schema.ts'
 
@@ -101,7 +101,7 @@ export default class BED {
     this.attemptDefaultBed = !autoSql && !type && !columnNames?.length
     this.autoSql = detectTypes(
       autoSql
-        ? parseAutoSql(autoSql)
+        ? parse(autoSql)
         : columnNames?.length
           ? schemaFromColumnNames(columnNames)
           : getBuiltinSchema(type ?? 'defaultBedSchema'),
