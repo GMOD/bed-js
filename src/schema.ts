@@ -47,6 +47,32 @@ export function parseAutoSql(text: string) {
 
 const cache = new Map<string, AutoSqlPreSchema>()
 
+let columnTypes: Map<string, AutoSqlField> | undefined
+
+// a BED file with a header line names its columns but says nothing about their
+// types, so the types come from the standard columns of the same name
+function getColumnTypes() {
+  if (!columnTypes) {
+    columnTypes = new Map()
+    // defaultBedSchema last, so its types win where the two disagree
+    for (const type of ['bigGenePred', 'defaultBedSchema']) {
+      for (const field of getBuiltinSchema(type).fields) {
+        columnTypes.set(field.name, field)
+      }
+    }
+  }
+  return columnTypes
+}
+
+export function schemaFromColumnNames(columnNames: string[]) {
+  const known = getColumnTypes()
+  return {
+    fields: columnNames.map(
+      name => known.get(name) ?? { name, type: 'string', comment: '' },
+    ),
+  }
+}
+
 // parsed on first use: parsing every builtin schema up front costs several ms
 // of import time for schemas a given consumer never asks for
 export function getBuiltinSchema(type: string) {

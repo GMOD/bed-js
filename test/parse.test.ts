@@ -47,6 +47,87 @@ bigInt _dataOffset; "Offset into a details file"
   expect(p.parseLine('chr1\t10\t123456789')._dataOffset).toEqual(123_456_789)
 })
 
+// a headered BED names its columns but not their types: the standard columns
+// keep the types they have in the standard schemas, the rest are strings
+test('columnNames', () => {
+  const p = new BED({
+    columnNames: [
+      'chrom',
+      'chromStart',
+      'chromEnd',
+      'name',
+      'score',
+      'strand',
+      'thickStart',
+      'thickEnd',
+      'itemRgb',
+      'blockCount',
+      'blockSizes',
+      'blockStarts',
+      'pValue',
+    ],
+  })
+  expect(
+    p.parseLine(
+      'chr1\t1000\t5000\tcloneA\t960\t-\t1000\t5000\t0\t2\t567,488,\t0,3512\t1e-4',
+    ),
+  ).toEqual({
+    chrom: 'chr1',
+    chromStart: 1000,
+    chromEnd: 5000,
+    name: 'cloneA',
+    score: 960,
+    strand: -1,
+    thickStart: 1000,
+    thickEnd: 5000,
+    itemRgb: '0',
+    blockCount: 2,
+    blockSizes: [567, 488],
+    blockStarts: [0, 3512],
+    pValue: '1e-4',
+  })
+})
+
+test('columnNames of a non-BED layout', () => {
+  const p = new BED({ columnNames: ['chr', 'start', 'end', 'coverage'] })
+  expect(p.parseLine('chr1\t10\t100\t5')).toEqual({
+    chr: 'chr1',
+    start: '10',
+    end: '100',
+    coverage: '5',
+    strand: 0,
+  })
+})
+
+// a schema whose first column isn't called chrom used to get a literal
+// chrom:"undefined" field from String(undefined)
+test('schema with no chrom field', () => {
+  const p = new BED({
+    autoSql: `table noChrom
+"no chrom column here"
+(
+string seqid; "Sequence name"
+uint   start; "Start position"
+)`,
+  })
+  expect(p.parseLine('contigA\t10')).toEqual({
+    seqid: 'contigA',
+    start: 10,
+    strand: 0,
+  })
+})
+
+// a bare '%' in a contig name makes decodeURIComponent throw; the lightweight
+// decoder must leave it intact rather than crash, while still decoding %XX
+test('chrom with bare percent does not crash', () => {
+  const p = new BED()
+  // a bare '%' not followed by two hex digits is left untouched
+  expect(p.parseLine('chr%_test\t10\t100').chrom).toEqual('chr%_test')
+  expect(p.parseLine('contig%\t10\t100').chrom).toEqual('contig%')
+  // well-formed %XX escapes are still decoded, even alongside a bad one
+  expect(p.parseLine('a%2Cb%zz\t10\t100').chrom).toEqual('a,b%zz')
+})
+
 test('BED6', () => {
   const p = new BED()
   const f1 = p.parseLine('contigA\t10875\t10884\ttest\t0.50\t-')

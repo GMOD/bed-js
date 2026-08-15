@@ -33,6 +33,8 @@ The BED constructor accepts an opts object with options
 
 - opts.autoSql - a optional autoSql schema for parsing lines
 - opts.type - a string representing one of a list of predefined types
+- opts.columnNames - column names, e.g. from a `#chrom start end ...` header
+  line, for a file with no autoSql
 
 The predefined types can include
 
@@ -46,8 +48,20 @@ The predefined types can include
     mafFrames
     mafSummary
 
-If neither autoSql or type is specified, the default BED schema is used (see
-[here](src/as/autoSqlSchemas.ts))
+If none of autoSql, type or columnNames is specified, the default BED schema is
+used (see [here](src/as/autoSqlSchemas.ts))
+
+With columnNames, a column named like a standard BED column is parsed as that
+column's type (`chromStart` numeric, `blockSizes` a numeric array, etc.) and any
+other column is a string
+
+```js
+const p = new BED({
+  columnNames: ['chrom', 'chromStart', 'chromEnd', 'pValue'],
+})
+p.parseLine('chr1\t0\t100\t1e-4')
+// { chrom: 'chr1', chromStart: 0, chromEnd: 100, pValue: '1e-4', strand: 0 }
+```
 
 ### parseLine(line, opts)
 
@@ -142,8 +156,8 @@ p.parseLine(line)
 - A `.` or empty column is missing data: the field is left unset rather than
   parsed as the string `.` or the number 0
 - With the default schema, columns past the twelfth of a BED12+n line are kept
-  as `field12`, `field13`, etc. A supplied autoSql is taken as the whole layout,
-  so columns past it are dropped
+  as `field12`, `field13`, etc. A supplied autoSql or columnNames is taken as
+  the whole layout, so columns past it are dropped
 
 ## Academic Use
 
