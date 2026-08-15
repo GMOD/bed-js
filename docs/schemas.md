@@ -38,17 +38,19 @@ p.parseLine(
 
 ### Builtin types
 
-    bigInteract
-    bigMaf
-    bigPsl
-    bigNarrowPeak
-    bigGenePred
-    bigLink
-    bigChain
-    mafFrames
-    mafSummary
+| type            | source                                                                                |
+| --------------- | ------------------------------------------------------------------------------------- |
+| `bigInteract`   | [interact.as](https://genome.ucsc.edu/goldenpath/help/examples/interact/interact.as)  |
+| `bigMaf`        | [bigMaf.as](https://genome.ucsc.edu/goldenPath/help/examples/bigMaf.as)               |
+| `bigPsl`        | [bigPsl.as](https://genome.ucsc.edu/goldenPath/help/examples/bigPsl.as)               |
+| `bigNarrowPeak` | [bigNarrowPeak.as](https://genome.ucsc.edu/goldenPath/help/examples/bigNarrowPeak.as) |
+| `bigGenePred`   | [bigGenePred.as](https://genome.ucsc.edu/goldenPath/help/examples/bigGenePred.as)     |
+| `bigLink`       | [bigLink.as](https://genome.ucsc.edu/goldenPath/help/examples/bigLink.as)             |
+| `bigChain`      | [bigChain.as](https://genome.ucsc.edu/goldenPath/help/examples/bigChain.as)           |
+| `mafFrames`     | kent's source tree — no goldenPath example page                                       |
+| `mafSummary`    | kent's source tree — no goldenPath example page                                       |
 
-Their declarations live in
+The declarations are inlined in
 [`src/as/autoSqlSchemas.ts`](../src/as/autoSqlSchemas.ts), alongside
 `defaultBedSchema` — the standard BED12 columns used when nothing is specified.
 Each is parsed on first use, so importing the package doesn't pay for schemas

@@ -33,6 +33,15 @@ parser.parseLine('chr1\t0\t100\tgene1\t50\t+')
 `parseLine` has no notion of header or comment lines — filter them out first, or
 they come back as features with `NaN` coordinates.
 
+A file whose first line names its columns can hand that line straight back as
+`columnNames`, instead of dropping it with the other `#` lines:
+
+```js
+const [header, ...rest] = text.split('\n')
+const parser = new BED({ columnNames: header.replace(/^#/, '').split('\t') })
+rest.map(line => parser.parseLine(line))
+```
+
 ## Schemas
 
 The constructor decides how columns are named and typed, four ways:
