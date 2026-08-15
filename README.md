@@ -3,161 +3,54 @@
 [![Coverage Status](https://img.shields.io/codecov/c/github/GMOD/bed-js/main.svg?style=flat-square)](https://codecov.io/gh/GMOD/bed-js/branch/main)
 ![Build Status](https://img.shields.io/github/actions/workflow/status/GMOD/bed-js/publish.yml?branch=main)
 
-Performs parsing of BED files including autoSql
+Parses BED lines into feature objects, using the file's autoSql schema when it
+has one. Includes a standalone autoSql parser and the UCSC bigBed schemas.
+
+## Install
+
+```sh
+npm install @gmod/bed
+```
 
 ## Usage
 
-### Example
-
-You can pipe your file through this program's parseLine function
+Feed the parser one line at a time:
 
 ```js
 import BED from '@gmod/bed'
 
 const parser = new BED()
-const text = fs.readFileSync('file.txt', 'utf8')
-const results = text
+const features = text
   .split('\n')
   .filter(line => line.trim() && !/^(#|track|browser)/.test(line))
   .map(line => parser.parseLine(line))
+
+parser.parseLine('chr1\t0\t100\tgene1\t50\t+')
+// { chrom: 'chr1', chromStart: 0, chromEnd: 100, name: 'gene1',
+//   score: 50, strand: 1 }
 ```
 
-parseLine has no notion of header or comment lines, so filter them out first —
-see [Important notes](#important-notes).
+`parseLine` has no notion of header or comment lines — filter them out first, or
+they come back as features with `NaN` coordinates.
 
-## API
+## Schemas
 
-### Constructor
-
-The BED constructor accepts an opts object with options
-
-- opts.autoSql - a optional autoSql schema for parsing lines
-- opts.type - a string representing one of a list of predefined types
-- opts.columnNames - column names, e.g. from a `#chrom start end ...` header
-  line, for a file with no autoSql
-
-The predefined types can include
-
-    bigInteract
-    bigMaf
-    bigPsl
-    bigNarrowPeak
-    bigGenePred
-    bigLink
-    bigChain
-    mafFrames
-    mafSummary
-
-If none of autoSql, type or columnNames is specified, the default BED schema is
-used (see [here](src/as/autoSqlSchemas.ts))
-
-With columnNames, a column named like a standard BED column is parsed as that
-column's type (`chromStart` numeric, `blockSizes` a numeric array, etc.) and any
-other column is a string
+The constructor decides how columns are named and typed, four ways:
 
 ```js
-const p = new BED({
-  columnNames: ['chrom', 'chromStart', 'chromEnd', 'pValue'],
-})
-p.parseLine('chr1\t0\t100\t1e-4')
-// { chrom: 'chr1', chromStart: 0, chromEnd: 100, pValue: '1e-4', strand: 0 }
+new BED() // standard BED columns
+new BED({ autoSql }) // an autoSql string, e.g. from a bigBed header
+new BED({ type: 'bigGenePred' }) // a builtin UCSC schema
+new BED({ columnNames }) // names from a '#chrom start end ...' header
 ```
 
-### parseLine(line, opts)
+## Documentation
 
-Parses a BED line according to the currently loaded schema
-
-- line: `string|Array<string>` - is a tab delimited line with fields from the
-  schema, or an array that has been pre-split by tab with those same contents
-- opts: Options - an options object
-
-An Options object can contain
-
-- opts.uniqueId - an indication of a uniqueId that is not encoded by the BED
-  line itself
-
-The default instantiation of the parser with new BED() simply parses lines
-assuming the fields come from the standard BED schema. Your line can just
-contain just a subset of the fields e.g.
-`chrom, chromStart, chromEnd, name, score`
-
-## Examples
-
-### Parsing BED with default schema
-
-```js
-const p = new BED()
-
-p.parseLine('chr1\t0\t100')
-// outputs { chrom: 'chr1', chromStart: 0, chromEnd: 100, strand: 0 }
-```
-
-### Parsing BED with a built in schema e.g. bigGenePred
-
-If you have a BED format that corresponds to a different schema, you can specify
-from the list of default built in schemas
-
-Specify this in the opts.type for the BED constructor
-
-```js
-const p = new BED({ type: 'bigGenePred' })
-const line = 'chr1\t11868\t14409\tENST00000456328.2\t1000\t+\t11868\t11868\t255,128,0\t3\t359,109,1189,\t0,744,1352,\tDDX11L1\tnone\tnone\t-1,-1,-1,\tnone\tENST00000456328.2\tDDX11L1\tnone'
-p.parseLine(line)
-// above line outputs
-      { chrom: 'chr1',
-        chromStart: 11868,
-        chromEnd: 14409,
-        name: 'ENST00000456328.2',
-        score: 1000,
-        strand: 1,
-        thickStart: 11868,
-        thickEnd: 11868,
-        reserved: '255,128,0',
-        blockCount: 3,
-        blockSizes: [ 359, 109, 1189 ],
-        chromStarts: [ 0, 744, 1352 ],
-        name2: 'DDX11L1',
-        cdsStartStat: 'none',
-        cdsEndStat: 'none',
-        exonFrames: [ -1, -1, -1 ],
-        type: 'none',
-        geneName: 'ENST00000456328.2',
-        geneName2: 'DDX11L1',
-        geneType: 'none' }
-```
-
-### Parsing BED with a supplied autoSql
-
-If you have a BED format with a custom alternative schema with autoSql, or if
-you are using a BigBed file that contains autoSql (e.g. with
-[@gmod/bbi](https://github.com/gmod/bbi-js) then you can get it from
-header.autoSql) then you initialize the schema in the constructor and then use
-parseLine as normal
-
-```
-import { BigBed } from '@gmod/bbi'
-
-const bigbed = new BigBed({path: 'yourfile'})
-const {autoSql} = await bigbed.getHeader()
-const p = new BED({ autoSql })
-p.parseLine(line)
-// etc.
-```
-
-### Important notes
-
-- Every line is parsed as a feature. `track`, `browser`, `#` comment, and blank
-  lines are not recognized and produce junk features with `NaN` coordinates
-  rather than an error, so filter them out before calling parseLine
-- By default, parseLine parses only tab delimited text, if you want to use
-  spaces as is allowed by UCSC then pass an array to `line` for parseLine
-- Converts strand from {+,-,.} to {1,-1,0} and also sets strand 0 even if no
-  strand is in the autoSql
-- A `.` or empty column is missing data: the field is left unset rather than
-  parsed as the string `.` or the number 0
-- With the default schema, columns past the twelfth of a BED12+n line are kept
-  as `field12`, `field13`, etc. A supplied autoSql or columnNames is taken as
-  the whole layout, so columns past it are dropped
+- [API](docs/api.md) — constructor, `parseLine`, exported types
+- [Schemas](docs/schemas.md) — the builtin list, autoSql, column-name headers
+- [Parsing behavior](docs/parsing-behavior.md) — strand, missing data, BED12+n,
+  and what gets guessed when there is no schema
+- [Contributing](CONTRIBUTING.md) — development and releases
 
 ## Academic Use
 
@@ -169,18 +62,3 @@ be linked from [jbrowse.org](http://jbrowse.org).
 ## License
 
 MIT © [Colin Diesh](https://github.com/cmdcolin)
-
-based on
-https://genome-source.gi.ucsc.edu/gitlist/kent.git/blob/master/src/hg/autoSql/autoSql.doc
-
-also see http://genomewiki.ucsc.edu/index.php/AutoSql and
-https://www.linuxjournal.com/article/5949
-
-## Publishing
-
-[Trusted publishing](https://docs.npmjs.com/about-trusted-publishing) via GitHub
-Actions.
-
-```bash
-pnpm version patch  # or minor/major
-```
