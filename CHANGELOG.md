@@ -145,15 +145,44 @@
 
 ## [2.1.9](https://github.com/GMOD/bed-js/compare/v2.1.8...v2.1.9) (2026-01-19)
 
+### Chores
+
+* add `allowJs` to `tsconfig.json` so the compiled autoSql parser `.js` is picked up by `tsc` (type-checked and emitted to `dist`/`esm`) instead of being invisible to the build ([b3c181a](https://github.com/GMOD/bed-js/commit/b3c181ad6a43d26c87f4a8e5305f3db46b276c32))
+
 ## [2.1.8](https://github.com/GMOD/bed-js/compare/v2.1.7...v2.1.8) (2026-01-19)
+
+### Chores
+
+* revert to generating `src/autoSql.js` from the pegjs grammar instead of hand-writing it, and add `eslint-plugin-import` with an import-order rule, reordering imports across the codebase to match ([a108c36](https://github.com/GMOD/bed-js/commit/a108c361069428d5fc9d84204f2bd5160056d20e), [f9568c4](https://github.com/GMOD/bed-js/commit/f9568c4ba2c00ac72f650dca2cda1d270a074083), [3948f96](https://github.com/GMOD/bed-js/commit/3948f963e8f1a21a0e3436331dfd3dd415ab6900))
+
+### Refactoring
+
+* switch `package.json` to pure ESM (`"type": "module"`, a conditional `exports` map for `import`/`require`), dropping the old `main`/`module` fields ([2f49685](https://github.com/GMOD/bed-js/commit/2f4968542497dc00c0e542bd074fa084b3601560))
 
 ## [2.1.7](https://github.com/GMOD/bed-js/compare/v2.1.5...v2.1.7) (2025-05-13)
 
+### Refactoring
+
+* hand-write `src/autoSql.ts`, replacing the pegjs-generated `src/autoSql.js` ([e8fbd43](https://github.com/GMOD/bed-js/commit/e8fbd43a523653e972e70cb645ae3e072ccf7354))
+
 ## [2.1.6](https://github.com/GMOD/bed-js/compare/v2.1.5...v2.1.6) (2025-05-13)
+
+No corresponding commits exist in git history for this tag — it was likely superseded immediately by v2.1.7, which covers the same commit range.
 
 ## [2.1.5](https://github.com/GMOD/bed-js/compare/v2.1.4...v2.1.5) (2025-05-13)
 
+### Refactoring
+
+* import siblings by their real `.ts`/`.js` extension, and enable `allowImportingTsExtensions`/`rewriteRelativeImportExtensions` in `tsconfig.json` so the source is type-strippable ([f30142a](https://github.com/GMOD/bed-js/commit/f30142adccef100339f54bd1be8121c1158b6ab5))
+
 ## [2.1.4](https://github.com/GMOD/bed-js/compare/v2.1.3...v2.1.4) (2025-05-13)
+
+### Chores
+
+* write `dist/package.json` declaring `{"type": "commonjs"}` in a new `postbuild:es5` step, so the CJS build isn't misparsed as ESM ([a88175b](https://github.com/GMOD/bed-js/commit/a88175bcfebcb0da7e342091402fbf308a59b26a))
+* add test coverage reporting, and bump devDependencies ([a063057](https://github.com/GMOD/bed-js/commit/a063057f6c25d0d2ffc3a03b3f04578914fbb435), [d20c164](https://github.com/GMOD/bed-js/commit/d20c1646a9a5b7ee998181940b9b753d4fd8c49a), [1687bfe](https://github.com/GMOD/bed-js/commit/1687bfe136ca97828a052df5c6f46c3366bb8087))
+* migrate the test runner from Jest to Vitest, and the ESLint config to flat config ([75ff153](https://github.com/GMOD/bed-js/commit/75ff153a5ec4b5c426c5eeed1c368dfb72f9f815), [866f509](https://github.com/GMOD/bed-js/commit/866f5093a5aa7a8a220380cb8483e52de0d528ed))
+* update CI workflow settings ([101dbc0](https://github.com/GMOD/bed-js/commit/101dbc02fba16fb07100442c5575fd7f47b034a2))
 
 ## [2.1.3](https://github.com/GMOD/bed-js/compare/v2.1.2...v2.1.3) (2024-3-25)
 
