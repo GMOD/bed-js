@@ -33,6 +33,12 @@ parser.parseLine('chr1\t0\t100\tgene1\t50\t+')
 `parseLine` has no notion of header or comment lines — filter them out first, or
 they come back as features with `NaN` coordinates.
 
+Lines can come from anywhere: a `.bed.gz` queried with
+[@gmod/tabix](https://github.com/GMOD/tabix-js), or a bigBed read with
+[@gmod/bbi](https://github.com/GMOD/bbi-js) — over a
+[`@gmod/range-cache-filehandle`](https://github.com/GMOD/range-cache-filehandle)
+filehandle for either, if the file is remote.
+
 A file whose first line names its columns can hand that line straight back as
 `columnNames`, instead of dropping it with the other `#` lines:
 
