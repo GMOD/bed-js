@@ -14,13 +14,13 @@ yourself and pass the array.
 
 - **strand** converts from `{+,-,.}` to `{1,-1,0}`, and lands at `0` even when
   the schema has no strand field.
-- **`.` or an empty column means missing data**: the parser leaves the field
-  unset rather than storing the string `.` or the number `0`.
-- **A numeric field that doesn't hold a number keeps its string**, so a
-  malformed column doesn't silently become `NaN`.
+- **`.` or an empty column**: the parser leaves the field unset, rather than
+  storing the string `.` or the number `0`.
+- **A numeric field that doesn't hold a number** keeps its string instead of
+  becoming `NaN`.
 - **Arrays** (`int[blockCount]`, `char[2]`) split on commas, dropping the
   trailing empty one UCSC writes. `char[n]` stays a string.
-- **`chrom` is percent-decoded**, since bigBed writers escape names — but only
+- **`chrom`** is percent-decoded, since bigBed writers escape names — but only
   well-formed `%XX` escapes, so a contig genuinely named `chr%_test` survives.
 
 ## Without a schema
@@ -29,7 +29,8 @@ yourself and pass the array.
 those names for a line that looks like BED12 — twelve or more columns, where
 column 10 is a count matching the number of block sizes in column 11. Anything
 shorter is a BED of unknown width, where column 7 is as likely to be some
-annotation as `thickStart`, so the parser only claims what it can tell:
+annotation as `thickStart`, so the parser only names the columns it can be sure
+of:
 
 ```js
 new BED().parseLine('chr1\t0\t100\tfoo\t50\t+\textra1\textra2')

@@ -74,7 +74,7 @@ The parser matches those names against the standard BED and bigGenePred columns,
 with BED winning where the two disagree. Like a supplied autoSql, the list is
 the whole layout.
 
-## Nothing at all
+## No schema
 
 `new BED()` uses the standard BED schema, but treats a line that doesn't look
 like BED12 as [partly unknown](parsing-behavior.md#without-a-schema) rather than
