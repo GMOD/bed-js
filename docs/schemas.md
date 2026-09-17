@@ -57,10 +57,9 @@ doesn't pay for schemas you never ask for.
 
 ## Column names
 
-A BED file with a header line names its columns but says nothing about their
-types, so each type comes from the standard column of the same name —
-`chromStart` numeric, `blockSizes` a numeric array — and anything unrecognized
-stays a string.
+A BED file with a header line names its columns but not their types, so each
+type comes from the standard column of the same name — `chromStart` numeric,
+`blockSizes` a numeric array — and anything unrecognized stays a string.
 
 ```js
 const p = new BED({

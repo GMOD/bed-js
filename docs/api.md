@@ -20,8 +20,8 @@ the line and column it gave up at.
 
 - `line: string | string[]` — a tab-delimited line, or the columns already
   split. Pass an array to parse the space-delimited form UCSC also allows.
-- `opts.uniqueId: string` — lands on the feature as `uniqueId`, for an id the
-  line itself doesn't carry.
+- `opts.uniqueId: string` — the parser sets it on the feature as `uniqueId`, for
+  an id the line itself doesn't contain.
 
 Returns a `Feature`: a plain object keyed by schema field name.
 

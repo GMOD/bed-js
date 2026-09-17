@@ -12,8 +12,8 @@ yourself and pass the array.
 
 ## Values
 
-- **strand** converts from `{+,-,.}` to `{1,-1,0}`, and lands at `0` even when
-  the schema has no strand field.
+- **strand**: the parser converts `{+,-,.}` to `{1,-1,0}`, and sets `0` even
+  when the schema has no strand field.
 - **`.` or an empty column**: the parser leaves the field unset, rather than
   storing the string `.` or the number `0`.
 - **A numeric field that doesn't hold a number** keeps its string instead of
