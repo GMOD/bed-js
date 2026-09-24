@@ -32,6 +32,8 @@
   "scripts": {
     "test": "vitest",
     "test:pack": "./scripts/test-pack.sh",
+    "benchonly": "vitest bench",
+    "bench": "./scripts/build-both-branches.sh \"$BRANCH1\" \"$BRANCH2\" && vitest bench",
     "clean": "rimraf dist esm",
     "format": "prettier --write .",
     "format:check": "prettier --check .",

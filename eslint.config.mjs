@@ -9,6 +9,8 @@ export default defineConfig(
       'coverage/',
       'esm/**/*',
       'dist/**/*',
+      'esm_*/**/*',
+      'benchmarks/*',
       '*.js',
       '*.mjs',
       'example/*',
