@@ -1,4 +1,5 @@
 import { parse } from './autoSql.ts'
+import { countListItems, numberAt, numberList, toNumber } from './numbers.ts'
 import {
   detectTypes,
   getBuiltinSchema,
@@ -35,10 +36,7 @@ function isBed12Like(fields: string[]) {
     return false
   }
   const blockCount = Number.parseInt(fields[9]!, 10)
-  return (
-    !Number.isNaN(blockCount) &&
-    fields[10]!.split(',').filter(f => f).length === blockCount
-  )
+  return !Number.isNaN(blockCount) && countListItems(fields[10]!) === blockCount
 }
 
 function parseColumn(rawColumn: string, field: DetectedField) {
@@ -46,14 +44,17 @@ function parseColumn(rawColumn: string, field: DetectedField) {
     if (rawColumn === '') {
       return undefined
     }
-    const num = Number(rawColumn)
+    const num = numberAt(rawColumn, 0, rawColumn.length)
     return Number.isNaN(num) ? rawColumn : num
   } else if (field.isArray) {
+    if (field.arrayIsNumeric) {
+      return numberList(rawColumn)
+    }
     const parts = rawColumn.split(',')
     if (parts.at(-1) === '') {
       parts.pop()
     }
-    return field.arrayIsNumeric ? parts.map(Number) : parts
+    return parts
   } else {
     return rawColumn
   }
@@ -65,8 +66,8 @@ function parseColumn(rawColumn: string, field: DetectedField) {
 function parseGuessedBed(fields: string[]) {
   const feature: Feature = {}
   feature.chrom = fields[0]!
-  feature.chromStart = Number(fields[1])
-  feature.chromEnd = Number(fields[2])
+  feature.chromStart = toNumber(fields[1])
+  feature.chromEnd = toNumber(fields[2])
   if (fields[3] !== undefined) {
     feature.name = fields[3]
   }
