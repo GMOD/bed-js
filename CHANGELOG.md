@@ -1,3 +1,29 @@
+## [2.3.1](https://github.com/GMOD/bed-js/compare/v2.3.0...v2.3.1) (2026-09-25)
+
+### Chores
+
+- Add the parse benchmark and build-both-branches ([9813941](https://github.com/GMOD/bed-js/commit/98139418d4865aaba2e22a88cfad46fa203f16be))
+
+### Documentation
+
+- Slim the README, move the detail into docs/ ([d1e4633](https://github.com/GMOD/bed-js/commit/d1e463358088212abb080a71c1204b40550f87cd))
+- Connect the header line to columnNames, link the builtin schemas ([3c1b20a](https://github.com/GMOD/bed-js/commit/3c1b20a6e4b1d8f922550d670b3e72db8887d505))
+- Put the prose in the active voice ([8b1326b](https://github.com/GMOD/bed-js/commit/8b1326b83de4fd08473a16fe69e5f42d9e48ee2d))
+- Correct the release command in CONTRIBUTING, and its voice ([d5a0ba0](https://github.com/GMOD/bed-js/commit/d5a0ba0caaa60645dce7615668849f1d4788d9c1))
+- Describe the release gate CONTRIBUTING actually runs ([5298047](https://github.com/GMOD/bed-js/commit/52980479153b75d4a33c8caeae45a0d4019b449b))
+- Point remote readers at @gmod/range-cache-filehandle ([ec6a63a](https://github.com/GMOD/bed-js/commit/ec6a63a0a6068c9a9896c8c8d17d07cb0dd58a63))
+- Say it in full sentences ([d3b4d38](https://github.com/GMOD/bed-js/commit/d3b4d389fa660b8a3aa8751838c85a2801f0ac5b))
+- Fix anti-AI writing tropes in docs/ ([184be72](https://github.com/GMOD/bed-js/commit/184be72b5fc9a351ed9895e2bd1d2dc533819b1e))
+- Literal verbs for data (lands, says, tells, live on) ([338d892](https://github.com/GMOD/bed-js/commit/338d89217c61e2148e47a40b0ff0cc174ae03c12))
+
+### Other Changes
+
+- Backfill CHANGELOG.md gaps for v2.1.4 through v2.1.9 ([fbb94b2](https://github.com/GMOD/bed-js/commit/fbb94b238aca4245ebf621fd3898bc9b8a3dce94))
+
+### Performance Improvements
+
+- Read numeric columns and lists without split or a Number call per part ([1e7f7eb](https://github.com/GMOD/bed-js/commit/1e7f7eb36370432a8f5341fdbf023b7c2fd657ce))
+
 ## [2.3.0](https://github.com/GMOD/bed-js/compare/v2.2.10...v2.3.0) (2026-08-15)
 
 ### Bug Fixes
