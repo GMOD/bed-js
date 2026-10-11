@@ -1,3 +1,9 @@
+## [2.3.2](https://github.com/GMOD/bed-js/compare/v2.3.1...v2.3.2) (2026-10-11)
+
+### Tests
+
+- Fail when docs/api.md misses a public member or export ([0444f20](https://github.com/GMOD/bed-js/commit/0444f201925e5aa1dae9c272e1488d250f28183f))
+
 ## [2.3.1](https://github.com/GMOD/bed-js/compare/v2.3.0...v2.3.1) (2026-09-25)
 
 ### Chores
