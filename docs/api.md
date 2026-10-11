@@ -52,6 +52,12 @@ type Feature = Record<string, string | number | string[] | number[]>
 ```
 
 `AutoSqlField` is one declared field (`name`, `type`, `comment`, plus `size` for
-arrays and `vals` for `enum`/`set`). `AutoSqlSchema` is the field list after
-type detection, each field carrying `isNumeric`, `isArray`, and `arrayIsNumeric`
-— that is the shape of `parser.autoSql`.
+arrays and `vals` for `enum`/`set`). `AutoSqlPreSchema` holds the declared
+fields before type detection, as `fields: AutoSqlField[]`. `AutoSqlSchema` is
+the field list after type detection, each field carrying `isNumeric`, `isArray`,
+and `arrayIsNumeric` — that is the shape of `parser.autoSql`.
+
+## Exports
+
+The package's `default` export is the `BED` class. It also exports the types
+`Feature`, `AutoSqlField`, `AutoSqlPreSchema` and `AutoSqlSchema`.

@@ -13,6 +13,11 @@ Use `pnpm version patch/minor/major` to release — it runs lint, format, types,
 tests and build and `test:pack`, regenerates CHANGELOG.md with git-cliff, then
 pushes the version tag which triggers the publish workflow.
 
+[docs/api.md](docs/api.md) is written by hand, and `test/apiDocs.test.ts` fails
+when a public member of `BED`, `AutoSqlField`, `AutoSqlPreSchema`, or an export,
+is missing from it. Document the new member, or add it to the test's
+`undocumented` list with the reason it is internal.
+
 ## The autoSql parser
 
 `src/autoSql.ts` is hand-written, and replaced a peggy grammar (`autoSql.pegjs`
