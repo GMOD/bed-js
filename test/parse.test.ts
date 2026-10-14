@@ -173,6 +173,14 @@ test('column 5 of a non-BED12 line is a score only when it is a number', () => {
   expect(p.parseLine('chr1\t0\t10\tn\t1e3').score).toEqual(1000)
 })
 
+test('an empty coordinate of a non-BED12 line is left unset', () => {
+  const p = new BED()
+  const f = p.parseLine('chr1\t\t10')
+  expect(f).not.toHaveProperty('chromStart')
+  expect(f.chromEnd).toEqual(10)
+  expect(p.parseLine('track name=x').chromStart).toBeNaN()
+})
+
 test('BED12', () => {
   const p = new BED()
   const f1 = p.parseLine(

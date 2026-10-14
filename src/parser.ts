@@ -62,14 +62,21 @@ function parseColumn(rawColumn: string, field: DetectedField) {
   }
 }
 
+// a missing column, as in a track line, still gives NaN
+function setCoordinate(feature: Feature, key: string, raw: string | undefined) {
+  if (raw?.trim() !== '') {
+    feature[key] = toNumber(raw)
+  }
+}
+
 // columns whose meaning we can only guess at, for a line that doesn't look
 // like BED12: score and strand are recognized by their contents, everything
 // else keeps its column number
 function parseGuessedBed(fields: string[]) {
   const feature: Feature = {}
   feature.chrom = fields[0]!
-  feature.chromStart = toNumber(fields[1])
-  feature.chromEnd = toNumber(fields[2])
+  setCoordinate(feature, 'chromStart', fields[1])
+  setCoordinate(feature, 'chromEnd', fields[2])
   if (fields[3] !== undefined) {
     feature.name = fields[3]
   }
