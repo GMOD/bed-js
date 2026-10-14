@@ -35,10 +35,7 @@ back as a feature with `NaN` coordinates. Filter those lines out first.
 
 `parseLine` takes lines from any source, such as a `.bed.gz` queried with
 [@gmod/tabix](https://github.com/GMOD/tabix-js) or a bigBed read with
-[@gmod/bbi](https://github.com/GMOD/bbi-js). If either file is remote, have that
-package read through a filehandle from
-[`@gmod/range-cache-filehandle`](https://github.com/GMOD/range-cache-filehandle),
-which caches the byte ranges it fetches.
+[@gmod/bbi](https://github.com/GMOD/bbi-js).
 
 When a file's first line names its columns, pass that line to the constructor as
 `columnNames` instead of dropping it with the other `#` lines:
@@ -51,7 +48,7 @@ rest.map(line => parser.parseLine(line))
 
 ## Schemas
 
-There are four ways to tell the constructor how to name and type the columns:
+The constructor takes one of four ways to name and type the columns:
 
 ```js
 new BED() // standard BED columns

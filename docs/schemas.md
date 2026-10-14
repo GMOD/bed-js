@@ -1,8 +1,8 @@
 # Schemas
 
-A BED line has no column names or types, so the parser needs a schema to say
-what its columns mean. The sections below give four ways to set one, in the
-order the constructor prefers them.
+A BED line has no column names or types, so the parser needs a schema. The
+sections below give four ways to set one, in the order the constructor prefers
+them.
 
 ## A supplied autoSql
 
@@ -83,11 +83,11 @@ forcing the standard names onto it.
 
 ## The autoSql parser
 
-`src/autoSql.ts` is a hand-written parser for the format, and parses both the
-builtin schemas and any autoSql you supply. Besides the documented grammar, it
-accepts quoted field names, quoted and numeric `enum`/`set` values, unclosed
-comment quotes, `name[size]` as well as `type[size]`, and comments before the
-declaration, all of which appear in real UCSC and ENCODE files.
+`src/autoSql.ts` is a hand-written parser that reads both the builtin schemas
+and any autoSql you supply. Besides the documented grammar, it accepts quoted
+field names, quoted and numeric `enum`/`set` values, unclosed comment quotes,
+`name[size]` as well as `type[size]`, and comments before the declaration, all
+of which appear in real UCSC and ENCODE files.
 [CONTRIBUTING.md](../CONTRIBUTING.md#the-autosql-parser) describes how we
 validate it.
 

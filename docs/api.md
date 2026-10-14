@@ -59,5 +59,4 @@ the field list after type detection, where each field also has `isNumeric`,
 
 ## Exports
 
-The package's `default` export is the `BED` class. It also exports the types
-`Feature`, `AutoSqlField`, `AutoSqlPreSchema` and `AutoSqlSchema`.
+The package's `default` export is the `BED` class, plus the types above.
