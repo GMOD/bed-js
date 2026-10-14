@@ -243,6 +243,27 @@ describe('autoSql parser', () => {
     expect(result.fields[1]!.comment).toBe('the "gene" name')
   })
 
+  test('trailing junk holding a paren does not end the field list', () => {
+    const result = parse(
+      'table t\n"d"\n(\nint a; "foo" junk (see x)\nint b; "c"\n)',
+    )
+    expect(result.fields.map(f => [f.name, f.comment])).toEqual([
+      ['a', 'foo'],
+      ['b', 'c'],
+    ])
+  })
+
+  test('one-line declaration', () => {
+    const result = parse(
+      'table t "the "d" table" (int n; "count" int a[n]; "the "a" list")',
+    )
+    expect(result.comment).toBe('the "d" table')
+    expect(result.fields).toEqual([
+      { type: 'int', name: 'n', comment: 'count' },
+      { type: 'int', size: 'n', name: 'a', comment: 'the "a" list' },
+    ])
+  })
+
   // unclosed quotes (seen in real UCSC .bb files) still fall back to lenient
   // rest-of-line parsing rather than failing
   test('unclosed comment quote falls back to lenient parse', () => {

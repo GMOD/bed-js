@@ -87,7 +87,8 @@ forcing the standard names onto it.
 and any autoSql you supply. Besides the documented grammar, it accepts quoted
 field names, quoted and numeric `enum`/`set` values, unclosed comment quotes,
 `name[size]` as well as `type[size]`, and comments before the declaration, all
-of which appear in real UCSC and ENCODE files.
+of which appear in real UCSC and ENCODE files. It also reads a whole declaration
+written on one line, and a field with no comment.
 [CONTRIBUTING.md](../CONTRIBUTING.md#the-autosql-parser) describes how we
 validate it.
 

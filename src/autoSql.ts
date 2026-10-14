@@ -115,25 +115,62 @@ export function parse(input: string): AutoSqlDeclaration {
     return quoted() ?? readName()
   }
 
-  // a comment runs to the end of its line: the text between its first and last
-  // quote, or, for the unclosed quotes seen in real UCSC files, whatever is
-  // there with a lone leading/trailing quote stripped. A field list closing on
-  // the same line as the last comment ends the comment at its closing quote
-  // instead, so the ')' is left to parse.
+  // a quoted comment ends at the first quote followed by the end of the line,
+  // the end of the field list or another field, as in a one-line declaration.
+  // Failing that, it ends at the last quote on the line, keeping inner quotes
+  // and dropping trailing junk. An unclosed comment, seen in real UCSC files,
+  // runs to the end of the line.
   function readComment() {
-    let end = pos
-    while (end < input.length && input[end] !== '\n' && input[end] !== '\r') {
-      end++
+    let lineEnd = pos
+    while (
+      lineEnd < input.length &&
+      input[lineEnd] !== '\n' &&
+      input[lineEnd] !== '\r'
+    ) {
+      lineEnd++
     }
-    const raw = input.slice(pos, end)
-    const text = raw.trim()
-    const closed = /^"(.*)"/.exec(text)
-    const lastQuote = raw.lastIndexOf('"')
-    pos =
-      closed && raw.slice(lastQuote + 1).includes(')')
-        ? pos + lastQuote + 1
-        : end
-    return closed ? closed[1]! : text.replace(/^"|"$/g, '')
+    const text = input.slice(pos, lineEnd).trim()
+    if (text.startsWith('"')) {
+      const start = input.indexOf('"', pos) + 1
+      let lastQuote = -1
+      for (
+        let quote = input.indexOf('"', start);
+        quote !== -1 && quote < lineEnd;
+        quote = input.indexOf('"', quote + 1)
+      ) {
+        lastQuote = quote
+        if (endsComment(quote + 1, lineEnd)) {
+          pos = quote + 1
+          return input.slice(start, quote)
+        }
+      }
+      if (lastQuote !== -1) {
+        pos = lineEnd
+        return input.slice(start, lastQuote)
+      }
+    }
+    pos = lineEnd
+    return text.replace(/^"|"$/g, '')
+  }
+
+  function endsComment(from: number, lineEnd: number) {
+    const rest = input.slice(from, lineEnd).trim()
+    if (rest === '' || rest === ')') {
+      return true
+    }
+    const start = pos
+    pos = from
+    try {
+      skipWhitespace()
+      literal('(')
+      skipWhitespace()
+      readField()
+      return true
+    } catch {
+      return false
+    } finally {
+      pos = start
+    }
   }
 
   // autoSql requires a comment, but one missing must not take the next line
