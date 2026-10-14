@@ -73,7 +73,7 @@ function parseGuessedBed(fields: string[]) {
   }
   const field4 = fields[4]
   if (field4 !== undefined) {
-    const asNum = Number.parseFloat(field4)
+    const asNum = field4 === '' ? Number.NaN : toNumber(field4)
     if (Number.isNaN(asNum)) {
       feature.field4 = field4
     } else {

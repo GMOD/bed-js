@@ -141,6 +141,14 @@ test('BED6', () => {
   expect(f2.chromEnd).toEqual(10_884)
   expect(f3.strand).toEqual(0)
 })
+
+test('column 5 of a non-BED12 line is a score only when it is a number', () => {
+  const p = new BED()
+  expect(p.parseLine('chr1\t0\t10\tn\t5abc').field4).toEqual('5abc')
+  expect(p.parseLine('chr1\t0\t10\tn\t').field4).toEqual('')
+  expect(p.parseLine('chr1\t0\t10\tn\t1e3').score).toEqual(1000)
+})
+
 test('BED12', () => {
   const p = new BED()
   const f1 = p.parseLine(
