@@ -1,5 +1,5 @@
 import { parse } from './autoSql.ts'
-import { countListItems, numberAt, numberList, toNumber } from './numbers.ts'
+import { countListItems, numberList, toNumber } from './numbers.ts'
 import {
   detectTypes,
   getBuiltinSchema,
@@ -16,11 +16,8 @@ function parseStrand(strand: unknown) {
   return strand === '+' ? 1 : strand === '-' ? -1 : 0
 }
 
-// Lightweight percent-decode for chrom names: rewrites only well-formed %XX
-// escapes and leaves a bare '%' untouched. decodeURIComponent throws on a '%'
-// not followed by valid hex (e.g. a contig name like "chr%_test"), taking down
-// the whole parse; the BED spec defines chrom as [A-Za-z0-9_] with no
-// percent-encoding, so the full UTF-8 machinery isn't warranted here.
+// decodes only well-formed %XX escapes: decodeURIComponent throws on a contig
+// named like "chr%_test"
 function decodeChrom(chrom: string) {
   return chrom.includes('%')
     ? chrom.replace(/%([0-9A-Fa-f]{2})/g, (_, hex: string) =>
@@ -29,8 +26,7 @@ function decodeChrom(chrom: string) {
     : chrom
 }
 
-// heuristic that a BED file is BED12 like...the number in col 10 is
-// blockCount-like
+// column 10 is a count matching the number of block sizes in column 11
 function isBed12Like(fields: string[]) {
   if (fields.length < 12) {
     return false
@@ -44,7 +40,7 @@ function parseColumn(rawColumn: string, field: DetectedField) {
     if (rawColumn === '') {
       return undefined
     }
-    const num = numberAt(rawColumn, 0, rawColumn.length)
+    const num = toNumber(rawColumn)
     return Number.isNaN(num) ? rawColumn : num
   } else if (field.isArray) {
     if (field.arrayIsNumeric) {
@@ -109,13 +105,6 @@ export default class BED {
     )
   }
 
-  /*
-   * parses a line of text as a BED line with the loaded autoSql schema
-   *
-   * @param line - a BED line as tab delimited text or array
-   * @param opts - supply opts.uniqueId
-   * @return a object representing a feature
-   */
   parseLine(line: string | string[], options: { uniqueId?: string } = {}) {
     const { uniqueId } = options
     const fields = Array.isArray(line) ? line : line.split('\t')

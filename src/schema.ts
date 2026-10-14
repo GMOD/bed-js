@@ -3,8 +3,6 @@ import { parse } from './autoSql.ts'
 
 import type { AutoSqlField } from './autoSql.ts'
 
-export type { AutoSqlField }
-
 export interface AutoSqlPreSchema {
   fields: AutoSqlField[]
 }
