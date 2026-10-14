@@ -51,11 +51,14 @@ import type {
 type Feature = Record<string, string | number | string[] | number[]>
 ```
 
-`AutoSqlField` is one declared field (`name`, `type`, `comment`, plus `size` for
-arrays and `vals` for `enum`/`set`). `AutoSqlPreSchema` holds the declared
-fields before type detection, as `fields: AutoSqlField[]`. `AutoSqlSchema` is
-the field list after type detection, where each field also has `isNumeric`,
-`isArray` and `arrayIsNumeric`. `parser.autoSql` is an `AutoSqlSchema`.
+- `AutoSqlField`: one declared field, with `name`, `type`, `comment`, plus
+  `size` for arrays and `vals` for `enum`/`set`.
+- `AutoSqlPreSchema`: a declaration before type detection, with
+  `fields: AutoSqlField[]` and, unless built from `columnNames`, the
+  declaration's `type` (`table`, `simple` or `object`), `name` and `comment`.
+- `AutoSqlSchema`: the same after type detection, where each field also has
+  `isNumeric`, `isArray` and `arrayIsNumeric`. `parser.autoSql` is an
+  `AutoSqlSchema`.
 
 ## Exports
 

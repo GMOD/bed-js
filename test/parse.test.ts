@@ -16,6 +16,11 @@ test('errors', () => {
   expect(() => new BED({ type: 'notexist' })).toThrow(/not found/)
 })
 
+test('parser.autoSql keeps the declaration name and comment', () => {
+  const { name, comment } = new BED({ type: 'bigGenePred' }).autoSql
+  expect([name, comment]).toEqual(['bigGenePred', 'bigGenePred gene models'])
+})
+
 test('an empty uniqueId is still set', () => {
   expect(new BED().parseLine('chr1\t0\t10', { uniqueId: '' }).uniqueId).toBe('')
 })

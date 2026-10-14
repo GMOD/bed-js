@@ -4,6 +4,9 @@ import { parse } from './autoSql.ts'
 import type { AutoSqlField } from './autoSql.ts'
 
 export interface AutoSqlPreSchema {
+  type?: string
+  name?: string
+  comment?: string
   fields: AutoSqlField[]
 }
 
