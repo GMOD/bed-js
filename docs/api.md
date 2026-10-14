@@ -35,8 +35,8 @@ p.parseLine('chr1\t0\t100\tpeak1\t100\t+\t1.5\t2.5\t3.5\t50', {
 //   uniqueId: 'peak-1' }
 ```
 
-Every call is independent, so one parser instance can parse a whole file, and
-every other file with the same schema.
+Every call is independent, so one parser instance serves a whole file, and every
+file that shares its schema.
 
 ## Types
 

@@ -17,8 +17,8 @@ parse that form, split the line yourself and pass the array.
   storing the string `.` or the number `0`.
 - **A numeric field that doesn't hold a number**: the parser stores the string,
   not `NaN`.
-- **Arrays** (`int[blockCount]`, `char[2]`): the parser splits them on commas
-  and drops the trailing empty element UCSC writes. `char[n]` stays a string.
+- **Arrays** (`int[blockCount]`, `char[2]`) split on commas, dropping the
+  trailing empty one UCSC writes. `char[n]` stays a string.
 - **`chrom`**: the parser percent-decodes it, since bigBed writers escape names.
   It decodes only well-formed `%XX` escapes, so a contig named `chr%_test` keeps
   its name.
@@ -49,6 +49,5 @@ applies the schema to lines of any length.
 ## Extra columns
 
 With the default schema, the parser names the columns past the twelfth of a
-BED12+n line `field12`, `field13`, and so on. The parser treats a supplied
-autoSql or `columnNames` as the complete layout and drops any column past its
-end.
+BED12+n line `field12`, `field13`, and so on. A supplied autoSql or
+`columnNames` counts as the complete layout, so anything past its end drops.

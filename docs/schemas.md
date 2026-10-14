@@ -54,15 +54,14 @@ p.parseLine(
 
 [`src/as/autoSqlSchemas.ts`](../src/as/autoSqlSchemas.ts) inlines the
 declarations, alongside `defaultBedSchema`, which lists the standard BED12
-columns the parser falls back on. The parser parses each declaration on first
-use, so importing the package doesn't parse the schemas you never ask for.
+columns the parser falls back on. Each declaration parses on first use, so
+importing the package doesn't parse the schemas you never ask for.
 
 ## Column names
 
-A BED file with a header line names its columns but not their types, so the
-parser takes each type from the standard column of the same name: `chromStart`
-is numeric and `blockSizes` is a numeric array. A column it doesn't recognize
-stays a string.
+A BED file with a header line names its columns but not their types, so each
+type comes from the standard column of the same name (`chromStart` is numeric,
+`blockSizes` a numeric array), and anything unrecognized stays a string.
 
 ```js
 const p = new BED({
@@ -78,8 +77,9 @@ the whole layout.
 
 ## No schema
 
-`new BED()` uses the standard BED schema, and treats a line that doesn't look
-like BED12 as [partly unknown](parsing-behavior.md#without-a-schema).
+`new BED()` uses the standard BED schema, but treats a line that doesn't look
+like BED12 as [partly unknown](parsing-behavior.md#without-a-schema) rather than
+forcing the standard names onto it.
 
 ## The autoSql parser
 
