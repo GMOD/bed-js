@@ -127,7 +127,7 @@ export function parse(input: string): AutoSqlDeclaration {
     }
     const raw = input.slice(pos, end)
     const text = raw.trim()
-    const closed = /^"(.*)".*$/.exec(text)
+    const closed = /^"(.*)"/.exec(text)
     const lastQuote = raw.lastIndexOf('"')
     pos =
       closed && raw.slice(lastQuote + 1).includes(')')
@@ -201,18 +201,13 @@ export function parse(input: string): AutoSqlDeclaration {
   // primary/index/unique (each optionally sized) and auto, in any order
   function skipFieldModifiers() {
     for (;;) {
-      const start = pos
       skipWhitespace()
       if (keyword(INDEX_TYPES, false)) {
-        const afterIndexType = pos
         skipWhitespace()
         if (literal('[')) {
           readSize()
-        } else {
-          pos = afterIndexType
         }
       } else if (!keyword(['auto'], false)) {
-        pos = start
         return
       }
     }
@@ -245,22 +240,15 @@ export function parse(input: string): AutoSqlDeclaration {
       return { type, vals, name: readFieldName(), comment: readFieldEnd() }
     }
     const name = readFieldName()
-    const afterName = pos
     skipWhitespace()
     if (literal('[')) {
       return { type, size: readSize(), name, comment: readFieldEnd() }
     }
-    pos = afterName
     return { type, name, comment: readFieldEnd() }
   }
 
   function readFieldList() {
     const fields: AutoSqlField[] = []
-    skipWhitespace()
-    const first = readField()
-    if (first) {
-      fields.push(first)
-    }
     for (;;) {
       skipWhitespace()
       if (pos >= input.length || input[pos] === ')') {
