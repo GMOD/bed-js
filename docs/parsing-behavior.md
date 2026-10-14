@@ -6,8 +6,8 @@ The parser treats every line as a feature, including `track`, `browser`, `#`
 comment and blank lines. It turns those lines into junk features with `NaN`
 coordinates and throws no error, so filter them out before calling `parseLine`.
 
-Only tabs split a line. UCSC also allows spaces; to parse that form, split it
-yourself and pass the array.
+The parser splits a line only on tabs, although UCSC also allows spaces. To
+parse that form, split the line yourself and pass the array.
 
 ## Values
 

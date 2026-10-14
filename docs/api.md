@@ -8,7 +8,7 @@
 | `type`        | `string`   | one of the [builtin schemas](schemas.md#builtin-types)  |
 | `columnNames` | `string[]` | column names, e.g. from a `#chrom start end ...` header |
 
-At most one option applies. With none, the parser falls back on the standard BED
+At most one option applies; with none, the parser falls back on the standard BED
 schema and handles a line that doesn't look like BED12 as described in
 [Without a schema](parsing-behavior.md#without-a-schema). An unknown `type`
 throws `Type not found: <type>`, and a malformed `autoSql` throws an error that

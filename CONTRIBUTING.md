@@ -20,14 +20,14 @@ is missing from it. Document the new member, or add it to the test's
 
 ## The autoSql parser
 
-`src/autoSql.ts` is hand-written. It replaced a peggy grammar (`autoSql.pegjs`
-plus its 1500-line generated bundle, 71% of the published package) in
-August 2026. We checked it by parsing all 948 `.as` files in kent's tree with
-both parsers. Of the 908 files that contain a single declaration, 881 parsed
-byte-identically and none regressed. Another 26, which the grammar rejected, now
-parse; they use quoted or numeric enum values, a quoted field name,
-`name[size]`, a field list that closes on the last comment line, or comments
-before the declaration. Each of those cases has a test.
+`src/autoSql.ts` is a hand-written parser that replaced a peggy grammar
+(`autoSql.pegjs` plus its 1500-line generated bundle, 71% of the published
+package) in August 2026. We checked it by parsing all 948 `.as` files in kent's
+tree with both parsers. Of the 908 files that contain a single declaration, 881
+parsed byte-identically and none regressed. Another 26, which the grammar
+rejected, now parse; they use quoted or numeric enum values, a quoted field
+name, `name[size]`, a field list that closes on the last comment line, or
+comments before the declaration. Each of those cases has a test.
 
 To check a change to the parser against the same corpus, run
 `git clone --depth 1 https://github.com/ucscGenomeBrowser/kent` and parse every

@@ -33,8 +33,8 @@ parser.parseLine('chr1\t0\t100\tgene1\t50\t+')
 `parseLine` treats every line as a feature, so a header or comment line comes
 back as a feature with `NaN` coordinates. Filter those lines out first.
 
-The lines can come from anywhere. A `.bed.gz` can be queried with
-[@gmod/tabix](https://github.com/GMOD/tabix-js), and a bigBed can be read with
+`parseLine` takes lines from any source, such as a `.bed.gz` queried with
+[@gmod/tabix](https://github.com/GMOD/tabix-js) or a bigBed read with
 [@gmod/bbi](https://github.com/GMOD/bbi-js). If either file is remote, have that
 package read through a filehandle from
 [`@gmod/range-cache-filehandle`](https://github.com/GMOD/range-cache-filehandle),
