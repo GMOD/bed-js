@@ -250,6 +250,18 @@ describe('autoSql parser', () => {
     expect(result.fields[0]!.comment).toBe('changes')
   })
 
+  test('a field without a comment keeps the next line a field', () => {
+    const result = parse(
+      'table t\n(\nint a;\n# note\nint b;\n"c"\nint d; "e"\n)',
+    )
+    expect(result.comment).toBe('')
+    expect(result.fields).toEqual([
+      { type: 'int', name: 'a', comment: '' },
+      { type: 'int', name: 'b', comment: 'c' },
+      { type: 'int', name: 'd', comment: 'e' },
+    ])
+  })
+
   test('auto without preceding index', () => {
     const table = `table t
 "test"
@@ -262,13 +274,13 @@ describe('autoSql parser', () => {
   })
 
   test('index and auto modifiers are case sensitive', () => {
-    const reject = (input: string) => {
-      expect(() => parse(input)).toThrow()
+    const table = (field: string) => `table t\n"x"\n(\n${field}\n)`
+    for (const modifier of ['primary', 'auto', 'index', 'unique']) {
+      expect(() => parse(table(`int id ${modifier}; "c"`))).not.toThrow()
+      expect(() =>
+        parse(table(`int id ${modifier.toUpperCase()}; "c"`)),
+      ).toThrow()
     }
-    reject('table t "x" ( int id PRIMARY; "pk" )')
-    reject('table t "x" ( int id AUTO; "auto" )')
-    reject('table t "x" ( string city INDEX; "idx" )')
-    reject('table t "x" ( string city UNIQUE; "u" )')
   })
 
   test('SIMPLE and OBJECT declaration types are case insensitive', () => {

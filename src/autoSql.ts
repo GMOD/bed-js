@@ -38,6 +38,7 @@ const DECLARE_TYPES = ['simple', 'object', 'table']
 const INDEX_TYPES = ['primary', 'index', 'unique']
 
 const whitespace = /[ \t\n\r]*/y
+const inlineWhitespace = /[ \t]*/y
 const nameChars = /[A-Za-z_][A-Za-z0-9_]*/y
 const digits = /[0-9]+/y
 const valueChars = /[^,)\s]+/y
@@ -135,6 +136,17 @@ export function parse(input: string): AutoSqlDeclaration {
     return closed ? closed[1]! : text.replace(/^"|"$/g, '')
   }
 
+  // autoSql requires a comment, but one missing must not take the next line
+  // as the comment, along with whatever field is declared there
+  function readOptionalComment() {
+    match(inlineWhitespace)
+    if (pos < input.length && input[pos] !== '\n' && input[pos] !== '\r') {
+      return readComment()
+    }
+    skipWhitespace()
+    return input[pos] === '"' ? readComment() : ''
+  }
+
   function skipLineComments() {
     skipWhitespace()
     while (literal('#')) {
@@ -212,8 +224,7 @@ export function parse(input: string): AutoSqlDeclaration {
     if (!literal(';')) {
       fail("';'")
     }
-    skipWhitespace()
-    return readComment()
+    return readOptionalComment()
   }
 
   function readField() {
@@ -266,8 +277,7 @@ export function parse(input: string): AutoSqlDeclaration {
   const type = keyword(DECLARE_TYPES, true) ?? fail('simple, object or table')
   skipWhitespace()
   const name = readName()
-  skipWhitespace()
-  const comment = readComment()
+  const comment = readOptionalComment()
   skipLineComments()
   if (!literal('(')) {
     fail("'('")
