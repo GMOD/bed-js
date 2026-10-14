@@ -13,6 +13,9 @@ export type Feature = Record<string, string | number | string[] | number[]>
 type DetectedField = AutoSqlSchema['fields'][number]
 
 function parseStrand(strand: unknown) {
+  if (typeof strand === 'number') {
+    return Math.sign(strand) || 0
+  }
   return strand === '+' ? 1 : strand === '-' ? -1 : 0
 }
 
@@ -114,7 +117,7 @@ export default class BED {
         ? parseGuessedBed(fields)
         : this.parseWithSchema(fields)
 
-    if (uniqueId) {
+    if (uniqueId !== undefined) {
       feature.uniqueId = uniqueId
     }
     feature.strand = parseStrand(feature.strand)

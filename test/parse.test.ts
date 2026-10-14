@@ -16,6 +16,20 @@ test('errors', () => {
   expect(() => new BED({ type: 'notexist' })).toThrow(/not found/)
 })
 
+test('an empty uniqueId is still set', () => {
+  expect(new BED().parseLine('chr1\t0\t10', { uniqueId: '' }).uniqueId).toBe('')
+})
+
+test('a numeric strand becomes its sign', () => {
+  const p = new BED({
+    autoSql: 'table t\n"t"\n(\nstring chrom; "c"\nint strand; "s"\n)',
+  })
+  expect(p.parseLine('chr1\t-1').strand).toBe(-1)
+  expect(p.parseLine('chr1\t1').strand).toBe(1)
+  expect(p.parseLine('chr1\t0').strand).toBe(0)
+  expect(p.parseLine('chr1\t.').strand).toBe(0)
+})
+
 // BED12+n: the columns past the schema are still data
 test('BED12 plus extra columns', () => {
   const p = new BED()

@@ -11,8 +11,8 @@ parse that form, split the line yourself and pass the array.
 
 ## Values
 
-- **strand**: the parser converts `{+,-,.}` to `{1,-1,0}`, and sets `0` even
-  when the schema has no strand field.
+- **strand**: the parser converts `{+,-,.}` to `{1,-1,0}` and a numeric strand
+  to its sign, and sets `0` even when the schema has no strand field.
 - **`.` or an empty column**: the parser leaves the field unset, rather than
   storing the string `.` or the number `0`.
 - **A numeric field that doesn't hold a number**: the parser stores the string,
