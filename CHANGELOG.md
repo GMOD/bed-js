@@ -1,3 +1,31 @@
+## [2.3.3](https://github.com/GMOD/bed-js/compare/v2.3.2...v2.3.3) (2026-10-14)
+
+### Bug Fixes
+
+- Stop a field with no comment taking the next line as one ([c5d3c5e](https://github.com/GMOD/bed-js/commit/c5d3c5e812ce22c323976ded15595ce9720d2910))
+- Score a non-BED12 line's column 5 only when all of it is a number ([5d3df7d](https://github.com/GMOD/bed-js/commit/5d3df7d348bbe40d9dea61cf916ae625af90ebdb))
+- Read one-line declarations, and junk holding a paren ([047e7eb](https://github.com/GMOD/bed-js/commit/047e7eb79d3eabf6567f4e1211f8a4650f27d19e))
+- Keep an empty uniqueId, and read a numeric strand by its sign ([87e2421](https://github.com/GMOD/bed-js/commit/87e242195faba4ef15dc831846ad1ca03d64ef0f))
+- Leave a whitespace-only numeric column unset, like an empty one ([4a2a166](https://github.com/GMOD/bed-js/commit/4a2a166bfd0ea4f08160db986366a05a1be8bee2))
+- Keep a bigint past Number.MAX_SAFE_INTEGER as its string ([5493517](https://github.com/GMOD/bed-js/commit/54935170ce4b11a5f195a6b4f04a574ce0a5214f))
+- Expose the declaration's name, type and comment on autoSql ([0ea5cb9](https://github.com/GMOD/bed-js/commit/0ea5cb9711039401b9d00c415700131a82f54f25))
+
+### Chores
+
+- Add scripts/compare-autosql.ts, the kent corpus check ([fb781e0](https://github.com/GMOD/bed-js/commit/fb781e07bdebe45149f2417d1c0370e0391fb266))
+
+### Other Changes
+
+- Rewrite AI-writing tropes in README and docs ([25c42d7](https://github.com/GMOD/bed-js/commit/25c42d7837b6d1b4d72c39ebd7fc2d5267cc9e87))
+- Fold short verdict sentences into their neighbours ([96b1924](https://github.com/GMOD/bed-js/commit/96b1924b4c060ebaedfc7522aef2909863368fe1))
+- Restore wording the tropes rewrite changed without a trope ([e21f8d9](https://github.com/GMOD/bed-js/commit/e21f8d99db84c348566932cc51ec60728c33faae))
+- Trim wordiness in README and docs ([8f27195](https://github.com/GMOD/bed-js/commit/8f271950eb9930004a65a21cccab3c82209a8871))
+
+### Refactoring
+
+- Drop position restores that only undid whitespace ([231d500](https://github.com/GMOD/bed-js/commit/231d50011d0004709097334647b51ed034f7a352))
+- Trim parser comments, re-export AutoSqlField from its source ([d700e3a](https://github.com/GMOD/bed-js/commit/d700e3a7a7f81119ac872133d25b59e2ab57b739))
+
 ## [2.3.2](https://github.com/GMOD/bed-js/compare/v2.3.1...v2.3.2) (2026-10-11)
 
 ### Tests
