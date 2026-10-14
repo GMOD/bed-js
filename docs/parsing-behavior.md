@@ -2,10 +2,9 @@
 
 ## Lines
 
-The parser treats every line as a feature. It does not recognize `track`,
-`browser`, `#` comment or blank lines, and turns them into junk features with
-`NaN` coordinates rather than erroring, so filter them out before calling
-`parseLine`.
+The parser treats every line as a feature, including `track`, `browser`, `#`
+comment and blank lines. It turns those lines into junk features with `NaN`
+coordinates and throws no error, so filter them out before calling `parseLine`.
 
 Only tabs split a line. UCSC also allows spaces; to parse that form, split it
 yourself and pass the array.
@@ -16,21 +15,21 @@ yourself and pass the array.
   when the schema has no strand field.
 - **`.` or an empty column**: the parser leaves the field unset, rather than
   storing the string `.` or the number `0`.
-- **A numeric field that doesn't hold a number** keeps its string instead of
-  becoming `NaN`.
-- **Arrays** (`int[blockCount]`, `char[2]`) split on commas, dropping the
-  trailing empty one UCSC writes. `char[n]` stays a string.
-- **`chrom`** is percent-decoded, since bigBed writers escape names — but only
-  well-formed `%XX` escapes, so a contig genuinely named `chr%_test` survives.
+- **A numeric field that doesn't hold a number**: the parser stores the string,
+  not `NaN`.
+- **Arrays** (`int[blockCount]`, `char[2]`): the parser splits them on commas
+  and drops the trailing empty element UCSC writes. `char[n]` stays a string.
+- **`chrom`**: the parser percent-decodes it, since bigBed writers escape names.
+  It decodes only well-formed `%XX` escapes, so a contig named `chr%_test` keeps
+  its name.
 
 ## Without a schema
 
-`new BED()` names columns from the standard BED schema, but only commits to
-those names for a line that looks like BED12 — twelve or more columns, where
-column 10 is a count matching the number of block sizes in column 11. Anything
-shorter is a BED of unknown width, where column 7 is as likely to be some
-annotation as `thickStart`, so the parser only names the columns it can be sure
-of:
+`new BED()` names columns from the standard BED schema, and applies every name
+only to a line that looks like BED12: twelve or more columns, where column 10 is
+a count matching the number of block sizes in column 11. Any other line is a BED
+of unknown width, where column 7 is as likely to be some annotation as
+`thickStart`, so the parser names only the columns it can be sure of:
 
 ```js
 new BED().parseLine('chr1\t0\t100\tfoo\t50\t+\textra1\textra2')
@@ -44,11 +43,12 @@ everything else keeps its column number as `fieldN` (zero-based, so column 7 is
 `field6`). On this path `.` stays a literal value rather than counting as
 missing.
 
-Give the parser an `autoSql`, `type`, or `columnNames` and the guessing stops
-entirely — it trusts the schema for lines of any length.
+With an `autoSql`, `type` or `columnNames`, the parser skips this guessing and
+applies the schema to lines of any length.
 
 ## Extra columns
 
-With the default schema, columns past the twelfth of a BED12+n line arrive as
-`field12`, `field13`, and so on. A supplied autoSql or `columnNames` counts as
-the complete layout, so anything past its end drops.
+With the default schema, the parser names the columns past the twelfth of a
+BED12+n line `field12`, `field13`, and so on. The parser treats a supplied
+autoSql or `columnNames` as the complete layout and drops any column past its
+end.

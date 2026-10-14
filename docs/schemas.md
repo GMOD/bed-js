@@ -1,11 +1,13 @@
 # Schemas
 
-A BED line is just columns, so something has to tell the parser what they mean.
-Four ways to do it, in the order the constructor prefers them.
+A BED line has no column names or types, so the parser needs a schema to say
+what its columns mean. The sections below give four ways to set one, in the
+order the constructor prefers them.
 
 ## A supplied autoSql
 
-For a custom BED format, or a bigBed that carries its schema in the header:
+Use an autoSql for a custom BED format, or for a bigBed that has its schema in
+the header:
 
 ```js
 import { BigBed } from '@gmod/bbi'
@@ -16,8 +18,8 @@ const p = new BED({ autoSql })
 p.parseLine(line)
 ```
 
-The autoSql counts as the whole layout: columns past its last field drop rather
-than arriving as extras.
+The parser treats the autoSql as the whole layout, so it drops columns past the
+last field instead of returning them as extras.
 
 ## A builtin type
 
@@ -51,15 +53,16 @@ p.parseLine(
 | `mafSummary`    | kent's source tree — no goldenPath example page                                       |
 
 [`src/as/autoSqlSchemas.ts`](../src/as/autoSqlSchemas.ts) inlines the
-declarations, alongside `defaultBedSchema` — the standard BED12 columns the
-parser falls back on. Each one parses on first use, so importing the package
-doesn't pay for schemas you never ask for.
+declarations, alongside `defaultBedSchema`, which lists the standard BED12
+columns the parser falls back on. The parser parses each declaration on first
+use, so importing the package doesn't parse the schemas you never ask for.
 
 ## Column names
 
-A BED file with a header line names its columns but not their types, so each
-type comes from the standard column of the same name — `chromStart` numeric,
-`blockSizes` a numeric array — and anything unrecognized stays a string.
+A BED file with a header line names its columns but not their types, so the
+parser takes each type from the standard column of the same name: `chromStart`
+is numeric and `blockSizes` is a numeric array. A column it doesn't recognize
+stays a string.
 
 ```js
 const p = new BED({
@@ -75,17 +78,16 @@ the whole layout.
 
 ## No schema
 
-`new BED()` uses the standard BED schema, but treats a line that doesn't look
-like BED12 as [partly unknown](parsing-behavior.md#without-a-schema) rather than
-forcing the standard names onto it.
+`new BED()` uses the standard BED schema, and treats a line that doesn't look
+like BED12 as [partly unknown](parsing-behavior.md#without-a-schema).
 
 ## The autoSql parser
 
-`src/autoSql.ts` is a hand-written parser for the format, serving both the
-builtin schemas and anything you supply. Beyond the documented grammar it
-handles what real UCSC and ENCODE files contain: quoted field names, quoted and
-numeric `enum`/`set` values, unclosed comment quotes, `name[size]` as well as
-`type[size]`, and comments before the declaration.
+`src/autoSql.ts` is a hand-written parser for the format, and parses both the
+builtin schemas and any autoSql you supply. Besides the documented grammar, it
+accepts quoted field names, quoted and numeric `enum`/`set` values, unclosed
+comment quotes, `name[size]` as well as `type[size]`, and comments before the
+declaration, all of which appear in real UCSC and ENCODE files.
 [CONTRIBUTING.md](../CONTRIBUTING.md#the-autosql-parser) describes how we
 validate it.
 

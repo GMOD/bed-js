@@ -15,14 +15,15 @@ BRANCH1=origin/main BRANCH2=my-feature-branch pnpm bench
 `scripts/build-both-branches.sh` builds each ref in a throwaway git worktree
 into `esm_branch1/` and `esm_branch2/`, and `parse.bench.ts` runs both over the
 same lines. It throws before timing anything if the two builds parse a line
-differently. Build a ref against itself to see how much the numbers drift
-between identical builds.
+differently. Build a ref against itself to see how much the numbers vary between
+identical builds.
 
 `pnpm benchonly` skips the build and compares whatever was built last.
 
 ## The data
 
-2,000 lines of each, gzipped, chosen for the parse path each one takes:
+Each file holds 2,000 lines, gzipped, from a source we chose for the parse path
+its lines take:
 
 | file                            | source                                  | path                     |
 | ------------------------------- | --------------------------------------- | ------------------------ |

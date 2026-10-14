@@ -30,8 +30,8 @@ parser.parseLine('chr1\t0\t100\tgene1\t50\t+')
 //   score: 50, strand: 1 }
 ```
 
-`parseLine` has no notion of header or comment lines — filter them out first, or
-they come back as features with `NaN` coordinates.
+`parseLine` treats every line as a feature, so a header or comment line comes
+back as a feature with `NaN` coordinates. Filter those lines out first.
 
 The lines can come from anywhere. A `.bed.gz` can be queried with
 [@gmod/tabix](https://github.com/GMOD/tabix-js), and a bigBed can be read with
@@ -40,8 +40,8 @@ package read through a filehandle from
 [`@gmod/range-cache-filehandle`](https://github.com/GMOD/range-cache-filehandle),
 which caches the byte ranges it fetches.
 
-A file whose first line names its columns can hand that line straight back as
-`columnNames`, instead of dropping it with the other `#` lines:
+When a file's first line names its columns, pass that line to the constructor as
+`columnNames` instead of dropping it with the other `#` lines:
 
 ```js
 const [header, ...rest] = text.split('\n')
@@ -51,7 +51,7 @@ rest.map(line => parser.parseLine(line))
 
 ## Schemas
 
-Four ways to tell the constructor how to name and type the columns:
+There are four ways to tell the constructor how to name and type the columns:
 
 ```js
 new BED() // standard BED columns
