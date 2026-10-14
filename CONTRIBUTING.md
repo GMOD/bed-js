@@ -29,9 +29,12 @@ rejected, now parse; they use quoted or numeric enum values, a quoted field
 name, `name[size]`, a field list that closes on the last comment line, or
 comments before the declaration. Each of those cases has a test.
 
-To check a change to the parser against the same corpus, run
-`git clone --depth 1 https://github.com/ucscGenomeBrowser/kent` and parse every
-`.as` in it.
+To check a change to the parser against the same corpus, clone kent with
+`git clone --depth 1 https://github.com/ucscGenomeBrowser/kent` and run
+`node scripts/compare-autosql.ts <kent-dir> [base-ref]`. The script parses every
+`.as` in the tree with both the base ref's parser (default `origin/main`) and
+the working tree's, prints each file whose result differs, and exits non-zero if
+any do.
 
 ## Publishing
 
