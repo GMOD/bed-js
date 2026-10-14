@@ -40,10 +40,10 @@ function isBed12Like(fields: string[]) {
 
 function parseColumn(rawColumn: string, field: DetectedField) {
   if (field.isNumeric) {
-    if (rawColumn === '') {
+    const num = toNumber(rawColumn)
+    if (num === 0 && rawColumn.trim() === '') {
       return undefined
     }
-    const num = toNumber(rawColumn)
     return Number.isNaN(num) ? rawColumn : num
   } else if (field.isArray) {
     if (field.arrayIsNumeric) {
@@ -72,7 +72,7 @@ function parseGuessedBed(fields: string[]) {
   }
   const field4 = fields[4]
   if (field4 !== undefined) {
-    const asNum = field4 === '' ? Number.NaN : toNumber(field4)
+    const asNum = field4.trim() === '' ? Number.NaN : toNumber(field4)
     if (Number.isNaN(asNum)) {
       feature.field4 = field4
     } else {

@@ -13,8 +13,10 @@ parse that form, split the line yourself and pass the array.
 
 - **strand**: the parser converts `{+,-,.}` to `{1,-1,0}` and a numeric strand
   to its sign, and sets `0` even when the schema has no strand field.
-- **`.` or an empty column**: the parser leaves the field unset, rather than
-  storing the string `.` or the number `0`.
+- **`.`**: the parser leaves the field unset.
+- **An empty or whitespace-only numeric column**: the parser leaves the field
+  unset, so a missing value never reads as `0`. An empty string column stays
+  `''`.
 - **A numeric field that doesn't hold a number**: the parser stores the string,
   not `NaN`.
 - **Arrays** (`int[blockCount]`, `char[2]`) split on commas, dropping the

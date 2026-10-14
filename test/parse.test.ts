@@ -43,9 +43,11 @@ test('BED12 plus extra columns', () => {
 // an empty column is missing data, not a zero
 test('empty numeric column is left unset', () => {
   const p = new BED({ type: 'bigNarrowPeak' })
-  const f = p.parseLine('chr1\t566753\t566953\t.\t\t.\t103.84')
+  const f = p.parseLine('chr1\t566753\t566953\t.\t\t.\t103.84\t \t0')
   expect(f.score).toBeUndefined()
   expect(f.signalValue).toEqual(103.84)
+  expect(f.pValue).toBeUndefined()
+  expect(f.qValue).toEqual(0)
 })
 
 test('bigint columns are numeric', () => {
