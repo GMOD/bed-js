@@ -61,6 +61,9 @@ bigInt _dataOffset; "Offset into a details file"
 )`,
   })
   expect(p.parseLine('chr1\t10\t123456789')._dataOffset).toEqual(123_456_789)
+  expect(p.parseLine('chr1\t10\t12345678901234567890')._dataOffset).toEqual(
+    '12345678901234567890',
+  )
 })
 
 // a headered BED names its columns but not their types: the standard columns

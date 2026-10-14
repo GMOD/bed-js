@@ -44,7 +44,10 @@ function parseColumn(rawColumn: string, field: DetectedField) {
     if (num === 0 && rawColumn.trim() === '') {
       return undefined
     }
-    return Number.isNaN(num) ? rawColumn : num
+    return Number.isNaN(num) ||
+      (field.type === 'bigint' && !Number.isSafeInteger(num))
+      ? rawColumn
+      : num
   } else if (field.isArray) {
     if (field.arrayIsNumeric) {
       return numberList(rawColumn)

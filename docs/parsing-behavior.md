@@ -17,8 +17,8 @@ parse that form, split the line yourself and pass the array.
 - **An empty or whitespace-only numeric column**: the parser leaves the field
   unset, so a missing value never reads as `0`. An empty string column stays
   `''`.
-- **A numeric field that doesn't hold a number**: the parser stores the string,
-  not `NaN`.
+- **A numeric field that doesn't hold a number**, or a `bigint` past
+  `Number.MAX_SAFE_INTEGER`: the parser stores the string as written.
 - **Arrays** (`int[blockCount]`, `char[2]`) split on commas, dropping the
   trailing empty one UCSC writes. `char[n]` stays a string.
 - **`chrom`**: the parser percent-decodes it, since bigBed writers escape names.
