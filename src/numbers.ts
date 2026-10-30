@@ -1,5 +1,5 @@
 // These replace split(',').map(Number) and a Number call per column, which
-// parsed BED12 genes 2x slower (benchmarks/parse.bench.ts).
+// parsed BED12 genes 2x slower (benchmarks/parse.bench.ts, since removed).
 
 // `Number(s.slice(start, end))`, read off the string where the part is a plain
 // integer. Anything else, such as a '+', a decimal point, whitespace or more

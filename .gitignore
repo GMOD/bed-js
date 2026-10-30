@@ -5,6 +5,5 @@ yarn-error.log
 *.swp
 .eslintcache
 esm
-esm_*/
 .claude/settings.local.json
 .claude/worktrees/
