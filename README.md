@@ -63,7 +63,6 @@ new BED({ columnNames }) // names from a '#chrom start end ...' header
 - [Schemas](docs/schemas.md) — the builtin list, autoSql, column-name headers
 - [Parsing behavior](docs/parsing-behavior.md) — strand, missing data, BED12+n,
   and what the parser guesses when there is no schema
-- [Contributing](CONTRIBUTING.md) — development and releases
 
 ## Academic Use
 
